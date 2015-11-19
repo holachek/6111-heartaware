@@ -6,65 +6,21 @@
 // 6.111 Final Project, Fall 2015
 // https://github.com/holachek/heartaware
 
-// Module: Main
-// Description: Top Level HeartAware Module
+// Module: System FSM
+// Description: Four state FSM for program user interface control
 
 //////////////////////////////////////////////////////////////////////////////////
 
 
 // MODULE DEFINITION
 //////////////////////////////////////////////////////////////////////////////////
-module heartaware(
-
-  // For hardware mapping constraints, see XDC file.
+module heartaware_fsm(
 
   // master clock
   input CLK100MHZ,
 
-  // switches
-  input [15:0] SW, 
-
-  // directional buttons
-  input BTNU,
-  input BTND,
-  // input BTNL, BTNR, BTND,
-
-  // RGB LED
-  output LED16_R, LED16_G, LED16_B, 
-  output LED17_R, LED17_G, LED17_B, 
-
-  // input module
-  input [7:0] JA, // level shifted ADC_OUT[7:0]
-  output JB[0], // active low CS for ADC,
-  output JB[2], // active low RD for ADC,
-  output JB[4], // active low WR for ADC,
-  input JB[6], // active low INTR for ADC,
-  input JB[1], // sensor connect detection
-  // pins JB[3], JB[5], JB[7] disconnected. to use, edit constraints file.
-
-  // 7-segment LED
-  output [7:0] SEG,
-  output [7:0] AN,
-
-  // video
-  output [3:0] VGA_R,
-  output [3:0] VGA_G,
-  output [3:0] VGA_B,
-  output VGA_HS,
-  output VGA_VS,
-
-  // audio
-  output AUD_PWM,
-  output AUD_SD, // PWM audio enable
-
-  // SD card
-  input SD_CD,
-  output SD_RESET,
-  output SD_SCK,
-  output SD_CMD, 
-  inout [3:0] SD_DAT
+  // not finished
   );
-
 
 
 // CLOCKS, SYNC, & RESET
