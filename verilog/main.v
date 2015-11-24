@@ -27,19 +27,25 @@ module heartaware(
   // directional buttons
   input BTNU,
   input BTND,
-  // input BTNL, BTNR, BTND,
+  input BTNL,
+  input BTNR,
+  input BTNC,
 
   // RGB LED
-  output LED16_R, LED16_G, LED16_B, 
-  output LED17_R, LED17_G, LED17_B, 
+  output reg LED16_R, LED16_G, LED16_B, 
+  output reg LED17_R, LED17_G, LED17_B, 
 
-  // input module
+  // debug LEDs
+  output reg [15:0] LED,
+
+  // analog input module
   input [7:0] JA, // level shifted ADC_OUT[7:0]
-  output JB[0], // active low CS for ADC,
-  output JB[2], // active low RD for ADC,
-  output JB[4], // active low WR for ADC,
-  input JB[6], // active low INTR for ADC,
-  input JB[1], // sensor connect detection
+  inout [7:0] JB,
+  // JB[0] active low CS for ADC,
+  // JB[2] active low RD for ADC,
+  // JB[4] active low WR for ADC,
+  // JB[6] active low INTR for ADC,
+  // sensor connect detection
   // pins JB[3], JB[5], JB[7] disconnected. to use, edit constraints file.
 
   // 7-segment LED
@@ -69,59 +75,44 @@ module heartaware(
 
 // CLOCKS, SYNC, & RESET
 //////////////////////////////////////////////////////////////////////////////////
-// create 25mhz system clock, switch syncs, reset assignment
+// create system and peripheral clocks, synced switches, master system reset
 
-    wire clock_25mhz;
-    clock_quarter_divider clockgen(.clk100_mhz(CLK100MHZ), .clock_25mhz(clock_25mhz));
+    wire master_reset;
+    wire master_test;
 
-    wire [15:0] switch_synced;
+    wire clk_100mhz = CLK100MHZ; // master clock
+    wire clk_65mhz; // VGA clock
+    wire clk_25mhz; // SD clock
+    wire clk_48khz; // audio sample rate clock
+    wire clk_1hz;
+    
+    clk_wiz_0 clk_65mhz_inst(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_reset));
+    clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd4), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
+    clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd2083), .reset(master_reset)); // 100_000_000 / 48_000 = 2083.33
+    clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd100_000_000), .reset(master_reset));
+
+    wire [15:0] sw_synced;
     genvar i;
     generate   for(i=0; i<16; i=i+1) 
       begin: gen_modules  // generate 16 synchronize modules
-        synchronize s(clock_25mhz, SW[i], switch_synced[i]);
+        synchronize s(clk_25mhz, SW[i], sw_synced[i]);
       end
     endgenerate
 
-    wire system_reset;
-    assign system_reset = switched_synced[15];
- 
+    assign master_reset = SW[15];
     
+
+
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
 // create a synchronous, debounced pulse from async inputs
 
-  wire button_volume_up;
-  wire button_volume_down;
+  wire btn_up;
+  wire btn_down;
 
-  debounce volume_up(.reset(system_reset), .clock(clock_25mhz), .noisy(BTNU), .clean(button_volume_up));
-  debounce volume_down(.reset(system_reset), .clock(clock_25mhz), .noisy(BTND), .clean(button_volume_down));
-
-
-// TIMING OBJECTS
-//////////////////////////////////////////////////////////////////////////////////
-// create necessary timers to run all modules, based on 25 MHz master clock
-
-  wire clock_1hz;
-  wire expired;
-  wire start_timer;
-  wire [1:0] timer_interval;
-  wire [3:0] timer_value;
-  wire [3:0] timer_counter;
-
-  wire [31:0] cycle_divider_count;
-  // assign cycle_divider_count = (SW[14] ? 'd3 : 'd12_500_000);
-
-  assign cycle_divider_count = 12_500_000;
-
-  clock_divider clock_1hz_divider(.clock_25mhz(clock_25mhz), .reset(system_reset), .cycles(cycle_divider_count), .clock_divided(clock_1hz));
-  // reset timer upon system reset switch, ignition switch, or reprogram switch activation
-  timer2 timer_module(.clock_25mhz(clock_25mhz), .clock_1hz(clock_1hz), .reset(system_reset || ignition_switch_signal || reprogram_switch_signal), .value(timer_value), .expired(expired), .start_timer(start_timer), .external_counter(timer_counter));
-  time_parameters time_parameters_module(.clock_25mhz(clock_25mhz), .reset(system_reset), .time_parameter_selector(switch_sync[5:4]), .new_value(switch_sync[3:0]), .reprogram_switch(reprogram_switch_signal), .interval(timer_interval), .value(timer_value));
-
-
-  // timer debug
-  assign LED16_R = expired;
-  assign LED17_G = start_timer;
+  debounce up(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNU), .clean(btn_up));
+  debounce down(.reset(master_reset), .clock(clk_25mhz), .noisy(BTND), .clean(btn_down));
+  
 
 
 
@@ -129,19 +120,6 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // main user interface FSM
 
-  wire status_indicator;
-  wire [3:0] fsm_state;
-  wire siren_enable;
-
-  // reg red = 0;
-  // reg green = 0;
-  // reg blue = 0;
-
-  // assign LED16_R = red;
-  // assign LED16_G = green;
-  // assign LED16_B = blue;
-
-  assign LED[0] = status_indicator;
 
 
 
@@ -149,11 +127,7 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
 
-  wire fuel_pump_power;
 
-  fuel_pump fuel_pump_module(.clock_25mhz(clock_25mhz), .reset(system_reset), .ignition_switch(ignition_switch_signal), .hidden_switch(hidden_switch_signal), .brake_switch(brake_switch_signal), .fuel_pump_power(fuel_pump_power));
-
-  assign LED[1] = fuel_pump_power;
 
 
 
@@ -161,12 +135,41 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to PWM audio output
 
-  wire [7:0] audio_data;
-  // AUD_SD enable
+  wire [7:0] audio_data = 'h2F;
+  wire pwm_en = 1;
+  
+  assign AUD_SD = pwm_en;
 
-  audio_PWM audio_PWM_module(.clk(CLK100MHZ), .reset(system_reset), .music_data(audio_data), .PWM_out(AUD_PWM));
+  audio_PWM audio_PWM_module(.clk(clk_100mhz), .reset(master_reset), .music_data(audio_data), .PWM_out(AUD_PWM));
 
 
+
+// SD CARD
+//////////////////////////////////////////////////////////////////////////////////
+// SD card objects
+
+  wire spiMiso = 1;
+  wire rd;
+  wire wr;
+  wire rst;
+  wire [31:0] adr = 32'h0000_0000;
+  wire [7:0] sd_din;
+  wire [7:0] sd_dout;
+  wire byte_available;
+  wire ready_for_next_byte;
+  wire [4:0] state;
+
+  sd_controller sdcont(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(spiMiso),
+            .sclk(SD_SCK), .rd(rd), .wr(wr), .reset(rst),
+            .din(sd_din), .dout(sd_dout), .byte_available(byte_available),
+            .ready(ready), .address(adr), 
+            .ready_for_next_byte(ready_for_next_byte), .clk(clk_25mhz), 
+            .status(state));
+
+  wire fifo_full;
+  wire fifo_empty;
+
+  fifo_generator_0 audio_sample_buffer(.clk(clk_25mhz), .rst(master_reset), .din(sd_dout), .wr_en(byte_available), .rd_en(clk_48khz), .dout(audio_data), .full(fifo_full), .empty(fifo_empty));
 
 // 7 SEGMENT DISPLAY
 //////////////////////////////////////////////////////////////////////////////////
@@ -174,10 +177,10 @@ module heartaware(
 
   wire [31:0] data;
 
-  assign data = 'hFFFFFFFF;
+  assign data = {'hFFFF, 'b0, SW[14:0]};
 
   wire [6:0] segments;
-  display_8hex display(.clk(clock_25mhz),.data(data), .seg(segments), .strobe(AN));     // digit strobe
+  display_8hex display(.clk(clk_100mhz), .data(data), .seg(segments), .strobe(AN));     // digit strobe
   assign SEG[6:0] = segments;
   assign SEG[7] = 1'b1;   // decimal point off
 
@@ -187,33 +190,31 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // for testing purposes
 
-    assign LED[7] = switch_sync[7];
-
-    assign LED[15:10] = {6{system_reset}};
+//  always @ (posedge clk_25mhz) begin
+//    //if (btn_up) begin
+//        LED16_R <= 1;
+//        LED16_G <= 1;
+//        LED16_B <= 1;
+//        LED17_R <= 1;
+//        LED17_G <= 1;
+//        LED17_B <= 1;
+//   // end else if (btn_up == 0) begin
+////        LED16_R <= 0;
+////        LED16_G <= 0;
+////        LED16_B <= 0;
+////        LED17_R <= 0;
+////        LED17_G <= 0;
+////        LED17_B <= 0;
+////        LED[15:0] <= 'h0000;
+////        data <= 'h0000_0000;
+////        master_test_last_state <= 0;
+////    end
+//  end
 
     // assign LED = SW;     
     // assign JA[7:0] = 8'b0;
     
-    // assign LED16_R=BTNL;
-    // assign LED16_G=BTNC;
-    // assign LED16_B=BTNR;
-    
-    // assign LED17_R=BTNL;
-    // assign LED17_G=BTNC;
-    // assign LED17_B=BTNR;
-
-
-endmodule
 
 
 
-module clock_quarter_divider(input clk100_mhz, output reg clock_25mhz = 0);
-    reg counter = 0;
-    
-    always @(posedge clk100_mhz) begin
-        counter <= counter + 1;
-        if (counter == 0) begin
-            clock_25mhz <= ~clock_25mhz;
-        end
-    end
 endmodule

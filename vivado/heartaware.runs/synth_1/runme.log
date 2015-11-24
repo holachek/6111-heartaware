@@ -1,0 +1,3990 @@
+
+*** Running vivado
+    with args -log heartaware.vds -m64 -mode batch -messageDb vivado.pb -notrace -source heartaware.tcl
+
+WARNING: Default location for XILINX_VIVADO_HLS not found: 
+
+****** Vivado v2015.2.1 (64-bit)
+  **** SW Build 1302555 on Wed Aug  5 13:06:02 MDT 2015
+  **** IP Build 1291990 on Mon Jul 27 03:18:52 MDT 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source heartaware.tcl -notrace
+Command: synth_design -top heartaware -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:153]
+WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:153]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 256.371 ; gain = 79.691
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'heartaware' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'clk_wiz_0' (1#1) [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'clk_65mhz_inst' of module 'clk_wiz_0' requires 4 connections, but only 3 given [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:89]
+INFO: [Synth 8-638] synthesizing module 'clock_divider' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:3]
+WARNING: [Synth 8-567] referenced signal 'counter' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
+WARNING: [Synth 8-567] referenced signal 'divider' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
+WARNING: [Synth 8-567] referenced signal 'clk_out' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
+INFO: [Synth 8-256] done synthesizing module 'clock_divider' (2#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:3]
+INFO: [Synth 8-638] synthesizing module 'synchronize' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/synchronize.v:2]
+	Parameter NSYNC bound to: 2 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'synchronize' (3#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/synchronize.v:2]
+INFO: [Synth 8-638] synthesizing module 'debounce' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/debounce.v:4]
+	Parameter DELAY bound to: 270000 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'debounce' (4#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/debounce.v:4]
+INFO: [Synth 8-638] synthesizing module 'audio_PWM' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
+INFO: [Synth 8-256] done synthesizing module 'audio_PWM' (5#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
+INFO: [Synth 8-638] synthesizing module 'display_8hex' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:16]
+	Parameter bits bound to: 13 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'display_8hex' (6#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:16]
+WARNING: [Synth 8-3848] Net LED16_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
+WARNING: [Synth 8-3848] Net LED16_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
+WARNING: [Synth 8-3848] Net LED16_B in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
+WARNING: [Synth 8-3848] Net LED17_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
+WARNING: [Synth 8-3848] Net LED17_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
+WARNING: [Synth 8-3848] Net LED17_B in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
+WARNING: [Synth 8-3848] Net VGA_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:56]
+WARNING: [Synth 8-3848] Net VGA_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:57]
+WARNING: [Synth 8-3848] Net VGA_B in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:58]
+WARNING: [Synth 8-3848] Net VGA_HS in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:59]
+WARNING: [Synth 8-3848] Net VGA_VS in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:60]
+WARNING: [Synth 8-3848] Net SD_RESET in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:68]
+WARNING: [Synth 8-3848] Net SD_SCK in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:69]
+WARNING: [Synth 8-3848] Net SD_CMD in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:70]
+INFO: [Synth 8-256] done synthesizing module 'heartaware' (7#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_R
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_G
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_B
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_R
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_G
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_B
+WARNING: [Synth 8-3917] design heartaware has port SEG[7] driven by constant 1
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_HS
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_VS
+WARNING: [Synth 8-3917] design heartaware has port AUD_SD driven by constant 1
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_RESET
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_SCK
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CMD
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[7]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[6]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[5]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[4]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNL
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNR
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNC
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[7]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[6]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[5]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[4]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CD
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 273.266 ; gain = 96.586
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 273.266 ; gain = 96.586
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
+Finished Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
+Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]
+Finished Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/heartaware_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/heartaware_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 587.902 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for CLK100MHZ. (constraint file  {C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc}, line 3).
+incorrect argument "-dict" for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 23 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 23 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 24 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 24 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 25 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 25 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 26 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 26 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 27 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 27 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 28 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 28 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 29 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 29 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 30 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 30 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 31 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 31 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 32 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 32 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 33 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 33 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 34 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 34 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 35 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 35 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 36 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 36 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 37 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 37 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 38 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 38 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 43 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 43 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 44 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 44 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 45 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 45 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 46 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 46 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 47 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 47 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 48 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 48 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 49 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 49 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 50 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 50 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 51 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 51 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 52 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 52 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 53 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 53 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 54 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 54 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 55 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 55 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 56 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 56 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 57 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 57 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 58 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 58 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 60 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 60 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 61 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 61 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 62 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 62 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 63 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 63 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 64 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 64 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 65 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 65 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 70 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 70 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 71 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 71 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 72 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 72 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 73 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 73 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 74 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 74 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 75 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 75 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 76 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 76 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 78 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 78 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 80 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 80 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 81 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 81 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 82 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 82 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 83 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 83 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 84 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 84 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 85 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 85 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 86 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 86 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 87 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 87 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 94 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 94 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 95 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 95 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 96 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 96 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 97 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 97 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 98 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 98 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 106 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 106 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 107 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 107 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 108 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 108 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 109 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 109 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 110 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 110 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 111 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 111 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 112 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 112 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 113 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 113 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 118 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 118 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 119 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 119 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 120 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 120 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 121 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 121 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 122 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 122 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 123 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 123 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 124 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 124 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 125 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 125 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 166 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 166 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 167 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 167 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 168 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 168 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 169 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 169 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 171 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 171 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 172 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 172 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 173 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 173 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 174 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 174 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 176 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 176 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 177 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 177 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 178 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 178 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 179 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 179 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 181 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 181 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 182 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 182 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 186 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 186 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 187 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 187 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 188 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 188 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 189 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 189 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 190 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 190 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 191 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 191 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 192 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 192 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 193 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 193 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 222 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 222 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 223 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 223 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5545] ROM "count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+WARNING: [Synth 8-327] inferring latch for variable 'clk_out_reg' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:11]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 6     
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 2     
+	                7 Bit    Registers := 1     
+	                1 Bit    Registers := 39    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 6     
+	   8 Input      8 Bit        Muxes := 1     
+	  16 Input      7 Bit        Muxes := 8     
+	   2 Input      1 Bit        Muxes := 9     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module heartaware 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 2     
+Module clock_divider 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+Module debounce 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 4     
+Module audio_PWM 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+Module display_8hex 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
++---Muxes : 
+	   8 Input      8 Bit        Muxes := 1     
+	  16 Input      7 Bit        Muxes := 8     
+Module synchronize 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 2     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Start Cross Boundary Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5545] ROM "up/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "up/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "down/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "down/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_R
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_G
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_B
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_R
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_G
+WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_B
+WARNING: [Synth 8-3917] design heartaware has port SEG[7] driven by constant 1
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_G[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_B[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_HS
+WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_VS
+WARNING: [Synth 8-3917] design heartaware has port AUD_SD driven by constant 1
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_RESET
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_SCK
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CMD
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[7]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[6]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[5]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[4]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JB[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNL
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNR
+WARNING: [Synth 8-3331] design heartaware has unconnected port BTNC
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[7]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[6]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[5]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[4]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[3]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[2]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[1]
+WARNING: [Synth 8-3331] design heartaware has unconnected port JA[0]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CD
+---------------------------------------------------------------------------------
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Finished Parallel Reinference  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+WARNING: [Synth 8-3332] Sequential element (\clk_25mhz_inst/clk_out_reg ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/clk_out_reg ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/new_reg ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[0] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[1] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[2] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[3] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[4] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[5] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[6] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[7] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[8] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[9] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[10] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[11] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[12] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[13] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[14] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[15] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[16] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[17] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\up/count_reg[18] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/new_reg ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[0] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[1] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[2] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[3] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[4] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[5] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[6] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[7] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[8] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[9] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[10] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[11] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[12] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[13] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[14] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[15] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[16] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[17] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\down/count_reg[18] ) is unused and will be removed from module heartaware.
+---------------------------------------------------------------------------------
+Start Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 23 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 23 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 24 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 24 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 25 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 25 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 26 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 26 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 27 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 27 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 28 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 28 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 29 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 29 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 30 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 30 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 31 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 31 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 32 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 32 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 33 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 33 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 34 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 34 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 35 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 35 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 36 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 36 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 37 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 37 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 38 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 38 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 43 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 43 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 44 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 44 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 45 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 45 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 46 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 46 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 47 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 47 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 48 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 48 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 49 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 49 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 50 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 50 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 51 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 51 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 52 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 52 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 53 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 53 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 54 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 54 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 55 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 55 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 56 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 56 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 57 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 57 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 58 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 58 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 60 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 60 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 61 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 61 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 62 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 62 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 63 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 63 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 64 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 64 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 65 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 65 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 70 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 70 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 71 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 71 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 72 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 72 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 73 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 73 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 74 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 74 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 75 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 75 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 76 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 76 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 78 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 78 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 80 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 80 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 81 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 81 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 82 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 82 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 83 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 83 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 84 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 84 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 85 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 85 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 86 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 86 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 87 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 87 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 94 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 94 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 95 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 95 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 96 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 96 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 97 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 97 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 98 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 98 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 106 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 106 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 107 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 107 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 108 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 108 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 109 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 109 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 110 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 110 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 111 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 111 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 112 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 112 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 113 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 113 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 118 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 118 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 119 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 119 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 120 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 120 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 121 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 121 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 122 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 122 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 123 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 123 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 124 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 124 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 125 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 125 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 166 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 166 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 167 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 167 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 168 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 168 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 169 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 169 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 171 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 171 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 172 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 172 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 173 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 173 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 174 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 174 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 176 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 176 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 177 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 177 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 178 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 178 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 179 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 179 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 181 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 181 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 182 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 182 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 186 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 186 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 187 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 187 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 188 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 188 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 189 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 189 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 190 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 190 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 191 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 191 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 192 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 192 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 193 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 193 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 222 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 222 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+incorrect argument "-dict" for "set_property" at line 223 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+incorrect set of required parameters for "set_property" at line 223 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
+---------------------------------------------------------------------
+Usage:
+  set_property
+    [-help]
+    [-quiet]
+    attribute
+    value
+    object
+    [{>|>>} <stdoutFile>]
+---------------------------------------------------------------------
+INFO: Moved 1 constraints on hierarchical pins to their respective driving/loading pins
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Found timing loop:
+     0: i_0/i_87/O (GATE_2_2)
+     1: i_0/i_87/I0 (GATE_2_2)
+     2: i_0/i_86/O (GATE_2_2)
+     3: i_0/i_86/I0 (GATE_2_2)
+     4: i_0/i_11/O[0] (CARRY4)
+     5: i_0/i_11/S[0] (CARRY4)
+     6: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_79/O (GATE_2_2)
+     1: i_0/i_79/I0 (GATE_2_2)
+     2: i_0/i_78/O (GATE_2_2)
+     3: i_0/i_78/I0 (GATE_2_2)
+     4: i_0/i_10/O[0] (CARRY4)
+     5: i_0/i_10/S[0] (CARRY4)
+     6: i_0/i_79/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_71/O (GATE_2_2)
+     1: i_0/i_71/I0 (GATE_2_2)
+     2: i_0/i_70/O (GATE_2_2)
+     3: i_0/i_70/I0 (GATE_2_2)
+     4: i_0/i_9/O[0] (CARRY4)
+     5: i_0/i_9/S[0] (CARRY4)
+     6: i_0/i_71/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_63/O (GATE_2_2)
+     1: i_0/i_63/I0 (GATE_2_2)
+     2: i_0/i_62/O (GATE_2_2)
+     3: i_0/i_62/I0 (GATE_2_2)
+     4: i_0/i_8/O[0] (CARRY4)
+     5: i_0/i_8/S[0] (CARRY4)
+     6: i_0/i_63/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_55/O (GATE_2_2)
+     1: i_0/i_55/I0 (GATE_2_2)
+     2: i_0/i_54/O (GATE_2_2)
+     3: i_0/i_54/I0 (GATE_2_2)
+     4: i_0/i_7/O[0] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_47/O (GATE_2_2)
+     1: i_0/i_47/I0 (GATE_2_2)
+     2: i_0/i_46/O (GATE_2_2)
+     3: i_0/i_46/I0 (GATE_2_2)
+     4: i_0/i_6/O[0] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_39/O (GATE_2_2)
+     1: i_0/i_39/I0 (GATE_2_2)
+     2: i_0/i_38/O (GATE_2_2)
+     3: i_0/i_38/I0 (GATE_2_2)
+     4: i_0/i_5/O[0] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_31/O (GATE_2_2)
+     1: i_0/i_31/I0 (GATE_2_2)
+     2: i_0/i_30/O (GATE_2_2)
+     3: i_0/i_30/I0 (GATE_2_2)
+     4: i_0/i_4/O[0] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_29/O (GATE_2_2)
+     1: i_0/i_29/I0 (GATE_2_2)
+     2: i_0/i_28/O (GATE_2_2)
+     3: i_0/i_28/I0 (GATE_2_2)
+     4: i_0/i_27/O (INV)
+     5: i_0/i_27/I (INV)
+     6: i_0/i_29/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_121/O (GATE_2_2)
+     1: i_0/i_121/I0 (GATE_2_2)
+     2: i_0/i_120/O (GATE_2_2)
+     3: i_0/i_120/I0 (GATE_2_2)
+     4: i_0/i_119/O (GATE_2_2)
+     5: i_0/i_119/I0 (GATE_2_2)
+     6: i_0/i_118/O (GATE_2_1_NOR)
+     7: i_0/i_118/I0 (GATE_2_1_NOR)
+     8: i_0/i_91/O (GATE_2_2)
+     9: i_0/i_91/I0 (GATE_2_2)
+    10: i_0/i_90/O (GATE_2_2)
+    11: i_0/i_90/I0 (GATE_2_2)
+    12: i_0/i_11/O[2] (CARRY4)
+    13: i_0/i_11/S[0] (CARRY4)
+    14: i_0/i_87/O (GATE_2_2)
+    15: i_0/i_87/I0 (GATE_2_2)
+    16: i_0/i_86/O (GATE_2_2)
+    17: i_0/i_86/I0 (GATE_2_2)
+    18: i_0/i_11/O[0] (CARRY4)
+    19: i_0/i_11/S[0] (CARRY4)
+    20: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_31/O (GATE_2_2)
+     1: i_0/i_31/I0 (GATE_2_2)
+     2: i_0/i_30/O (GATE_2_2)
+     3: i_0/i_30/I0 (GATE_2_2)
+     4: i_0/i_4/O[0] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_31/O (GATE_2_2)
+     1: i_0/i_31/I0 (GATE_2_2)
+     2: i_0/i_30/O (GATE_2_2)
+     3: i_0/i_30/I0 (GATE_2_2)
+     4: i_0/i_4/O[0] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_33/O (GATE_2_2)
+     1: i_0/i_33/I0 (GATE_2_2)
+     2: i_0/i_32/O (GATE_2_2)
+     3: i_0/i_32/I0 (GATE_2_2)
+     4: i_0/i_4/O[1] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+     7: i_0/i_31/I0 (GATE_2_2)
+     8: i_0/i_30/O (GATE_2_2)
+     9: i_0/i_30/I0 (GATE_2_2)
+    10: i_0/i_4/O[0] (CARRY4)
+    11: i_0/i_4/S[0] (CARRY4)
+    12: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_29/O (GATE_2_2)
+     1: i_0/i_29/I1 (GATE_2_2)
+     2: i_0/i_122/O (GATE_2_2)
+     3: i_0/i_122/I0 (GATE_2_2)
+     4: i_0/i_121/O (GATE_2_2)
+     5: i_0/i_121/I0 (GATE_2_2)
+     6: i_0/i_120/O (GATE_2_2)
+     7: i_0/i_120/I0 (GATE_2_2)
+     8: i_0/i_119/O (GATE_2_2)
+     9: i_0/i_119/I0 (GATE_2_2)
+    10: i_0/i_118/O (GATE_2_1_NOR)
+    11: i_0/i_118/I0 (GATE_2_1_NOR)
+    12: i_0/i_91/O (GATE_2_2)
+    13: i_0/i_91/I0 (GATE_2_2)
+    14: i_0/i_90/O (GATE_2_2)
+    15: i_0/i_90/I0 (GATE_2_2)
+    16: i_0/i_11/O[2] (CARRY4)
+    17: i_0/i_11/S[0] (CARRY4)
+    18: i_0/i_87/O (GATE_2_2)
+    19: i_0/i_87/I0 (GATE_2_2)
+    20: i_0/i_86/O (GATE_2_2)
+    21: i_0/i_86/I0 (GATE_2_2)
+    22: i_0/i_11/O[0] (CARRY4)
+    23: i_0/i_11/S[0] (CARRY4)
+    24: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_31/O (GATE_2_2)
+     1: i_0/i_31/I0 (GATE_2_2)
+     2: i_0/i_30/O (GATE_2_2)
+     3: i_0/i_30/I0 (GATE_2_2)
+     4: i_0/i_4/O[0] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_35/O (GATE_2_2)
+     1: i_0/i_35/I0 (GATE_2_2)
+     2: i_0/i_34/O (GATE_2_2)
+     3: i_0/i_34/I0 (GATE_2_2)
+     4: i_0/i_4/O[2] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+     7: i_0/i_31/I0 (GATE_2_2)
+     8: i_0/i_30/O (GATE_2_2)
+     9: i_0/i_30/I0 (GATE_2_2)
+    10: i_0/i_4/O[0] (CARRY4)
+    11: i_0/i_4/S[0] (CARRY4)
+    12: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_29/O (GATE_2_2)
+     1: i_0/i_29/I1 (GATE_2_2)
+     2: i_0/i_122/O (GATE_2_2)
+     3: i_0/i_122/I0 (GATE_2_2)
+     4: i_0/i_121/O (GATE_2_2)
+     5: i_0/i_121/I0 (GATE_2_2)
+     6: i_0/i_120/O (GATE_2_2)
+     7: i_0/i_120/I0 (GATE_2_2)
+     8: i_0/i_119/O (GATE_2_2)
+     9: i_0/i_119/I0 (GATE_2_2)
+    10: i_0/i_118/O (GATE_2_1_NOR)
+    11: i_0/i_118/I0 (GATE_2_1_NOR)
+    12: i_0/i_91/O (GATE_2_2)
+    13: i_0/i_91/I0 (GATE_2_2)
+    14: i_0/i_90/O (GATE_2_2)
+    15: i_0/i_90/I0 (GATE_2_2)
+    16: i_0/i_11/O[2] (CARRY4)
+    17: i_0/i_11/S[0] (CARRY4)
+    18: i_0/i_87/O (GATE_2_2)
+    19: i_0/i_87/I0 (GATE_2_2)
+    20: i_0/i_86/O (GATE_2_2)
+    21: i_0/i_86/I0 (GATE_2_2)
+    22: i_0/i_11/O[0] (CARRY4)
+    23: i_0/i_11/S[0] (CARRY4)
+    24: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_37/O (GATE_2_2)
+     1: i_0/i_37/I0 (GATE_2_2)
+     2: i_0/i_36/O (GATE_2_2)
+     3: i_0/i_36/I0 (GATE_2_2)
+     4: i_0/i_4/O[3] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+     7: i_0/i_31/I0 (GATE_2_2)
+     8: i_0/i_30/O (GATE_2_2)
+     9: i_0/i_30/I0 (GATE_2_2)
+    10: i_0/i_4/O[0] (CARRY4)
+    11: i_0/i_4/S[0] (CARRY4)
+    12: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_29/O (GATE_2_2)
+     1: i_0/i_29/I1 (GATE_2_2)
+     2: i_0/i_122/O (GATE_2_2)
+     3: i_0/i_122/I0 (GATE_2_2)
+     4: i_0/i_121/O (GATE_2_2)
+     5: i_0/i_121/I0 (GATE_2_2)
+     6: i_0/i_120/O (GATE_2_2)
+     7: i_0/i_120/I0 (GATE_2_2)
+     8: i_0/i_119/O (GATE_2_2)
+     9: i_0/i_119/I0 (GATE_2_2)
+    10: i_0/i_118/O (GATE_2_1_NOR)
+    11: i_0/i_118/I0 (GATE_2_1_NOR)
+    12: i_0/i_91/O (GATE_2_2)
+    13: i_0/i_91/I0 (GATE_2_2)
+    14: i_0/i_90/O (GATE_2_2)
+    15: i_0/i_90/I0 (GATE_2_2)
+    16: i_0/i_11/O[2] (CARRY4)
+    17: i_0/i_11/S[0] (CARRY4)
+    18: i_0/i_87/O (GATE_2_2)
+    19: i_0/i_87/I0 (GATE_2_2)
+    20: i_0/i_86/O (GATE_2_2)
+    21: i_0/i_86/I0 (GATE_2_2)
+    22: i_0/i_11/O[0] (CARRY4)
+    23: i_0/i_11/S[0] (CARRY4)
+    24: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_39/O (GATE_2_2)
+     1: i_0/i_39/I0 (GATE_2_2)
+     2: i_0/i_38/O (GATE_2_2)
+     3: i_0/i_38/I0 (GATE_2_2)
+     4: i_0/i_5/O[0] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_41/O (GATE_2_2)
+     1: i_0/i_41/I0 (GATE_2_2)
+     2: i_0/i_40/O (GATE_2_2)
+     3: i_0/i_40/I0 (GATE_2_2)
+     4: i_0/i_5/O[1] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+     7: i_0/i_39/I0 (GATE_2_2)
+     8: i_0/i_38/O (GATE_2_2)
+     9: i_0/i_38/I0 (GATE_2_2)
+    10: i_0/i_5/O[0] (CARRY4)
+    11: i_0/i_5/S[0] (CARRY4)
+    12: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_4/CO[3] (CARRY4)
+     1: i_0/i_4/S[0] (CARRY4)
+     2: i_0/i_31/O (GATE_2_2)
+     3: i_0/i_31/I0 (GATE_2_2)
+     4: i_0/i_30/O (GATE_2_2)
+     5: i_0/i_30/I0 (GATE_2_2)
+     6: i_0/i_4/O[0] (CARRY4)
+     7: i_0/i_4/S[0] (CARRY4)
+     8: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_31/O (GATE_2_2)
+     1: i_0/i_31/I0 (GATE_2_2)
+     2: i_0/i_30/O (GATE_2_2)
+     3: i_0/i_30/I0 (GATE_2_2)
+     4: i_0/i_4/O[0] (CARRY4)
+     5: i_0/i_4/S[0] (CARRY4)
+     6: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_39/O (GATE_2_2)
+     1: i_0/i_39/I0 (GATE_2_2)
+     2: i_0/i_38/O (GATE_2_2)
+     3: i_0/i_38/I0 (GATE_2_2)
+     4: i_0/i_5/O[0] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_47/O (GATE_2_2)
+     1: i_0/i_47/I0 (GATE_2_2)
+     2: i_0/i_46/O (GATE_2_2)
+     3: i_0/i_46/I0 (GATE_2_2)
+     4: i_0/i_6/O[0] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_47/O (GATE_2_2)
+     1: i_0/i_47/I0 (GATE_2_2)
+     2: i_0/i_46/O (GATE_2_2)
+     3: i_0/i_46/I0 (GATE_2_2)
+     4: i_0/i_6/O[0] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_49/O (GATE_2_2)
+     1: i_0/i_49/I0 (GATE_2_2)
+     2: i_0/i_48/O (GATE_2_2)
+     3: i_0/i_48/I0 (GATE_2_2)
+     4: i_0/i_6/O[1] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+     7: i_0/i_47/I0 (GATE_2_2)
+     8: i_0/i_46/O (GATE_2_2)
+     9: i_0/i_46/I0 (GATE_2_2)
+    10: i_0/i_6/O[0] (CARRY4)
+    11: i_0/i_6/S[0] (CARRY4)
+    12: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_5/CO[3] (CARRY4)
+     1: i_0/i_5/S[0] (CARRY4)
+     2: i_0/i_39/O (GATE_2_2)
+     3: i_0/i_39/I0 (GATE_2_2)
+     4: i_0/i_38/O (GATE_2_2)
+     5: i_0/i_38/I0 (GATE_2_2)
+     6: i_0/i_5/O[0] (CARRY4)
+     7: i_0/i_5/S[0] (CARRY4)
+     8: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_51/O (GATE_2_2)
+     1: i_0/i_51/I0 (GATE_2_2)
+     2: i_0/i_50/O (GATE_2_2)
+     3: i_0/i_50/I0 (GATE_2_2)
+     4: i_0/i_6/O[2] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+     7: i_0/i_47/I0 (GATE_2_2)
+     8: i_0/i_46/O (GATE_2_2)
+     9: i_0/i_46/I0 (GATE_2_2)
+    10: i_0/i_6/O[0] (CARRY4)
+    11: i_0/i_6/S[0] (CARRY4)
+    12: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_5/CO[3] (CARRY4)
+     1: i_0/i_5/S[0] (CARRY4)
+     2: i_0/i_39/O (GATE_2_2)
+     3: i_0/i_39/I0 (GATE_2_2)
+     4: i_0/i_38/O (GATE_2_2)
+     5: i_0/i_38/I0 (GATE_2_2)
+     6: i_0/i_5/O[0] (CARRY4)
+     7: i_0/i_5/S[0] (CARRY4)
+     8: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_29/O (GATE_2_2)
+     1: i_0/i_29/I1 (GATE_2_2)
+     2: i_0/i_122/O (GATE_2_2)
+     3: i_0/i_122/I0 (GATE_2_2)
+     4: i_0/i_121/O (GATE_2_2)
+     5: i_0/i_121/I0 (GATE_2_2)
+     6: i_0/i_120/O (GATE_2_2)
+     7: i_0/i_120/I0 (GATE_2_2)
+     8: i_0/i_119/O (GATE_2_2)
+     9: i_0/i_119/I0 (GATE_2_2)
+    10: i_0/i_118/O (GATE_2_1_NOR)
+    11: i_0/i_118/I0 (GATE_2_1_NOR)
+    12: i_0/i_91/O (GATE_2_2)
+    13: i_0/i_91/I0 (GATE_2_2)
+    14: i_0/i_90/O (GATE_2_2)
+    15: i_0/i_90/I0 (GATE_2_2)
+    16: i_0/i_11/O[2] (CARRY4)
+    17: i_0/i_11/S[0] (CARRY4)
+    18: i_0/i_87/O (GATE_2_2)
+    19: i_0/i_87/I0 (GATE_2_2)
+    20: i_0/i_86/O (GATE_2_2)
+    21: i_0/i_86/I0 (GATE_2_2)
+    22: i_0/i_11/O[0] (CARRY4)
+    23: i_0/i_11/S[0] (CARRY4)
+    24: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_55/O (GATE_2_2)
+     1: i_0/i_55/I0 (GATE_2_2)
+     2: i_0/i_54/O (GATE_2_2)
+     3: i_0/i_54/I0 (GATE_2_2)
+     4: i_0/i_7/O[0] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_57/O (GATE_2_2)
+     1: i_0/i_57/I0 (GATE_2_2)
+     2: i_0/i_56/O (GATE_2_2)
+     3: i_0/i_56/I0 (GATE_2_2)
+     4: i_0/i_7/O[1] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+     7: i_0/i_55/I0 (GATE_2_2)
+     8: i_0/i_54/O (GATE_2_2)
+     9: i_0/i_54/I0 (GATE_2_2)
+    10: i_0/i_7/O[0] (CARRY4)
+    11: i_0/i_7/S[0] (CARRY4)
+    12: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_6/CO[3] (CARRY4)
+     1: i_0/i_6/S[0] (CARRY4)
+     2: i_0/i_47/O (GATE_2_2)
+     3: i_0/i_47/I0 (GATE_2_2)
+     4: i_0/i_46/O (GATE_2_2)
+     5: i_0/i_46/I0 (GATE_2_2)
+     6: i_0/i_6/O[0] (CARRY4)
+     7: i_0/i_6/S[0] (CARRY4)
+     8: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_55/O (GATE_2_2)
+     1: i_0/i_55/I0 (GATE_2_2)
+     2: i_0/i_54/O (GATE_2_2)
+     3: i_0/i_54/I0 (GATE_2_2)
+     4: i_0/i_7/O[0] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_59/O (GATE_2_2)
+     1: i_0/i_59/I0 (GATE_2_2)
+     2: i_0/i_58/O (GATE_2_2)
+     3: i_0/i_58/I0 (GATE_2_2)
+     4: i_0/i_7/O[2] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+     7: i_0/i_55/I0 (GATE_2_2)
+     8: i_0/i_54/O (GATE_2_2)
+     9: i_0/i_54/I0 (GATE_2_2)
+    10: i_0/i_7/O[0] (CARRY4)
+    11: i_0/i_7/S[0] (CARRY4)
+    12: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_6/CO[3] (CARRY4)
+     1: i_0/i_6/S[0] (CARRY4)
+     2: i_0/i_47/O (GATE_2_2)
+     3: i_0/i_47/I0 (GATE_2_2)
+     4: i_0/i_46/O (GATE_2_2)
+     5: i_0/i_46/I0 (GATE_2_2)
+     6: i_0/i_6/O[0] (CARRY4)
+     7: i_0/i_6/S[0] (CARRY4)
+     8: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_47/O (GATE_2_2)
+     1: i_0/i_47/I0 (GATE_2_2)
+     2: i_0/i_46/O (GATE_2_2)
+     3: i_0/i_46/I0 (GATE_2_2)
+     4: i_0/i_6/O[0] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_53/O (GATE_2_2)
+     1: i_0/i_53/I0 (GATE_2_2)
+     2: i_0/i_52/O (GATE_2_2)
+     3: i_0/i_52/I0 (GATE_2_2)
+     4: i_0/i_6/O[3] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+     7: i_0/i_47/I0 (GATE_2_2)
+     8: i_0/i_46/O (GATE_2_2)
+     9: i_0/i_46/I0 (GATE_2_2)
+    10: i_0/i_6/O[0] (CARRY4)
+    11: i_0/i_6/S[0] (CARRY4)
+    12: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_5/CO[3] (CARRY4)
+     1: i_0/i_5/S[0] (CARRY4)
+     2: i_0/i_39/O (GATE_2_2)
+     3: i_0/i_39/I0 (GATE_2_2)
+     4: i_0/i_38/O (GATE_2_2)
+     5: i_0/i_38/I0 (GATE_2_2)
+     6: i_0/i_5/O[0] (CARRY4)
+     7: i_0/i_5/S[0] (CARRY4)
+     8: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_55/O (GATE_2_2)
+     1: i_0/i_55/I0 (GATE_2_2)
+     2: i_0/i_54/O (GATE_2_2)
+     3: i_0/i_54/I0 (GATE_2_2)
+     4: i_0/i_7/O[0] (CARRY4)
+     5: i_0/i_7/S[0] (CARRY4)
+     6: i_0/i_55/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_39/O (GATE_2_2)
+     1: i_0/i_39/I0 (GATE_2_2)
+     2: i_0/i_38/O (GATE_2_2)
+     3: i_0/i_38/I0 (GATE_2_2)
+     4: i_0/i_5/O[0] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_43/O (GATE_2_2)
+     1: i_0/i_43/I0 (GATE_2_2)
+     2: i_0/i_42/O (GATE_2_2)
+     3: i_0/i_42/I0 (GATE_2_2)
+     4: i_0/i_5/O[2] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+     7: i_0/i_39/I0 (GATE_2_2)
+     8: i_0/i_38/O (GATE_2_2)
+     9: i_0/i_38/I0 (GATE_2_2)
+    10: i_0/i_5/O[0] (CARRY4)
+    11: i_0/i_5/S[0] (CARRY4)
+    12: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_4/CO[3] (CARRY4)
+     1: i_0/i_4/S[0] (CARRY4)
+     2: i_0/i_31/O (GATE_2_2)
+     3: i_0/i_31/I0 (GATE_2_2)
+     4: i_0/i_30/O (GATE_2_2)
+     5: i_0/i_30/I0 (GATE_2_2)
+     6: i_0/i_4/O[0] (CARRY4)
+     7: i_0/i_4/S[0] (CARRY4)
+     8: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_39/O (GATE_2_2)
+     1: i_0/i_39/I0 (GATE_2_2)
+     2: i_0/i_38/O (GATE_2_2)
+     3: i_0/i_38/I0 (GATE_2_2)
+     4: i_0/i_5/O[0] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_45/O (GATE_2_2)
+     1: i_0/i_45/I0 (GATE_2_2)
+     2: i_0/i_44/O (GATE_2_2)
+     3: i_0/i_44/I0 (GATE_2_2)
+     4: i_0/i_5/O[3] (CARRY4)
+     5: i_0/i_5/S[0] (CARRY4)
+     6: i_0/i_39/O (GATE_2_2)
+     7: i_0/i_39/I0 (GATE_2_2)
+     8: i_0/i_38/O (GATE_2_2)
+     9: i_0/i_38/I0 (GATE_2_2)
+    10: i_0/i_5/O[0] (CARRY4)
+    11: i_0/i_5/S[0] (CARRY4)
+    12: i_0/i_39/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_4/CO[3] (CARRY4)
+     1: i_0/i_4/S[0] (CARRY4)
+     2: i_0/i_31/O (GATE_2_2)
+     3: i_0/i_31/I0 (GATE_2_2)
+     4: i_0/i_30/O (GATE_2_2)
+     5: i_0/i_30/I0 (GATE_2_2)
+     6: i_0/i_4/O[0] (CARRY4)
+     7: i_0/i_4/S[0] (CARRY4)
+     8: i_0/i_31/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_122/O (GATE_2_2)
+     1: i_0/i_122/I0 (GATE_2_2)
+     2: i_0/i_121/O (GATE_2_2)
+     3: i_0/i_121/I0 (GATE_2_2)
+     4: i_0/i_120/O (GATE_2_2)
+     5: i_0/i_120/I0 (GATE_2_2)
+     6: i_0/i_119/O (GATE_2_2)
+     7: i_0/i_119/I0 (GATE_2_2)
+     8: i_0/i_118/O (GATE_2_1_NOR)
+     9: i_0/i_118/I0 (GATE_2_1_NOR)
+    10: i_0/i_91/O (GATE_2_2)
+    11: i_0/i_91/I0 (GATE_2_2)
+    12: i_0/i_90/O (GATE_2_2)
+    13: i_0/i_90/I0 (GATE_2_2)
+    14: i_0/i_11/O[2] (CARRY4)
+    15: i_0/i_11/S[0] (CARRY4)
+    16: i_0/i_87/O (GATE_2_2)
+    17: i_0/i_87/I0 (GATE_2_2)
+    18: i_0/i_86/O (GATE_2_2)
+    19: i_0/i_86/I0 (GATE_2_2)
+    20: i_0/i_11/O[0] (CARRY4)
+    21: i_0/i_11/S[0] (CARRY4)
+    22: i_0/i_87/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_47/O (GATE_2_2)
+     1: i_0/i_47/I0 (GATE_2_2)
+     2: i_0/i_46/O (GATE_2_2)
+     3: i_0/i_46/I0 (GATE_2_2)
+     4: i_0/i_6/O[0] (CARRY4)
+     5: i_0/i_6/S[0] (CARRY4)
+     6: i_0/i_47/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_61/O (GATE_2_2)
+     1: i_0/i_61/I0 (GATE_2_2)
+     2: i_0/i_60/O (GATE_2_2)
+     3: i_0/i_60/I0 (GATE_2_2)
+     4: i_0/i_7/O[3] (CARRY4)
+     5: i_0/i_7/S[3] (CARRY4)
+     6: i_0/i_61/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_65/O (GATE_2_2)
+     1: i_0/i_65/I0 (GATE_2_2)
+     2: i_0/i_64/O (GATE_2_2)
+     3: i_0/i_64/I0 (GATE_2_2)
+     4: i_0/i_8/O[1] (CARRY4)
+     5: i_0/i_8/S[1] (CARRY4)
+     6: i_0/i_65/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_67/O (GATE_2_2)
+     1: i_0/i_67/I0 (GATE_2_2)
+     2: i_0/i_66/O (GATE_2_2)
+     3: i_0/i_66/I0 (GATE_2_2)
+     4: i_0/i_8/O[2] (CARRY4)
+     5: i_0/i_8/S[2] (CARRY4)
+     6: i_0/i_67/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_69/O (GATE_2_2)
+     1: i_0/i_69/I0 (GATE_2_2)
+     2: i_0/i_68/O (GATE_2_2)
+     3: i_0/i_68/I0 (GATE_2_2)
+     4: i_0/i_8/O[3] (CARRY4)
+     5: i_0/i_8/S[3] (CARRY4)
+     6: i_0/i_69/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_73/O (GATE_2_2)
+     1: i_0/i_73/I0 (GATE_2_2)
+     2: i_0/i_72/O (GATE_2_2)
+     3: i_0/i_72/I0 (GATE_2_2)
+     4: i_0/i_9/O[1] (CARRY4)
+     5: i_0/i_9/S[1] (CARRY4)
+     6: i_0/i_73/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_75/O (GATE_2_2)
+     1: i_0/i_75/I0 (GATE_2_2)
+     2: i_0/i_74/O (GATE_2_2)
+     3: i_0/i_74/I0 (GATE_2_2)
+     4: i_0/i_9/O[2] (CARRY4)
+     5: i_0/i_9/S[2] (CARRY4)
+     6: i_0/i_75/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_77/O (GATE_2_2)
+     1: i_0/i_77/I0 (GATE_2_2)
+     2: i_0/i_76/O (GATE_2_2)
+     3: i_0/i_76/I0 (GATE_2_2)
+     4: i_0/i_9/O[3] (CARRY4)
+     5: i_0/i_9/S[3] (CARRY4)
+     6: i_0/i_77/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_81/O (GATE_2_2)
+     1: i_0/i_81/I0 (GATE_2_2)
+     2: i_0/i_80/O (GATE_2_2)
+     3: i_0/i_80/I0 (GATE_2_2)
+     4: i_0/i_10/O[1] (CARRY4)
+     5: i_0/i_10/S[1] (CARRY4)
+     6: i_0/i_81/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_83/O (GATE_2_2)
+     1: i_0/i_83/I0 (GATE_2_2)
+     2: i_0/i_82/O (GATE_2_2)
+     3: i_0/i_82/I0 (GATE_2_2)
+     4: i_0/i_10/O[2] (CARRY4)
+     5: i_0/i_10/S[2] (CARRY4)
+     6: i_0/i_83/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_85/O (GATE_2_2)
+     1: i_0/i_85/I0 (GATE_2_2)
+     2: i_0/i_84/O (GATE_2_2)
+     3: i_0/i_84/I0 (GATE_2_2)
+     4: i_0/i_10/O[3] (CARRY4)
+     5: i_0/i_10/S[3] (CARRY4)
+     6: i_0/i_85/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_89/O (GATE_2_2)
+     1: i_0/i_89/I0 (GATE_2_2)
+     2: i_0/i_88/O (GATE_2_2)
+     3: i_0/i_88/I0 (GATE_2_2)
+     4: i_0/i_11/O[1] (CARRY4)
+     5: i_0/i_11/S[1] (CARRY4)
+     6: i_0/i_89/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+Found timing loop:
+     0: i_0/i_91/O (GATE_2_2)
+     1: i_0/i_91/I0 (GATE_2_2)
+     2: i_0/i_90/O (GATE_2_2)
+     3: i_0/i_90/I0 (GATE_2_2)
+     4: i_0/i_11/O[2] (CARRY4)
+     5: i_0/i_11/S[2] (CARRY4)
+     6: i_0/i_91/O (GATE_2_2)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+Found timing loop:
+     0: i_121/O (LUT3)
+     1: i_121/I1 (LUT3)
+     2: i_121/O (LUT3)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_68/O (LUT6)
+     1: i_68/I5 (LUT6)
+     2: i_56/O (LUT4)
+     3: i_56/I1 (LUT4)
+     4: i_68/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_68/O (LUT6)
+     1: i_68/I4 (LUT6)
+     2: i_70/O (LUT2)
+     3: i_70/I1 (LUT2)
+     4: i_68/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_121/O (LUT3)
+     1: i_121/I1 (LUT3)
+     2: i_121/O (LUT3)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_68/O (LUT6)
+     1: i_68/I3 (LUT6)
+     2: i_54/O (LUT3)
+     3: i_54/I2 (LUT3)
+     4: i_68/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_68/O (LUT6)
+     1: i_68/I2 (LUT6)
+     2: i_58/O (LUT6)
+     3: i_58/I4 (LUT6)
+     4: i_68/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_45/O (LUT4)
+     1: i_45/I3 (LUT4)
+     2: i_60/O (LUT5)
+     3: i_60/I2 (LUT5)
+     4: i_69/O (LUT6)
+     5: i_69/I5 (LUT6)
+     6: i_45/O (LUT4)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_68/O (LUT6)
+     1: i_68/I1 (LUT6)
+     2: i_45/O (LUT4)
+     3: i_45/I3 (LUT4)
+     4: i_60/O (LUT5)
+     5: i_60/I2 (LUT5)
+     6: i_69/O (LUT6)
+     7: i_69/I5 (LUT6)
+     8: i_45/O (LUT4)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_121/O (LUT3)
+     1: i_121/I1 (LUT3)
+     2: i_121/O (LUT3)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I5 (LUT6)
+     2: i_39/O (LUT6)
+     3: i_39/I4 (LUT6)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I4 (LUT6)
+     2: i_35/O (LUT6)
+     3: i_35/I4 (LUT6)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I3 (LUT6)
+     2: i_27/O (LUT5)
+     3: i_27/I1 (LUT5)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I2 (LUT6)
+     2: i_24/O (LUT5)
+     3: i_24/I1 (LUT5)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I1 (LUT6)
+     2: i_31/O (LUT5)
+     3: i_31/I1 (LUT5)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_23/O (LUT6)
+     1: i_23/I0 (LUT6)
+     2: i_29/O (LUT5)
+     3: i_29/I1 (LUT5)
+     4: i_23/O (LUT6)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+Found timing loop:
+     0: i_141/O (LUT3)
+     1: i_141/I1 (LUT3)
+     2: i_141/O (LUT3)
+WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |clk_wiz_0 |     1|
+|2     |BUFG      |     1|
+|3     |CARRY4    |    12|
+|4     |LUT1      |    18|
+|5     |LUT2      |    15|
+|6     |LUT3      |    15|
+|7     |LUT4      |    43|
+|8     |LUT5      |    16|
+|9     |LUT6      |    17|
+|10    |MUXF7     |     6|
+|11    |FDRE      |    36|
+|12    |FDSE      |     4|
+|13    |LDC       |     1|
+|14    |IBUF      |    16|
+|15    |OBUF      |    34|
+|16    |OBUFT     |    23|
++------+----------+------+
+
+Report Instance Areas: 
++------+-------------------+--------------+------+
+|      |Instance           |Module        |Cells |
++------+-------------------+--------------+------+
+|1     |top                |              |   259|
+|2     |  audio_PWM_module |audio_PWM     |    21|
+|3     |  clk_48khz_inst   |clock_divider |     6|
+|4     |  display          |display_8hex  |    91|
++------+-------------------+--------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 179 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:22 . Memory (MB): peak = 587.902 ; gain = 71.789
+Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 587.902 ; gain = 411.223
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 29 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 1 instances were transformed.
+  LDC => LDCE: 1 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+33 Infos, 248 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 587.902 ; gain = 388.066
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 587.902 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Mon Nov 23 23:56:52 2015...
