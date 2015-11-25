@@ -19,7 +19,7 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../verilog/sd_controller.v">
+      <File Path="$PPRDIR/../verilog/audio_PWM.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -47,13 +47,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../verilog/audio_PWM.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../verilog/clock_divider.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -68,10 +61,25 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../verilog/xvga.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../verilog/sd_controller.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../verilog/fsm.v">
         <FileInfo>
           <Attr Name="UserDisabled" Val="1"/>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -96,6 +104,7 @@
       </Config>
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
+      <Filter Type="Srcs"/>
       <File Path="$PPRDIR/../simulation/clock_divider_testbench.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -118,19 +127,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="doc/clk_wiz_v5_1_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_board.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_clk_wiz.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_ooc.xdc"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.xml"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.veo"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_funcsim.vhdl"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_funcsim.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_stub.vhdl"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0_stub.v"/>
-        <CompFileExtendedInfo CompFileName="clk_wiz_0.xci" FileRelPathName="clk_wiz_0.dcp"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="clk_wiz_0"/>
@@ -147,20 +143,66 @@
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0_ooc.xdc"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="synth/fifo_generator_0.vhd"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_rfs.vhd"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/simulation/fifo_generator_vlog_beh.v"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="doc/fifo_generator_v12_0_changelog.txt"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="sim/fifo_generator_0.v"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_rfs.v"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0/fifo_generator_0.xdc"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
-        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/simulation/fifo_generator_vlog_beh.v"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0.veo"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="sim/fifo_generator_0.v"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_rfs.v"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_v12_0/hdl/fifo_generator_v12_0_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="doc/fifo_generator_v12_0_changelog.txt"/>
         <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0.xml"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0_funcsim.vhdl"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0_stub.v"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0_funcsim.v"/>
+        <CompFileExtendedInfo CompFileName="fifo_generator_0.xci" FileRelPathName="fifo_generator_0.dcp"/>
       </File>
       <Config>
         <Option Name="TopModule" Val="fifo_generator_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="blk_mem_gen_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/blk_mem_gen_0">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.xml"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.veo"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="synth/blk_mem_gen_0.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="doc/blk_mem_gen_v8_2_changelog.txt"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_v8_2/simulation/blk_mem_gen_v8_2.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_ooc.xdc"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="sim/blk_mem_gen_0.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="summary.log"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_stub.vhdl"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0.dcp"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_funcsim.vhdl"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_funcsim.v"/>
+        <CompFileExtendedInfo CompFileName="blk_mem_gen_0.xci" FileRelPathName="blk_mem_gen_0_stub.v"/>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="blk_mem_gen_0"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="blk_mem_gen_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/blk_mem_gen_1">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="blk_mem_gen_1"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -192,23 +234,33 @@
   <Runs Version="1" Minor="9">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a100tcsg324-1" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" State="current" Dir="$PRUNDIR/synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0" Part="xc7a100tcsg324-1" ConstrsSet="clk_wiz_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/clk_wiz_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
     <Run Id="fifo_generator_0_synth_1" Type="Ft3:Synth" SrcSet="fifo_generator_0" Part="xc7a100tcsg324-1" ConstrsSet="fifo_generator_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/fifo_generator_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="blk_mem_gen_0_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_0" Part="xc7a100tcsg324-1" ConstrsSet="blk_mem_gen_0" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="blk_mem_gen_1_synth_1" Type="Ft3:Synth" SrcSet="blk_mem_gen_1" Part="xc7a100tcsg324-1" ConstrsSet="blk_mem_gen_1" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/blk_mem_gen_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -219,9 +271,7 @@
     </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a100tcsg324-1" ConstrsSet="constrs_1" Description="Vivado Implementation Defaults" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -236,9 +286,7 @@
     </Run>
     <Run Id="clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tcsg324-1" ConstrsSet="clk_wiz_0" Description="Vivado Implementation Defaults" SynthRun="clk_wiz_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -251,6 +299,34 @@
       </Strategy>
     </Run>
     <Run Id="fifo_generator_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tcsg324-1" ConstrsSet="fifo_generator_0" Description="Vivado Implementation Defaults" SynthRun="fifo_generator_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="blk_mem_gen_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tcsg324-1" ConstrsSet="blk_mem_gen_0" Description="Vivado Implementation Defaults" SynthRun="blk_mem_gen_0_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="blk_mem_gen_1_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tcsg324-1" ConstrsSet="blk_mem_gen_1" Description="Vivado Implementation Defaults" SynthRun="blk_mem_gen_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
           <Desc>Vivado Implementation Defaults</Desc>

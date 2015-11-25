@@ -2,8 +2,8 @@
 # Vivado v2015.2.1 (64-bit)
 # SW Build 1302555 on Wed Aug  5 13:06:02 MDT 2015
 # IP Build 1291990 on Mon Jul 27 03:18:52 MDT 2015
-# Start of session at: Mon Nov 23 23:56:20 2015
-# Process ID: 2596
+# Start of session at: Tue Nov 24 21:55:04 2015
+# Process ID: 2400
 # Log file: C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/heartaware.vds
 # Journal file: C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
@@ -12,19 +12,14 @@ Command: synth_design -top heartaware -part xc7a100tcsg324-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
-WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:153]
-WARNING: [Synth 8-1849] concatenation with unsized literal; will interpret as 32 bits [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:153]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 256.371 ; gain = 79.691
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 247.621 ; gain = 69.535
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'heartaware' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
-INFO: [Synth 8-256] done synthesizing module 'clk_wiz_0' (1#1) [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
-WARNING: [Synth 8-350] instance 'clk_65mhz_inst' of module 'clk_wiz_0' requires 4 connections, but only 3 given [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:89]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-256] done synthesizing module 'clk_wiz_0' (1#1) [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/realtime/clk_wiz_0_stub.v:6]
+WARNING: [Synth 8-350] instance 'clk_65mhz_inst' of module 'clk_wiz_0' requires 4 connections, but only 3 given [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:92]
 INFO: [Synth 8-638] synthesizing module 'clock_divider' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:3]
-WARNING: [Synth 8-567] referenced signal 'counter' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
-WARNING: [Synth 8-567] referenced signal 'divider' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
-WARNING: [Synth 8-567] referenced signal 'clk_out' should be on the sensitivity list [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:8]
 INFO: [Synth 8-256] done synthesizing module 'clock_divider' (2#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:3]
 INFO: [Synth 8-638] synthesizing module 'synchronize' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/synchronize.v:2]
 	Parameter NSYNC bound to: 2 - type: integer 
@@ -32,16 +27,14 @@ INFO: [Synth 8-256] done synthesizing module 'synchronize' (3#1) [C:/Users/Polar
 INFO: [Synth 8-638] synthesizing module 'debounce' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/debounce.v:4]
 	Parameter DELAY bound to: 270000 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'debounce' (4#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/debounce.v:4]
-INFO: [Synth 8-638] synthesizing module 'audio_PWM' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
-INFO: [Synth 8-256] done synthesizing module 'audio_PWM' (5#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
 INFO: [Synth 8-638] synthesizing module 'display_8hex' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:16]
 	Parameter bits bound to: 13 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'display_8hex' (6#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:16]
-WARNING: [Synth 8-3848] Net LED16_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
+INFO: [Synth 8-256] done synthesizing module 'display_8hex' (5#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:16]
+INFO: [Synth 8-638] synthesizing module 'audio_PWM' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
+INFO: [Synth 8-256] done synthesizing module 'audio_PWM' (6#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v:4]
+INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/realtime/fifo_generator_0_stub.v:7]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_0' (7#1) [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/realtime/fifo_generator_0_stub.v:7]
 WARNING: [Synth 8-3848] Net LED16_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
-WARNING: [Synth 8-3848] Net LED16_B in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:35]
-WARNING: [Synth 8-3848] Net LED17_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
-WARNING: [Synth 8-3848] Net LED17_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
 WARNING: [Synth 8-3848] Net LED17_B in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:36]
 WARNING: [Synth 8-3848] Net VGA_R in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:56]
 WARNING: [Synth 8-3848] Net VGA_G in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:57]
@@ -51,12 +44,8 @@ WARNING: [Synth 8-3848] Net VGA_VS in module/entity heartaware does not have dri
 WARNING: [Synth 8-3848] Net SD_RESET in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:68]
 WARNING: [Synth 8-3848] Net SD_SCK in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:69]
 WARNING: [Synth 8-3848] Net SD_CMD in module/entity heartaware does not have driver. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:70]
-INFO: [Synth 8-256] done synthesizing module 'heartaware' (7#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_R
+INFO: [Synth 8-256] done synthesizing module 'heartaware' (8#1) [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
 WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_G
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_B
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_R
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_G
 WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_B
 WARNING: [Synth 8-3917] design heartaware has port SEG[7] driven by constant 1
 WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[3]
@@ -89,9 +78,6 @@ WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[3]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[2]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[1]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[0]
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNL
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNR
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNC
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[7]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[6]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[5]
@@ -102,7 +88,7 @@ WARNING: [Synth 8-3331] design heartaware has unconnected port JA[1]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[0]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CD
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 273.266 ; gain = 96.586
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 281.875 ; gain = 103.789
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -112,15 +98,15 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 273.266 ; gain = 96.586
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 281.875 ; gain = 103.789
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
-Finished Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
+Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
+Finished Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc] for cell 'clk_65mhz_inst'
 Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]
 Finished Parsing XDC File [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/heartaware_propImpl.xdc].
@@ -130,21 +116,21 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 587.902 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 590.348 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for CLK100MHZ. (constraint file  {C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2596-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc}, line 3).
+Applied set_property IO_BUFFER_TYPE = NONE for CLK100MHZ. (constraint file  {C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/.Xil/Vivado-2400-PolarMarquis-PC/dcp/clk_wiz_0_in_context.xdc}, line 3).
 incorrect argument "-dict" for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
 incorrect set of required parameters for "set_property" at line 15 of file {C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}
 ---------------------------------------------------------------------
@@ -1346,13 +1332,14 @@ Usage:
     [{>|>>} <stdoutFile>]
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5545] ROM "count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
 INFO: [Synth 8-5545] ROM "clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
-WARNING: [Synth 8-327] inferring latch for variable 'clk_out_reg' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v:11]
+INFO: [Synth 8-4471] merging register 'wr_en_reg' into 'LED17_R_reg' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:234]
+INFO: [Synth 8-4471] merging register 'rd_en_reg' into 'LED17_G_reg' [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:235]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1365,17 +1352,20 @@ Start RTL Component Statistics
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 6     
-	   2 Input      8 Bit       Adders := 1     
+	   2 Input     32 Bit       Adders := 5     
+	   2 Input      8 Bit       Adders := 2     
 +---Registers : 
-	                8 Bit    Registers := 2     
+	               32 Bit    Registers := 1     
+	               16 Bit    Registers := 1     
+	                8 Bit    Registers := 5     
 	                7 Bit    Registers := 1     
-	                1 Bit    Registers := 39    
+	                1 Bit    Registers := 53    
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 6     
+	   2 Input     32 Bit        Muxes := 1     
 	   8 Input      8 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
 	  16 Input      7 Bit        Muxes := 8     
-	   2 Input      1 Bit        Muxes := 9     
+	   2 Input      1 Bit        Muxes := 29    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -1385,20 +1375,40 @@ Start RTL Hierarchical Component Statistics
 Hierarchical RTL Component report 
 Module heartaware 
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 1     
 +---Registers : 
-	                1 Bit    Registers := 2     
+	               32 Bit    Registers := 1     
+	               16 Bit    Registers := 1     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 6     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 4     
 Module clock_divider 
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     32 Bit       Adders := 2     
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	                1 Bit    Registers := 1     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 1     
 Module debounce 
 Detailed RTL Component Info : 
 +---Registers : 
 	                1 Bit    Registers := 2     
 +---Muxes : 
 	   2 Input      1 Bit        Muxes := 4     
+Module display_8hex 
+Detailed RTL Component Info : 
++---Registers : 
+	                8 Bit    Registers := 1     
+	                7 Bit    Registers := 1     
++---Muxes : 
+	   8 Input      8 Bit        Muxes := 1     
+	  16 Input      7 Bit        Muxes := 8     
 Module audio_PWM 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1408,14 +1418,6 @@ Detailed RTL Component Info :
 	                1 Bit    Registers := 1     
 +---Muxes : 
 	   2 Input      1 Bit        Muxes := 1     
-Module display_8hex 
-Detailed RTL Component Info : 
-+---Registers : 
-	                8 Bit    Registers := 1     
-	                7 Bit    Registers := 1     
-+---Muxes : 
-	   8 Input      8 Bit        Muxes := 1     
-	  16 Input      7 Bit        Muxes := 8     
 Module synchronize 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -1432,7 +1434,7 @@ BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 587.902 ; gain = 411.223
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
@@ -1440,11 +1442,13 @@ INFO: [Synth 8-5545] ROM "up/count" won't be mapped to RAM because address size 
 INFO: [Synth 8-5545] ROM "up/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
 INFO: [Synth 8-5545] ROM "down/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
 INFO: [Synth 8-5545] ROM "down/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_R
+INFO: [Synth 8-5545] ROM "center/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "center/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "left/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "left/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "right/count" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
+INFO: [Synth 8-5545] ROM "right/clean" won't be mapped to RAM because address size (19) is larger than maximum supported(18)
 WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_G
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED16_B
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_R
-WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_G
 WARNING: [Synth 8-3331] design heartaware has unconnected port LED17_B
 WARNING: [Synth 8-3917] design heartaware has port SEG[7] driven by constant 1
 WARNING: [Synth 8-3331] design heartaware has unconnected port VGA_R[3]
@@ -1477,9 +1481,13 @@ WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[3]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[2]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[1]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_DAT[0]
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNL
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNR
-WARNING: [Synth 8-3331] design heartaware has unconnected port BTNC
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[14]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[13]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[12]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[11]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[10]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[9]
+WARNING: [Synth 8-3331] design heartaware has unconnected port SW[8]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[7]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[6]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[5]
@@ -1490,17 +1498,84 @@ WARNING: [Synth 8-3331] design heartaware has unconnected port JA[1]
 WARNING: [Synth 8-3331] design heartaware has unconnected port JA[0]
 WARNING: [Synth 8-3331] design heartaware has unconnected port SD_CD
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Parallel Reinference  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 590.348 ; gain = 412.262
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-WARNING: [Synth 8-3332] Sequential element (\clk_25mhz_inst/clk_out_reg ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/clk_out_reg ) is unused and will be removed from module heartaware.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\tone_divider_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_2/\tone_divider_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\display_data_reg[1] )
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[0] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[1] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[2] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[3] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[4] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[5] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[6] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[7] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[8] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[9] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[10] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[11] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[12] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[13] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[14] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[15] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[16] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[17] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[18] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[19] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[20] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[21] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[22] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[23] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[24] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[25] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[26] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[27] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[28] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[29] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[30] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_48khz_inst/counter_reg[31] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\tone_divider_reg[0] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\tone_divider_reg[1] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[0] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[1] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[2] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[3] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[4] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[5] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[6] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[7] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[8] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[9] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[10] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[11] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[12] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[13] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[14] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[15] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[16] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[17] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[18] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[19] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[20] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[21] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[22] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[23] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[24] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[25] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[26] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[27] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[28] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[29] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[30] ) is unused and will be removed from module heartaware.
+WARNING: [Synth 8-3332] Sequential element (\clk_1hz_inst/counter_reg[31] ) is unused and will be removed from module heartaware.
 WARNING: [Synth 8-3332] Sequential element (\up/new_reg ) is unused and will be removed from module heartaware.
 WARNING: [Synth 8-3332] Sequential element (\up/count_reg[0] ) is unused and will be removed from module heartaware.
 WARNING: [Synth 8-3332] Sequential element (\up/count_reg[1] ) is unused and will be removed from module heartaware.
@@ -1535,26 +1610,21 @@ WARNING: [Synth 8-3332] Sequential element (\down/count_reg[9] ) is unused and w
 WARNING: [Synth 8-3332] Sequential element (\down/count_reg[10] ) is unused and will be removed from module heartaware.
 WARNING: [Synth 8-3332] Sequential element (\down/count_reg[11] ) is unused and will be removed from module heartaware.
 WARNING: [Synth 8-3332] Sequential element (\down/count_reg[12] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[13] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[14] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[15] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[16] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[17] ) is unused and will be removed from module heartaware.
-WARNING: [Synth 8-3332] Sequential element (\down/count_reg[18] ) is unused and will be removed from module heartaware.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
 Start Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 590.348 ; gain = 412.262
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
@@ -2763,993 +2833,10 @@ Usage:
 ---------------------------------------------------------------------
 INFO: Moved 1 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
-Found timing loop:
-     0: i_0/i_87/O (GATE_2_2)
-     1: i_0/i_87/I0 (GATE_2_2)
-     2: i_0/i_86/O (GATE_2_2)
-     3: i_0/i_86/I0 (GATE_2_2)
-     4: i_0/i_11/O[0] (CARRY4)
-     5: i_0/i_11/S[0] (CARRY4)
-     6: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_79/O (GATE_2_2)
-     1: i_0/i_79/I0 (GATE_2_2)
-     2: i_0/i_78/O (GATE_2_2)
-     3: i_0/i_78/I0 (GATE_2_2)
-     4: i_0/i_10/O[0] (CARRY4)
-     5: i_0/i_10/S[0] (CARRY4)
-     6: i_0/i_79/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_71/O (GATE_2_2)
-     1: i_0/i_71/I0 (GATE_2_2)
-     2: i_0/i_70/O (GATE_2_2)
-     3: i_0/i_70/I0 (GATE_2_2)
-     4: i_0/i_9/O[0] (CARRY4)
-     5: i_0/i_9/S[0] (CARRY4)
-     6: i_0/i_71/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_63/O (GATE_2_2)
-     1: i_0/i_63/I0 (GATE_2_2)
-     2: i_0/i_62/O (GATE_2_2)
-     3: i_0/i_62/I0 (GATE_2_2)
-     4: i_0/i_8/O[0] (CARRY4)
-     5: i_0/i_8/S[0] (CARRY4)
-     6: i_0/i_63/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_55/O (GATE_2_2)
-     1: i_0/i_55/I0 (GATE_2_2)
-     2: i_0/i_54/O (GATE_2_2)
-     3: i_0/i_54/I0 (GATE_2_2)
-     4: i_0/i_7/O[0] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_47/O (GATE_2_2)
-     1: i_0/i_47/I0 (GATE_2_2)
-     2: i_0/i_46/O (GATE_2_2)
-     3: i_0/i_46/I0 (GATE_2_2)
-     4: i_0/i_6/O[0] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_39/O (GATE_2_2)
-     1: i_0/i_39/I0 (GATE_2_2)
-     2: i_0/i_38/O (GATE_2_2)
-     3: i_0/i_38/I0 (GATE_2_2)
-     4: i_0/i_5/O[0] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_31/O (GATE_2_2)
-     1: i_0/i_31/I0 (GATE_2_2)
-     2: i_0/i_30/O (GATE_2_2)
-     3: i_0/i_30/I0 (GATE_2_2)
-     4: i_0/i_4/O[0] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_29/O (GATE_2_2)
-     1: i_0/i_29/I0 (GATE_2_2)
-     2: i_0/i_28/O (GATE_2_2)
-     3: i_0/i_28/I0 (GATE_2_2)
-     4: i_0/i_27/O (INV)
-     5: i_0/i_27/I (INV)
-     6: i_0/i_29/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_121/O (GATE_2_2)
-     1: i_0/i_121/I0 (GATE_2_2)
-     2: i_0/i_120/O (GATE_2_2)
-     3: i_0/i_120/I0 (GATE_2_2)
-     4: i_0/i_119/O (GATE_2_2)
-     5: i_0/i_119/I0 (GATE_2_2)
-     6: i_0/i_118/O (GATE_2_1_NOR)
-     7: i_0/i_118/I0 (GATE_2_1_NOR)
-     8: i_0/i_91/O (GATE_2_2)
-     9: i_0/i_91/I0 (GATE_2_2)
-    10: i_0/i_90/O (GATE_2_2)
-    11: i_0/i_90/I0 (GATE_2_2)
-    12: i_0/i_11/O[2] (CARRY4)
-    13: i_0/i_11/S[0] (CARRY4)
-    14: i_0/i_87/O (GATE_2_2)
-    15: i_0/i_87/I0 (GATE_2_2)
-    16: i_0/i_86/O (GATE_2_2)
-    17: i_0/i_86/I0 (GATE_2_2)
-    18: i_0/i_11/O[0] (CARRY4)
-    19: i_0/i_11/S[0] (CARRY4)
-    20: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_31/O (GATE_2_2)
-     1: i_0/i_31/I0 (GATE_2_2)
-     2: i_0/i_30/O (GATE_2_2)
-     3: i_0/i_30/I0 (GATE_2_2)
-     4: i_0/i_4/O[0] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_31/O (GATE_2_2)
-     1: i_0/i_31/I0 (GATE_2_2)
-     2: i_0/i_30/O (GATE_2_2)
-     3: i_0/i_30/I0 (GATE_2_2)
-     4: i_0/i_4/O[0] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_33/O (GATE_2_2)
-     1: i_0/i_33/I0 (GATE_2_2)
-     2: i_0/i_32/O (GATE_2_2)
-     3: i_0/i_32/I0 (GATE_2_2)
-     4: i_0/i_4/O[1] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-     7: i_0/i_31/I0 (GATE_2_2)
-     8: i_0/i_30/O (GATE_2_2)
-     9: i_0/i_30/I0 (GATE_2_2)
-    10: i_0/i_4/O[0] (CARRY4)
-    11: i_0/i_4/S[0] (CARRY4)
-    12: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_29/O (GATE_2_2)
-     1: i_0/i_29/I1 (GATE_2_2)
-     2: i_0/i_122/O (GATE_2_2)
-     3: i_0/i_122/I0 (GATE_2_2)
-     4: i_0/i_121/O (GATE_2_2)
-     5: i_0/i_121/I0 (GATE_2_2)
-     6: i_0/i_120/O (GATE_2_2)
-     7: i_0/i_120/I0 (GATE_2_2)
-     8: i_0/i_119/O (GATE_2_2)
-     9: i_0/i_119/I0 (GATE_2_2)
-    10: i_0/i_118/O (GATE_2_1_NOR)
-    11: i_0/i_118/I0 (GATE_2_1_NOR)
-    12: i_0/i_91/O (GATE_2_2)
-    13: i_0/i_91/I0 (GATE_2_2)
-    14: i_0/i_90/O (GATE_2_2)
-    15: i_0/i_90/I0 (GATE_2_2)
-    16: i_0/i_11/O[2] (CARRY4)
-    17: i_0/i_11/S[0] (CARRY4)
-    18: i_0/i_87/O (GATE_2_2)
-    19: i_0/i_87/I0 (GATE_2_2)
-    20: i_0/i_86/O (GATE_2_2)
-    21: i_0/i_86/I0 (GATE_2_2)
-    22: i_0/i_11/O[0] (CARRY4)
-    23: i_0/i_11/S[0] (CARRY4)
-    24: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_31/O (GATE_2_2)
-     1: i_0/i_31/I0 (GATE_2_2)
-     2: i_0/i_30/O (GATE_2_2)
-     3: i_0/i_30/I0 (GATE_2_2)
-     4: i_0/i_4/O[0] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_35/O (GATE_2_2)
-     1: i_0/i_35/I0 (GATE_2_2)
-     2: i_0/i_34/O (GATE_2_2)
-     3: i_0/i_34/I0 (GATE_2_2)
-     4: i_0/i_4/O[2] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-     7: i_0/i_31/I0 (GATE_2_2)
-     8: i_0/i_30/O (GATE_2_2)
-     9: i_0/i_30/I0 (GATE_2_2)
-    10: i_0/i_4/O[0] (CARRY4)
-    11: i_0/i_4/S[0] (CARRY4)
-    12: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_29/O (GATE_2_2)
-     1: i_0/i_29/I1 (GATE_2_2)
-     2: i_0/i_122/O (GATE_2_2)
-     3: i_0/i_122/I0 (GATE_2_2)
-     4: i_0/i_121/O (GATE_2_2)
-     5: i_0/i_121/I0 (GATE_2_2)
-     6: i_0/i_120/O (GATE_2_2)
-     7: i_0/i_120/I0 (GATE_2_2)
-     8: i_0/i_119/O (GATE_2_2)
-     9: i_0/i_119/I0 (GATE_2_2)
-    10: i_0/i_118/O (GATE_2_1_NOR)
-    11: i_0/i_118/I0 (GATE_2_1_NOR)
-    12: i_0/i_91/O (GATE_2_2)
-    13: i_0/i_91/I0 (GATE_2_2)
-    14: i_0/i_90/O (GATE_2_2)
-    15: i_0/i_90/I0 (GATE_2_2)
-    16: i_0/i_11/O[2] (CARRY4)
-    17: i_0/i_11/S[0] (CARRY4)
-    18: i_0/i_87/O (GATE_2_2)
-    19: i_0/i_87/I0 (GATE_2_2)
-    20: i_0/i_86/O (GATE_2_2)
-    21: i_0/i_86/I0 (GATE_2_2)
-    22: i_0/i_11/O[0] (CARRY4)
-    23: i_0/i_11/S[0] (CARRY4)
-    24: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_37/O (GATE_2_2)
-     1: i_0/i_37/I0 (GATE_2_2)
-     2: i_0/i_36/O (GATE_2_2)
-     3: i_0/i_36/I0 (GATE_2_2)
-     4: i_0/i_4/O[3] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-     7: i_0/i_31/I0 (GATE_2_2)
-     8: i_0/i_30/O (GATE_2_2)
-     9: i_0/i_30/I0 (GATE_2_2)
-    10: i_0/i_4/O[0] (CARRY4)
-    11: i_0/i_4/S[0] (CARRY4)
-    12: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_29/O (GATE_2_2)
-     1: i_0/i_29/I1 (GATE_2_2)
-     2: i_0/i_122/O (GATE_2_2)
-     3: i_0/i_122/I0 (GATE_2_2)
-     4: i_0/i_121/O (GATE_2_2)
-     5: i_0/i_121/I0 (GATE_2_2)
-     6: i_0/i_120/O (GATE_2_2)
-     7: i_0/i_120/I0 (GATE_2_2)
-     8: i_0/i_119/O (GATE_2_2)
-     9: i_0/i_119/I0 (GATE_2_2)
-    10: i_0/i_118/O (GATE_2_1_NOR)
-    11: i_0/i_118/I0 (GATE_2_1_NOR)
-    12: i_0/i_91/O (GATE_2_2)
-    13: i_0/i_91/I0 (GATE_2_2)
-    14: i_0/i_90/O (GATE_2_2)
-    15: i_0/i_90/I0 (GATE_2_2)
-    16: i_0/i_11/O[2] (CARRY4)
-    17: i_0/i_11/S[0] (CARRY4)
-    18: i_0/i_87/O (GATE_2_2)
-    19: i_0/i_87/I0 (GATE_2_2)
-    20: i_0/i_86/O (GATE_2_2)
-    21: i_0/i_86/I0 (GATE_2_2)
-    22: i_0/i_11/O[0] (CARRY4)
-    23: i_0/i_11/S[0] (CARRY4)
-    24: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_39/O (GATE_2_2)
-     1: i_0/i_39/I0 (GATE_2_2)
-     2: i_0/i_38/O (GATE_2_2)
-     3: i_0/i_38/I0 (GATE_2_2)
-     4: i_0/i_5/O[0] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_41/O (GATE_2_2)
-     1: i_0/i_41/I0 (GATE_2_2)
-     2: i_0/i_40/O (GATE_2_2)
-     3: i_0/i_40/I0 (GATE_2_2)
-     4: i_0/i_5/O[1] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-     7: i_0/i_39/I0 (GATE_2_2)
-     8: i_0/i_38/O (GATE_2_2)
-     9: i_0/i_38/I0 (GATE_2_2)
-    10: i_0/i_5/O[0] (CARRY4)
-    11: i_0/i_5/S[0] (CARRY4)
-    12: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_4/CO[3] (CARRY4)
-     1: i_0/i_4/S[0] (CARRY4)
-     2: i_0/i_31/O (GATE_2_2)
-     3: i_0/i_31/I0 (GATE_2_2)
-     4: i_0/i_30/O (GATE_2_2)
-     5: i_0/i_30/I0 (GATE_2_2)
-     6: i_0/i_4/O[0] (CARRY4)
-     7: i_0/i_4/S[0] (CARRY4)
-     8: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_31/O (GATE_2_2)
-     1: i_0/i_31/I0 (GATE_2_2)
-     2: i_0/i_30/O (GATE_2_2)
-     3: i_0/i_30/I0 (GATE_2_2)
-     4: i_0/i_4/O[0] (CARRY4)
-     5: i_0/i_4/S[0] (CARRY4)
-     6: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_39/O (GATE_2_2)
-     1: i_0/i_39/I0 (GATE_2_2)
-     2: i_0/i_38/O (GATE_2_2)
-     3: i_0/i_38/I0 (GATE_2_2)
-     4: i_0/i_5/O[0] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_47/O (GATE_2_2)
-     1: i_0/i_47/I0 (GATE_2_2)
-     2: i_0/i_46/O (GATE_2_2)
-     3: i_0/i_46/I0 (GATE_2_2)
-     4: i_0/i_6/O[0] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_47/O (GATE_2_2)
-     1: i_0/i_47/I0 (GATE_2_2)
-     2: i_0/i_46/O (GATE_2_2)
-     3: i_0/i_46/I0 (GATE_2_2)
-     4: i_0/i_6/O[0] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_49/O (GATE_2_2)
-     1: i_0/i_49/I0 (GATE_2_2)
-     2: i_0/i_48/O (GATE_2_2)
-     3: i_0/i_48/I0 (GATE_2_2)
-     4: i_0/i_6/O[1] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-     7: i_0/i_47/I0 (GATE_2_2)
-     8: i_0/i_46/O (GATE_2_2)
-     9: i_0/i_46/I0 (GATE_2_2)
-    10: i_0/i_6/O[0] (CARRY4)
-    11: i_0/i_6/S[0] (CARRY4)
-    12: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_5/CO[3] (CARRY4)
-     1: i_0/i_5/S[0] (CARRY4)
-     2: i_0/i_39/O (GATE_2_2)
-     3: i_0/i_39/I0 (GATE_2_2)
-     4: i_0/i_38/O (GATE_2_2)
-     5: i_0/i_38/I0 (GATE_2_2)
-     6: i_0/i_5/O[0] (CARRY4)
-     7: i_0/i_5/S[0] (CARRY4)
-     8: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_51/O (GATE_2_2)
-     1: i_0/i_51/I0 (GATE_2_2)
-     2: i_0/i_50/O (GATE_2_2)
-     3: i_0/i_50/I0 (GATE_2_2)
-     4: i_0/i_6/O[2] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-     7: i_0/i_47/I0 (GATE_2_2)
-     8: i_0/i_46/O (GATE_2_2)
-     9: i_0/i_46/I0 (GATE_2_2)
-    10: i_0/i_6/O[0] (CARRY4)
-    11: i_0/i_6/S[0] (CARRY4)
-    12: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_5/CO[3] (CARRY4)
-     1: i_0/i_5/S[0] (CARRY4)
-     2: i_0/i_39/O (GATE_2_2)
-     3: i_0/i_39/I0 (GATE_2_2)
-     4: i_0/i_38/O (GATE_2_2)
-     5: i_0/i_38/I0 (GATE_2_2)
-     6: i_0/i_5/O[0] (CARRY4)
-     7: i_0/i_5/S[0] (CARRY4)
-     8: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_29/O (GATE_2_2)
-     1: i_0/i_29/I1 (GATE_2_2)
-     2: i_0/i_122/O (GATE_2_2)
-     3: i_0/i_122/I0 (GATE_2_2)
-     4: i_0/i_121/O (GATE_2_2)
-     5: i_0/i_121/I0 (GATE_2_2)
-     6: i_0/i_120/O (GATE_2_2)
-     7: i_0/i_120/I0 (GATE_2_2)
-     8: i_0/i_119/O (GATE_2_2)
-     9: i_0/i_119/I0 (GATE_2_2)
-    10: i_0/i_118/O (GATE_2_1_NOR)
-    11: i_0/i_118/I0 (GATE_2_1_NOR)
-    12: i_0/i_91/O (GATE_2_2)
-    13: i_0/i_91/I0 (GATE_2_2)
-    14: i_0/i_90/O (GATE_2_2)
-    15: i_0/i_90/I0 (GATE_2_2)
-    16: i_0/i_11/O[2] (CARRY4)
-    17: i_0/i_11/S[0] (CARRY4)
-    18: i_0/i_87/O (GATE_2_2)
-    19: i_0/i_87/I0 (GATE_2_2)
-    20: i_0/i_86/O (GATE_2_2)
-    21: i_0/i_86/I0 (GATE_2_2)
-    22: i_0/i_11/O[0] (CARRY4)
-    23: i_0/i_11/S[0] (CARRY4)
-    24: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_55/O (GATE_2_2)
-     1: i_0/i_55/I0 (GATE_2_2)
-     2: i_0/i_54/O (GATE_2_2)
-     3: i_0/i_54/I0 (GATE_2_2)
-     4: i_0/i_7/O[0] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_57/O (GATE_2_2)
-     1: i_0/i_57/I0 (GATE_2_2)
-     2: i_0/i_56/O (GATE_2_2)
-     3: i_0/i_56/I0 (GATE_2_2)
-     4: i_0/i_7/O[1] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-     7: i_0/i_55/I0 (GATE_2_2)
-     8: i_0/i_54/O (GATE_2_2)
-     9: i_0/i_54/I0 (GATE_2_2)
-    10: i_0/i_7/O[0] (CARRY4)
-    11: i_0/i_7/S[0] (CARRY4)
-    12: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_6/CO[3] (CARRY4)
-     1: i_0/i_6/S[0] (CARRY4)
-     2: i_0/i_47/O (GATE_2_2)
-     3: i_0/i_47/I0 (GATE_2_2)
-     4: i_0/i_46/O (GATE_2_2)
-     5: i_0/i_46/I0 (GATE_2_2)
-     6: i_0/i_6/O[0] (CARRY4)
-     7: i_0/i_6/S[0] (CARRY4)
-     8: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_55/O (GATE_2_2)
-     1: i_0/i_55/I0 (GATE_2_2)
-     2: i_0/i_54/O (GATE_2_2)
-     3: i_0/i_54/I0 (GATE_2_2)
-     4: i_0/i_7/O[0] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_59/O (GATE_2_2)
-     1: i_0/i_59/I0 (GATE_2_2)
-     2: i_0/i_58/O (GATE_2_2)
-     3: i_0/i_58/I0 (GATE_2_2)
-     4: i_0/i_7/O[2] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-     7: i_0/i_55/I0 (GATE_2_2)
-     8: i_0/i_54/O (GATE_2_2)
-     9: i_0/i_54/I0 (GATE_2_2)
-    10: i_0/i_7/O[0] (CARRY4)
-    11: i_0/i_7/S[0] (CARRY4)
-    12: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_6/CO[3] (CARRY4)
-     1: i_0/i_6/S[0] (CARRY4)
-     2: i_0/i_47/O (GATE_2_2)
-     3: i_0/i_47/I0 (GATE_2_2)
-     4: i_0/i_46/O (GATE_2_2)
-     5: i_0/i_46/I0 (GATE_2_2)
-     6: i_0/i_6/O[0] (CARRY4)
-     7: i_0/i_6/S[0] (CARRY4)
-     8: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_47/O (GATE_2_2)
-     1: i_0/i_47/I0 (GATE_2_2)
-     2: i_0/i_46/O (GATE_2_2)
-     3: i_0/i_46/I0 (GATE_2_2)
-     4: i_0/i_6/O[0] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_53/O (GATE_2_2)
-     1: i_0/i_53/I0 (GATE_2_2)
-     2: i_0/i_52/O (GATE_2_2)
-     3: i_0/i_52/I0 (GATE_2_2)
-     4: i_0/i_6/O[3] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-     7: i_0/i_47/I0 (GATE_2_2)
-     8: i_0/i_46/O (GATE_2_2)
-     9: i_0/i_46/I0 (GATE_2_2)
-    10: i_0/i_6/O[0] (CARRY4)
-    11: i_0/i_6/S[0] (CARRY4)
-    12: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_5/CO[3] (CARRY4)
-     1: i_0/i_5/S[0] (CARRY4)
-     2: i_0/i_39/O (GATE_2_2)
-     3: i_0/i_39/I0 (GATE_2_2)
-     4: i_0/i_38/O (GATE_2_2)
-     5: i_0/i_38/I0 (GATE_2_2)
-     6: i_0/i_5/O[0] (CARRY4)
-     7: i_0/i_5/S[0] (CARRY4)
-     8: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_55/O (GATE_2_2)
-     1: i_0/i_55/I0 (GATE_2_2)
-     2: i_0/i_54/O (GATE_2_2)
-     3: i_0/i_54/I0 (GATE_2_2)
-     4: i_0/i_7/O[0] (CARRY4)
-     5: i_0/i_7/S[0] (CARRY4)
-     6: i_0/i_55/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_39/O (GATE_2_2)
-     1: i_0/i_39/I0 (GATE_2_2)
-     2: i_0/i_38/O (GATE_2_2)
-     3: i_0/i_38/I0 (GATE_2_2)
-     4: i_0/i_5/O[0] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_43/O (GATE_2_2)
-     1: i_0/i_43/I0 (GATE_2_2)
-     2: i_0/i_42/O (GATE_2_2)
-     3: i_0/i_42/I0 (GATE_2_2)
-     4: i_0/i_5/O[2] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-     7: i_0/i_39/I0 (GATE_2_2)
-     8: i_0/i_38/O (GATE_2_2)
-     9: i_0/i_38/I0 (GATE_2_2)
-    10: i_0/i_5/O[0] (CARRY4)
-    11: i_0/i_5/S[0] (CARRY4)
-    12: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_4/CO[3] (CARRY4)
-     1: i_0/i_4/S[0] (CARRY4)
-     2: i_0/i_31/O (GATE_2_2)
-     3: i_0/i_31/I0 (GATE_2_2)
-     4: i_0/i_30/O (GATE_2_2)
-     5: i_0/i_30/I0 (GATE_2_2)
-     6: i_0/i_4/O[0] (CARRY4)
-     7: i_0/i_4/S[0] (CARRY4)
-     8: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_39/O (GATE_2_2)
-     1: i_0/i_39/I0 (GATE_2_2)
-     2: i_0/i_38/O (GATE_2_2)
-     3: i_0/i_38/I0 (GATE_2_2)
-     4: i_0/i_5/O[0] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_45/O (GATE_2_2)
-     1: i_0/i_45/I0 (GATE_2_2)
-     2: i_0/i_44/O (GATE_2_2)
-     3: i_0/i_44/I0 (GATE_2_2)
-     4: i_0/i_5/O[3] (CARRY4)
-     5: i_0/i_5/S[0] (CARRY4)
-     6: i_0/i_39/O (GATE_2_2)
-     7: i_0/i_39/I0 (GATE_2_2)
-     8: i_0/i_38/O (GATE_2_2)
-     9: i_0/i_38/I0 (GATE_2_2)
-    10: i_0/i_5/O[0] (CARRY4)
-    11: i_0/i_5/S[0] (CARRY4)
-    12: i_0/i_39/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_4/CO[3] (CARRY4)
-     1: i_0/i_4/S[0] (CARRY4)
-     2: i_0/i_31/O (GATE_2_2)
-     3: i_0/i_31/I0 (GATE_2_2)
-     4: i_0/i_30/O (GATE_2_2)
-     5: i_0/i_30/I0 (GATE_2_2)
-     6: i_0/i_4/O[0] (CARRY4)
-     7: i_0/i_4/S[0] (CARRY4)
-     8: i_0/i_31/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_122/O (GATE_2_2)
-     1: i_0/i_122/I0 (GATE_2_2)
-     2: i_0/i_121/O (GATE_2_2)
-     3: i_0/i_121/I0 (GATE_2_2)
-     4: i_0/i_120/O (GATE_2_2)
-     5: i_0/i_120/I0 (GATE_2_2)
-     6: i_0/i_119/O (GATE_2_2)
-     7: i_0/i_119/I0 (GATE_2_2)
-     8: i_0/i_118/O (GATE_2_1_NOR)
-     9: i_0/i_118/I0 (GATE_2_1_NOR)
-    10: i_0/i_91/O (GATE_2_2)
-    11: i_0/i_91/I0 (GATE_2_2)
-    12: i_0/i_90/O (GATE_2_2)
-    13: i_0/i_90/I0 (GATE_2_2)
-    14: i_0/i_11/O[2] (CARRY4)
-    15: i_0/i_11/S[0] (CARRY4)
-    16: i_0/i_87/O (GATE_2_2)
-    17: i_0/i_87/I0 (GATE_2_2)
-    18: i_0/i_86/O (GATE_2_2)
-    19: i_0/i_86/I0 (GATE_2_2)
-    20: i_0/i_11/O[0] (CARRY4)
-    21: i_0/i_11/S[0] (CARRY4)
-    22: i_0/i_87/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_47/O (GATE_2_2)
-     1: i_0/i_47/I0 (GATE_2_2)
-     2: i_0/i_46/O (GATE_2_2)
-     3: i_0/i_46/I0 (GATE_2_2)
-     4: i_0/i_6/O[0] (CARRY4)
-     5: i_0/i_6/S[0] (CARRY4)
-     6: i_0/i_47/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_61/O (GATE_2_2)
-     1: i_0/i_61/I0 (GATE_2_2)
-     2: i_0/i_60/O (GATE_2_2)
-     3: i_0/i_60/I0 (GATE_2_2)
-     4: i_0/i_7/O[3] (CARRY4)
-     5: i_0/i_7/S[3] (CARRY4)
-     6: i_0/i_61/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_65/O (GATE_2_2)
-     1: i_0/i_65/I0 (GATE_2_2)
-     2: i_0/i_64/O (GATE_2_2)
-     3: i_0/i_64/I0 (GATE_2_2)
-     4: i_0/i_8/O[1] (CARRY4)
-     5: i_0/i_8/S[1] (CARRY4)
-     6: i_0/i_65/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_67/O (GATE_2_2)
-     1: i_0/i_67/I0 (GATE_2_2)
-     2: i_0/i_66/O (GATE_2_2)
-     3: i_0/i_66/I0 (GATE_2_2)
-     4: i_0/i_8/O[2] (CARRY4)
-     5: i_0/i_8/S[2] (CARRY4)
-     6: i_0/i_67/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_69/O (GATE_2_2)
-     1: i_0/i_69/I0 (GATE_2_2)
-     2: i_0/i_68/O (GATE_2_2)
-     3: i_0/i_68/I0 (GATE_2_2)
-     4: i_0/i_8/O[3] (CARRY4)
-     5: i_0/i_8/S[3] (CARRY4)
-     6: i_0/i_69/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_73/O (GATE_2_2)
-     1: i_0/i_73/I0 (GATE_2_2)
-     2: i_0/i_72/O (GATE_2_2)
-     3: i_0/i_72/I0 (GATE_2_2)
-     4: i_0/i_9/O[1] (CARRY4)
-     5: i_0/i_9/S[1] (CARRY4)
-     6: i_0/i_73/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_75/O (GATE_2_2)
-     1: i_0/i_75/I0 (GATE_2_2)
-     2: i_0/i_74/O (GATE_2_2)
-     3: i_0/i_74/I0 (GATE_2_2)
-     4: i_0/i_9/O[2] (CARRY4)
-     5: i_0/i_9/S[2] (CARRY4)
-     6: i_0/i_75/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_77/O (GATE_2_2)
-     1: i_0/i_77/I0 (GATE_2_2)
-     2: i_0/i_76/O (GATE_2_2)
-     3: i_0/i_76/I0 (GATE_2_2)
-     4: i_0/i_9/O[3] (CARRY4)
-     5: i_0/i_9/S[3] (CARRY4)
-     6: i_0/i_77/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_81/O (GATE_2_2)
-     1: i_0/i_81/I0 (GATE_2_2)
-     2: i_0/i_80/O (GATE_2_2)
-     3: i_0/i_80/I0 (GATE_2_2)
-     4: i_0/i_10/O[1] (CARRY4)
-     5: i_0/i_10/S[1] (CARRY4)
-     6: i_0/i_81/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_83/O (GATE_2_2)
-     1: i_0/i_83/I0 (GATE_2_2)
-     2: i_0/i_82/O (GATE_2_2)
-     3: i_0/i_82/I0 (GATE_2_2)
-     4: i_0/i_10/O[2] (CARRY4)
-     5: i_0/i_10/S[2] (CARRY4)
-     6: i_0/i_83/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_85/O (GATE_2_2)
-     1: i_0/i_85/I0 (GATE_2_2)
-     2: i_0/i_84/O (GATE_2_2)
-     3: i_0/i_84/I0 (GATE_2_2)
-     4: i_0/i_10/O[3] (CARRY4)
-     5: i_0/i_10/S[3] (CARRY4)
-     6: i_0/i_85/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_89/O (GATE_2_2)
-     1: i_0/i_89/I0 (GATE_2_2)
-     2: i_0/i_88/O (GATE_2_2)
-     3: i_0/i_88/I0 (GATE_2_2)
-     4: i_0/i_11/O[1] (CARRY4)
-     5: i_0/i_11/S[1] (CARRY4)
-     6: i_0/i_89/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
-Found timing loop:
-     0: i_0/i_91/O (GATE_2_2)
-     1: i_0/i_91/I0 (GATE_2_2)
-     2: i_0/i_90/O (GATE_2_2)
-     3: i_0/i_90/I0 (GATE_2_2)
-     4: i_0/i_11/O[2] (CARRY4)
-     5: i_0/i_11/S[2] (CARRY4)
-     6: i_0/i_91/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v:46]
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Timing Optimization : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -3760,118 +2847,8 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-Found timing loop:
-     0: i_121/O (LUT3)
-     1: i_121/I1 (LUT3)
-     2: i_121/O (LUT3)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_68/O (LUT6)
-     1: i_68/I5 (LUT6)
-     2: i_56/O (LUT4)
-     3: i_56/I1 (LUT4)
-     4: i_68/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_68/O (LUT6)
-     1: i_68/I4 (LUT6)
-     2: i_70/O (LUT2)
-     3: i_70/I1 (LUT2)
-     4: i_68/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_121/O (LUT3)
-     1: i_121/I1 (LUT3)
-     2: i_121/O (LUT3)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_68/O (LUT6)
-     1: i_68/I3 (LUT6)
-     2: i_54/O (LUT3)
-     3: i_54/I2 (LUT3)
-     4: i_68/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_68/O (LUT6)
-     1: i_68/I2 (LUT6)
-     2: i_58/O (LUT6)
-     3: i_58/I4 (LUT6)
-     4: i_68/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_45/O (LUT4)
-     1: i_45/I3 (LUT4)
-     2: i_60/O (LUT5)
-     3: i_60/I2 (LUT5)
-     4: i_69/O (LUT6)
-     5: i_69/I5 (LUT6)
-     6: i_45/O (LUT4)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_68/O (LUT6)
-     1: i_68/I1 (LUT6)
-     2: i_45/O (LUT4)
-     3: i_45/I3 (LUT4)
-     4: i_60/O (LUT5)
-     5: i_60/I2 (LUT5)
-     6: i_69/O (LUT6)
-     7: i_69/I5 (LUT6)
-     8: i_45/O (LUT4)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_121/O (LUT3)
-     1: i_121/I1 (LUT3)
-     2: i_121/O (LUT3)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I5 (LUT6)
-     2: i_39/O (LUT6)
-     3: i_39/I4 (LUT6)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I4 (LUT6)
-     2: i_35/O (LUT6)
-     3: i_35/I4 (LUT6)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I3 (LUT6)
-     2: i_27/O (LUT5)
-     3: i_27/I1 (LUT5)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I2 (LUT6)
-     2: i_24/O (LUT5)
-     3: i_24/I1 (LUT5)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I1 (LUT6)
-     2: i_31/O (LUT5)
-     3: i_31/I1 (LUT5)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_23/O (LUT6)
-     1: i_23/I0 (LUT6)
-     2: i_29/O (LUT5)
-     3: i_29/I1 (LUT5)
-     4: i_23/O (LUT6)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
-Found timing loop:
-     0: i_141/O (LUT3)
-     1: i_141/I1 (LUT3)
-     2: i_141/O (LUT3)
-WARNING: [Synth 8-295] found timing loop. [C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v:17]
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Technology Mapping : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -3889,7 +2866,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -3902,7 +2879,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -3914,75 +2891,76 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Start Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Start Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
 ---------------------------------------------------------------------------------
 
 Report BlackBoxes: 
-+------+--------------+----------+
-|      |BlackBox name |Instances |
-+------+--------------+----------+
-|1     |clk_wiz_0     |         1|
-+------+--------------+----------+
++------+-----------------+----------+
+|      |BlackBox name    |Instances |
++------+-----------------+----------+
+|1     |clk_wiz_0        |         1|
+|2     |fifo_generator_0 |         1|
++------+-----------------+----------+
 
 Report Cell Usage: 
-+------+----------+------+
-|      |Cell      |Count |
-+------+----------+------+
-|1     |clk_wiz_0 |     1|
-|2     |BUFG      |     1|
-|3     |CARRY4    |    12|
-|4     |LUT1      |    18|
-|5     |LUT2      |    15|
-|6     |LUT3      |    15|
-|7     |LUT4      |    43|
-|8     |LUT5      |    16|
-|9     |LUT6      |    17|
-|10    |MUXF7     |     6|
-|11    |FDRE      |    36|
-|12    |FDSE      |     4|
-|13    |LDC       |     1|
-|14    |IBUF      |    16|
-|15    |OBUF      |    34|
-|16    |OBUFT     |    23|
-+------+----------+------+
++------+-----------------+------+
+|      |Cell             |Count |
++------+-----------------+------+
+|1     |clk_wiz_0        |     1|
+|2     |fifo_generator_0 |     1|
+|3     |BUFG             |     2|
+|4     |CARRY4           |    61|
+|5     |LUT1             |   152|
+|6     |LUT2             |    40|
+|7     |LUT3             |    83|
+|8     |LUT4             |    33|
+|9     |LUT5             |    19|
+|10    |LUT6             |    60|
+|11    |FDRE             |   247|
+|12    |IBUF             |    11|
+|13    |OBUF             |    33|
+|14    |OBUFT            |    24|
++------+-----------------+------+
 
 Report Instance Areas: 
-+------+-------------------+--------------+------+
-|      |Instance           |Module        |Cells |
-+------+-------------------+--------------+------+
-|1     |top                |              |   259|
-|2     |  audio_PWM_module |audio_PWM     |    21|
-|3     |  clk_48khz_inst   |clock_divider |     6|
-|4     |  display          |display_8hex  |    91|
-+------+-------------------+--------------+------+
++------+-------------------+----------------+------+
+|      |Instance           |Module          |Cells |
++------+-------------------+----------------+------+
+|1     |top                |                |   788|
+|2     |  audio_PWM_module |audio_PWM       |    28|
+|3     |  clk_25mhz_inst   |clock_divider   |    89|
+|4     |  clk_tone_inst    |clock_divider_0 |    89|
+|5     |  display          |display_8hex    |   118|
+|6     |  left             |debounce        |    63|
+|7     |  right            |debounce_1      |   113|
++------+-------------------+----------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 587.902 ; gain = 411.223
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 179 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:22 . Memory (MB): peak = 587.902 ; gain = 71.789
-Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 587.902 ; gain = 411.223
+Synthesis finished with 0 errors, 0 critical warnings and 177 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:22 . Memory (MB): peak = 590.348 ; gain = 79.316
+Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:30 . Memory (MB): peak = 590.348 ; gain = 412.262
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 29 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 72 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-140] Inserted 1 IBUFs to IO ports without IO buffers.
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 1 instances were transformed.
-  LDC => LDCE: 1 instances
+No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-33 Infos, 248 Warnings, 0 Critical Warnings and 0 Errors encountered.
+47 Infos, 202 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 587.902 ; gain = 388.066
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 587.902 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Mon Nov 23 23:56:52 2015...
+synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 590.348 ; gain = 389.430
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.061 . Memory (MB): peak = 590.348 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 24 21:55:36 2015...

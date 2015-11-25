@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.2.1 (win64) Build 1302555 Wed Aug  5 13:06:02 MDT 2015
-| Date         : Mon Nov 23 23:57:20 2015
+| Date         : Tue Nov 24 21:56:03 2015
 | Host         : PolarMarquis-PC running 64-bit Service Pack 1  (build 7601)
 | Command      : report_drc
 --------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 18
+             Violations found: 21
 
 2. REPORT DETAILS
 -----------------
@@ -36,62 +36,87 @@ Related violations: <none>
 
 BUFC-1#3 Warning
 Input Buffer Connections  
-Input buffer BTNL_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer BTNU_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#4 Warning
 Input Buffer Connections  
-Input buffer BTNR_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[0]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#5 Warning
 Input Buffer Connections  
-Input buffer BTNU_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[1]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#6 Warning
 Input Buffer Connections  
-Input buffer JA[0]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[2]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#7 Warning
 Input Buffer Connections  
-Input buffer JA[1]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[3]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#8 Warning
 Input Buffer Connections  
-Input buffer JA[2]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[4]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#9 Warning
 Input Buffer Connections  
-Input buffer JA[3]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[5]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#10 Warning
 Input Buffer Connections  
-Input buffer JA[4]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[6]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#11 Warning
 Input Buffer Connections  
-Input buffer JA[5]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer JA[7]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#12 Warning
 Input Buffer Connections  
-Input buffer JA[6]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer SD_CD_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#13 Warning
 Input Buffer Connections  
-Input buffer JA[7]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer SW[10]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 BUFC-1#14 Warning
 Input Buffer Connections  
-Input buffer SD_CD_IBUF_inst has no loads. An input buffer must drive an internal load.
+Input buffer SW[11]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Related violations: <none>
+
+BUFC-1#15 Warning
+Input Buffer Connections  
+Input buffer SW[12]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Related violations: <none>
+
+BUFC-1#16 Warning
+Input Buffer Connections  
+Input buffer SW[13]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Related violations: <none>
+
+BUFC-1#17 Warning
+Input Buffer Connections  
+Input buffer SW[14]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Related violations: <none>
+
+BUFC-1#18 Warning
+Input Buffer Connections  
+Input buffer SW[8]_IBUF_inst has no loads. An input buffer must drive an internal load.
+Related violations: <none>
+
+BUFC-1#19 Warning
+Input Buffer Connections  
+Input buffer SW[9]_IBUF_inst has no loads. An input buffer must drive an internal load.
 Related violations: <none>
 
 CFGBVS-1#1 Warning
@@ -105,16 +130,6 @@ Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_des
  #where value2 is the voltage provided to configuration bank 0
 
 Refer to the device configuration user guide for more information.
-Related violations: <none>
-
-LUTLP-1#1 Warning
-Combinatorial Loop  
-1 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. To allow bitstream creation for designs with combinatorial logic loops (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks LUTLP-1]. NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. clk_out_reg_i_22.
-Related violations: <none>
-
-LUTLP-1#2 Warning
-Combinatorial Loop  
-19 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. To allow bitstream creation for designs with combinatorial logic loops (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks LUTLP-1]. NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. clk_48khz_inst/clk_out_reg_i_2, clk_48khz_inst/clk_out_reg_i_3, clk_48khz_inst/clk_out_reg_i_4, clk_out_reg_i_5, clk_out_reg_i_6, clk_out_reg_i_7, clk_out_reg_i_8, clk_out_reg_i_9, clk_out_reg_i_10, clk_out_reg_i_11, clk_out_reg_i_12, clk_out_reg_i_13, clk_out_reg_i_14, clk_out_reg_i_15, clk_48khz_inst/clk_out_reg_i_16 (the first 15 of 19 listed).
 Related violations: <none>
 
 PLIO-7#1 Warning

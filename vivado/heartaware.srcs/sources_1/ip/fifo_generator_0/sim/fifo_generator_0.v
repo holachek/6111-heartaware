@@ -61,7 +61,8 @@ module fifo_generator_0 (
   rd_en,
   dout,
   full,
-  empty
+  empty,
+  data_count
 );
 
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 core_clk CLK" *)
@@ -79,6 +80,7 @@ output wire [7 : 0] dout;
 output wire full;
 (* X_INTERFACE_INFO = "xilinx.com:interface:fifo_read:1.0 FIFO_READ EMPTY" *)
 output wire empty;
+output wire [10 : 0] data_count;
 
   fifo_generator_v12_0 #(
     .C_COMMON_CLOCK(1),
@@ -94,7 +96,7 @@ output wire empty;
     .C_HAS_ALMOST_EMPTY(0),
     .C_HAS_ALMOST_FULL(0),
     .C_HAS_BACKUP(0),
-    .C_HAS_DATA_COUNT(0),
+    .C_HAS_DATA_COUNT(1),
     .C_HAS_INT_CLK(0),
     .C_HAS_MEMINIT_FILE(0),
     .C_HAS_OVERFLOW(0),
@@ -313,7 +315,7 @@ output wire empty;
     .almost_empty(),
     .valid(),
     .underflow(),
-    .data_count(),
+    .data_count(data_count),
     .rd_data_count(),
     .wr_data_count(),
     .prog_full(),

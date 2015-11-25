@@ -42,6 +42,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {Common-41} -limit 4294967295
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
 
@@ -58,12 +59,18 @@ set rc [catch {
   add_files -quiet {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/synth_1/heartaware.dcp}}
   add_files -quiet {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp}}
   set_property netlist_only true [get_files {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp}}]
+  add_files -quiet {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp}}
+  set_property netlist_only true [get_files {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp}}]
   read_xdc -mode out_of_context -ref clk_wiz_0 -cells inst {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc}}
   set_property processing_order EARLY [get_files {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc}}]
   read_xdc -prop_thru_buffers -ref clk_wiz_0 -cells inst {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc}}
   set_property processing_order EARLY [get_files {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc}}]
   read_xdc -ref clk_wiz_0 -cells inst {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc}}
   set_property processing_order EARLY [get_files {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc}}]
+  read_xdc -mode out_of_context -ref fifo_generator_0 -cells U0 {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0_ooc.xdc}}
+  set_property processing_order EARLY [get_files {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0_ooc.xdc}}]
+  read_xdc -ref fifo_generator_0 -cells U0 {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0/fifo_generator_0.xdc}}
+  set_property processing_order EARLY [get_files {{c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0/fifo_generator_0.xdc}}]
   read_xdc {{C:/Users/Polar Marquis/Desktop/heartaware/constraints/heartaware_nexys4.xdc}}
   link_design -top heartaware -part xc7a100tcsg324-1
   close_msg_db -file init_design.pb

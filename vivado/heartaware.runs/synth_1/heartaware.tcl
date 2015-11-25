@@ -4,6 +4,7 @@
 
 set_param xicom.use_bs_reader 1
 debug::add_scope template.lib 1
+set_msg_config -id {Common-41} -limit 4294967295
 set_msg_config -id {HDL 9-1061} -limit 100000
 set_msg_config -id {HDL 9-1654} -limit 100000
 create_project -in_memory -part xc7a100tcsg324-1
@@ -16,11 +17,13 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 add_files -quiet {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp}}
 set_property used_in_implementation false [get_files {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/clk_wiz_0_synth_1/clk_wiz_0.dcp}}]
+add_files -quiet {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp}}
+set_property used_in_implementation false [get_files {{C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1/fifo_generator_0.dcp}}]
 read_verilog -library xil_defaultlib {
+  {C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v}
   {C:/Users/Polar Marquis/Desktop/heartaware/verilog/synchronize.v}
   {C:/Users/Polar Marquis/Desktop/heartaware/verilog/display_8hex.v}
   {C:/Users/Polar Marquis/Desktop/heartaware/verilog/debounce.v}
-  {C:/Users/Polar Marquis/Desktop/heartaware/verilog/audio_PWM.v}
   {C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v}
   {C:/Users/Polar Marquis/Desktop/heartaware/verilog/main.v}
 }

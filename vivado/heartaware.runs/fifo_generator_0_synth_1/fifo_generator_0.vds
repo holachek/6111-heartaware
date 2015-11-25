@@ -2,8 +2,8 @@
 # Vivado v2015.2.1 (64-bit)
 # SW Build 1302555 on Wed Aug  5 13:06:02 MDT 2015
 # IP Build 1291990 on Mon Jul 27 03:18:52 MDT 2015
-# Start of session at: Tue Nov 24 00:06:38 2015
-# Process ID: 3248
+# Start of session at: Tue Nov 24 19:05:16 2015
+# Process ID: 3840
 # Log file: C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1/fifo_generator_0.vds
 # Journal file: C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/fifo_generator_0_synth_1\vivado.jou
 #-----------------------------------------------------------
@@ -21,9 +21,9 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 256.988 ; gain = 80.234
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 257.738 ; gain = 79.746
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:72]
+INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:73]
 	Parameter C_COMMON_CLOCK bound to: 1 - type: integer 
 	Parameter C_COUNT_TYPE bound to: 0 - type: integer 
 	Parameter C_DATA_COUNT_WIDTH bound to: 11 - type: integer 
@@ -37,7 +37,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [c:/Users/Polar Marqu
 	Parameter C_HAS_ALMOST_EMPTY bound to: 0 - type: integer 
 	Parameter C_HAS_ALMOST_FULL bound to: 0 - type: integer 
 	Parameter C_HAS_BACKUP bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_HAS_INT_CLK bound to: 0 - type: integer 
 	Parameter C_HAS_MEMINIT_FILE bound to: 0 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
@@ -224,7 +224,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_0' [c:/Users/Polar Marqu
 	Parameter C_REG_SLICE_MODE_RACH bound to: 0 - type: integer 
 	Parameter C_REG_SLICE_MODE_RDCH bound to: 0 - type: integer 
 	Parameter C_REG_SLICE_MODE_AXIS bound to: 0 - type: integer 
-INFO: [Synth 8-3491] module 'fifo_generator_v12_0' declared at 'c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd:127' bound to instance 'U0' of component 'fifo_generator_v12_0' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:528]
+INFO: [Synth 8-3491] module 'fifo_generator_v12_0' declared at 'c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd:127' bound to instance 'U0' of component 'fifo_generator_v12_0' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:529]
 INFO: [Synth 8-638] synthesizing module 'fifo_generator_v12_0' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd:665]
 	Parameter C_COMMON_CLOCK bound to: 1 - type: integer 
 	Parameter C_COUNT_TYPE bound to: 0 - type: integer 
@@ -239,7 +239,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_v12_0' [c:/Users/Polar M
 	Parameter C_HAS_ALMOST_EMPTY bound to: 0 - type: integer 
 	Parameter C_HAS_ALMOST_FULL bound to: 0 - type: integer 
 	Parameter C_HAS_BACKUP bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_HAS_INT_CLK bound to: 0 - type: integer 
 	Parameter C_HAS_MEMINIT_FILE bound to: 0 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
@@ -440,7 +440,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_v12_0_synth' [c:/Users/P
 	Parameter C_HAS_ALMOST_EMPTY bound to: 0 - type: integer 
 	Parameter C_HAS_ALMOST_FULL bound to: 0 - type: integer 
 	Parameter C_HAS_BACKUP bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_HAS_INT_CLK bound to: 0 - type: integer 
 	Parameter C_HAS_MEMINIT_FILE bound to: 0 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
@@ -672,7 +672,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_top' [c:/Users/Polar Mar
 	Parameter C_WR_ACK_LOW bound to: 0 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
 	Parameter C_OVERFLOW_LOW bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_DATA_COUNT_WIDTH bound to: 11 - type: integer 
 	Parameter C_HAS_RD_DATA_COUNT bound to: 0 - type: integer 
 	Parameter C_RD_DATA_COUNT_WIDTH bound to: 11 - type: integer 
@@ -737,7 +737,7 @@ INFO: [Synth 8-638] synthesizing module 'fifo_generator_ramfifo' [c:/Users/Polar
 	Parameter C_WR_ACK_LOW bound to: 0 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
 	Parameter C_OVERFLOW_LOW bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_DATA_COUNT_WIDTH bound to: 11 - type: integer 
 	Parameter C_HAS_RD_DATA_COUNT bound to: 0 - type: integer 
 	Parameter C_RD_DATA_COUNT_WIDTH bound to: 11 - type: integer 
@@ -843,7 +843,7 @@ INFO: [Synth 8-638] synthesizing module 'rd_logic' [c:/Users/Polar Marquis/Deskt
 	Parameter C_HAS_ALMOST_EMPTY bound to: 0 - type: integer 
 	Parameter C_HAS_RD_DATA_COUNT bound to: 0 - type: integer 
 	Parameter C_USE_FWFT_DATA_COUNT bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_HAS_RST bound to: 1 - type: integer 
 	Parameter C_HAS_SRST bound to: 0 - type: integer 
 	Parameter C_HAS_VALID bound to: 0 - type: integer 
@@ -883,7 +883,22 @@ INFO: [Synth 8-113] binding component instance 'ms' to cell 'MUXCY' [c:/Users/Po
 INFO: [Synth 8-113] binding component instance 'ms' to cell 'MUXCY' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:7602]
 INFO: [Synth 8-256] done synthesizing module 'compare' (6#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:7530]
 INFO: [Synth 8-256] done synthesizing module 'rd_status_flags_ss' (7#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:8755]
-INFO: [Synth 8-256] done synthesizing module 'rd_logic' (8#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:19638]
+INFO: [Synth 8-638] synthesizing module 'dc_ss' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:15876]
+	Parameter C_HAS_RST bound to: 1 - type: integer 
+	Parameter C_HAS_SRST bound to: 0 - type: integer 
+	Parameter C_WR_PNTR_WIDTH bound to: 11 - type: integer 
+	Parameter C_RD_PNTR_WIDTH bound to: 11 - type: integer 
+	Parameter C_DEPTH_RATIO_WR bound to: 1 - type: integer 
+	Parameter C_DEPTH_RATIO_RD bound to: 1 - type: integer 
+	Parameter C_GRTR_PNTR_WIDTH bound to: 1 - type: integer 
+INFO: [Synth 8-638] synthesizing module 'updn_cntr' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:8348]
+	Parameter C_HAS_RST bound to: 1 - type: integer 
+	Parameter C_HAS_SRST bound to: 0 - type: integer 
+	Parameter C_COUNTER_RESET_VAL bound to: 0 - type: integer 
+	Parameter C_PNTR_WIDTH bound to: 11 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'updn_cntr' (8#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:8348]
+INFO: [Synth 8-256] done synthesizing module 'dc_ss' (9#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:15876]
+INFO: [Synth 8-256] done synthesizing module 'rd_logic' (10#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:19638]
 INFO: [Synth 8-638] synthesizing module 'wr_logic' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:16199]
 	Parameter C_COMMON_CLOCK bound to: 1 - type: integer 
 	Parameter C_HAS_ALMOST_FULL bound to: 0 - type: integer 
@@ -916,7 +931,7 @@ INFO: [Synth 8-638] synthesizing module 'wr_bin_cntr' [c:/Users/Polar Marquis/De
 	Parameter C_PNTR_WIDTH bound to: 11 - type: integer 
 	Parameter C_COMMON_CLOCK bound to: 1 - type: integer 
 	Parameter C_WR_RD_RATIO bound to: 1 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'wr_bin_cntr' (9#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:7729]
+INFO: [Synth 8-256] done synthesizing module 'wr_bin_cntr' (11#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:7729]
 INFO: [Synth 8-638] synthesizing module 'wr_status_flags_ss' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:13799]
 	Parameter C_RD_PNTR_WIDTH bound to: 11 - type: integer 
 	Parameter C_WR_PNTR_WIDTH bound to: 11 - type: integer 
@@ -926,8 +941,8 @@ INFO: [Synth 8-638] synthesizing module 'wr_status_flags_ss' [c:/Users/Polar Mar
 	Parameter C_PROG_FULL_TYPE bound to: 0 - type: integer 
 	Parameter C_PROG_EMPTY_TYPE bound to: 0 - type: integer 
 	Parameter C_FULL_FLAGS_RST_VAL bound to: 1 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'wr_status_flags_ss' (10#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:13799]
-INFO: [Synth 8-256] done synthesizing module 'wr_logic' (11#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:16199]
+INFO: [Synth 8-256] done synthesizing module 'wr_status_flags_ss' (12#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:13799]
+INFO: [Synth 8-256] done synthesizing module 'wr_logic' (13#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:16199]
 INFO: [Synth 8-638] synthesizing module 'output_blk' [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:4460]
 	Parameter C_COMMON_CLOCK bound to: 1 - type: integer 
 	Parameter C_DATA_COUNT_WIDTH bound to: 11 - type: integer 
@@ -936,7 +951,7 @@ INFO: [Synth 8-638] synthesizing module 'output_blk' [c:/Users/Polar Marquis/Des
 	Parameter C_PKTFIFO_DATA_WIDTH bound to: 8 - type: integer 
 	Parameter C_HAS_ALMOST_EMPTY bound to: 0 - type: integer 
 	Parameter C_HAS_ALMOST_FULL bound to: 0 - type: integer 
-	Parameter C_HAS_DATA_COUNT bound to: 0 - type: integer 
+	Parameter C_HAS_DATA_COUNT bound to: 1 - type: integer 
 	Parameter C_HAS_OVERFLOW bound to: 0 - type: integer 
 	Parameter C_HAS_RD_DATA_COUNT bound to: 0 - type: integer 
 	Parameter C_HAS_UNDERFLOW bound to: 0 - type: integer 
@@ -954,14 +969,14 @@ INFO: [Synth 8-638] synthesizing module 'output_blk' [c:/Users/Polar Marquis/Des
 	Parameter C_USE_ECC bound to: 0 - type: integer 
 	Parameter C_FIFO_TYPE bound to: 0 - type: integer 
 	Parameter C_BYTE_STRB_WIDTH bound to: 8 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'output_blk' (12#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:4460]
-INFO: [Synth 8-256] done synthesizing module 'fifo_generator_ramfifo' (13#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:20531]
-INFO: [Synth 8-256] done synthesizing module 'fifo_generator_top' (14#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:32083]
-INFO: [Synth 8-256] done synthesizing module 'fifo_generator_v12_0_synth' (15#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:33314]
-INFO: [Synth 8-256] done synthesizing module 'fifo_generator_v12_0' (16#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd:665]
-INFO: [Synth 8-256] done synthesizing module 'fifo_generator_0' (17#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:72]
+INFO: [Synth 8-256] done synthesizing module 'output_blk' (14#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:4460]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_ramfifo' (15#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:20531]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_top' (16#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:32083]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_v12_0_synth' (17#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0_vhsyn_rfs.vhd:33314]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_v12_0' (18#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_v12_0/hdl/fifo_generator_v12_0.vhd:665]
+INFO: [Synth 8-256] done synthesizing module 'fifo_generator_0' (19#1) [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/synth/fifo_generator_0.vhd:73]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:15 ; elapsed = 00:00:18 . Memory (MB): peak = 370.766 ; gain = 194.012
+Finished RTL Elaboration : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 371.543 ; gain = 193.551
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -971,7 +986,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 370.766 ; gain = 194.012
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 371.543 ; gain = 193.551
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -989,26 +1004,26 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 603.059 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 604.195 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Constraint Validation : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property DONT_TOUCH = true for U0. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1021,11 +1036,11 @@ Start RTL Component Statistics
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input     11 Bit       Adders := 2     
+	   2 Input     11 Bit       Adders := 3     
 +---XORs : 
-	   2 Input      1 Bit         XORs := 44    
+	   2 Input      1 Bit         XORs := 45    
 +---Registers : 
-	               11 Bit    Registers := 4     
+	               11 Bit    Registers := 5     
 	                3 Bit    Registers := 1     
 	                2 Bit    Registers := 1     
 	                1 Bit    Registers := 18    
@@ -1056,6 +1071,16 @@ Module rd_status_flags_ss
 Detailed RTL Component Info : 
 +---Registers : 
 	                1 Bit    Registers := 2     
+Module updn_cntr 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     11 Bit       Adders := 1     
++---Registers : 
+	               11 Bit    Registers := 1     
+Module dc_ss 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
 Module wr_bin_cntr 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1078,14 +1103,14 @@ BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 603.059 ; gain = 426.305
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Parallel Reinference  : Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 604.195 ; gain = 426.203
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -1111,16 +1136,16 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 Start Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 604.195 ; gain = 426.203
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:24 ; elapsed = 00:00:27 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
@@ -1128,10 +1153,10 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:36 ; elapsed = 00:00:40 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:37 ; elapsed = 00:00:40 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:36 ; elapsed = 00:00:41 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Timing Optimization : Time (s): cpu = 00:00:37 ; elapsed = 00:00:40 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1143,7 +1168,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:37 ; elapsed = 00:00:41 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Technology Mapping : Time (s): cpu = 00:00:37 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1161,7 +1186,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:37 ; elapsed = 00:00:41 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished IO Insertion : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1174,7 +1199,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:37 ; elapsed = 00:00:41 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1186,13 +1211,13 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:37 ; elapsed = 00:00:42 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Start Renaming Generated Ports : Time (s): cpu = 00:00:37 ; elapsed = 00:00:42 . Memory (MB): peak = 603.059 ; gain = 426.305
+Start Renaming Generated Ports : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:37 ; elapsed = 00:00:42 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1208,52 +1233,55 @@ Report Cell Usage:
 +------+---------+------+
 |      |Cell     |Count |
 +------+---------+------+
-|1     |LUT1     |     2|
-|2     |LUT2     |    15|
-|3     |LUT3     |     4|
-|4     |LUT4     |    24|
-|5     |LUT5     |     4|
-|6     |LUT6     |   112|
-|7     |MUXCY    |    24|
-|8     |MUXF7    |    32|
-|9     |RAM64M   |    64|
-|10    |RAM64X1D |    64|
-|11    |FDCE     |    63|
-|12    |FDPE     |    18|
-|13    |FDRE     |     4|
+|1     |CARRY4   |     3|
+|2     |LUT1     |     3|
+|3     |LUT2     |    25|
+|4     |LUT3     |     6|
+|5     |LUT4     |    25|
+|6     |LUT5     |     4|
+|7     |LUT6     |   112|
+|8     |MUXCY    |    24|
+|9     |MUXF7    |    32|
+|10    |RAM64M   |    64|
+|11    |RAM64X1D |    64|
+|12    |FDCE     |    74|
+|13    |FDPE     |    18|
+|14    |FDRE     |     4|
 +------+---------+------+
 
 Report Instance Areas: 
 +------+-------------------------------------+---------------------------+------+
 |      |Instance                             |Module                     |Cells |
 +------+-------------------------------------+---------------------------+------+
-|1     |top                                  |                           |   430|
-|2     |  U0                                 |fifo_generator_v12_0       |   430|
-|3     |    inst_fifo_gen                    |fifo_generator_v12_0_synth |   430|
-|4     |      \gconvfifo.rf                  |fifo_generator_top         |   430|
-|5     |        \grf.rf                      |fifo_generator_ramfifo     |   430|
-|6     |          \gntv_or_sync_fifo.gl0.rd  |rd_logic                   |    79|
-|7     |            \grss.rsts               |rd_status_flags_ss         |    16|
-|8     |              c1                     |compare_1                  |     6|
-|9     |              c2                     |compare_2                  |     6|
-|10    |            rpntr                    |rd_bin_cntr                |    63|
-|11    |          \gntv_or_sync_fifo.gl0.wr  |wr_logic                   |    90|
-|12    |            \gwss.wsts               |wr_status_flags_ss         |    15|
-|13    |              c0                     |compare                    |     6|
-|14    |              c1                     |compare_0                  |     6|
-|15    |            wpntr                    |wr_bin_cntr                |    75|
-|16    |          \gntv_or_sync_fifo.mem     |memory                     |   240|
-|17    |            \gdm.dm                  |dmem                       |   240|
-|18    |          rstblk                     |reset_blk_ramfifo          |    21|
+|1     |top                                  |                           |   458|
+|2     |  U0                                 |fifo_generator_v12_0       |   458|
+|3     |    inst_fifo_gen                    |fifo_generator_v12_0_synth |   458|
+|4     |      \gconvfifo.rf                  |fifo_generator_top         |   458|
+|5     |        \grf.rf                      |fifo_generator_ramfifo     |   458|
+|6     |          \gntv_or_sync_fifo.gl0.rd  |rd_logic                   |   106|
+|7     |            \grss.gdc.dc             |dc_ss                      |    23|
+|8     |              \gsym_dc.dc            |updn_cntr                  |    23|
+|9     |            \grss.rsts               |rd_status_flags_ss         |    20|
+|10    |              c1                     |compare_1                  |     6|
+|11    |              c2                     |compare_2                  |     6|
+|12    |            rpntr                    |rd_bin_cntr                |    63|
+|13    |          \gntv_or_sync_fifo.gl0.wr  |wr_logic                   |    91|
+|14    |            \gwss.wsts               |wr_status_flags_ss         |    16|
+|15    |              c0                     |compare                    |     6|
+|16    |              c1                     |compare_0                  |     6|
+|17    |            wpntr                    |wr_bin_cntr                |    75|
+|18    |          \gntv_or_sync_fifo.mem     |memory                     |   240|
+|19    |            \gdm.dm                  |dmem                       |   240|
+|20    |          rstblk                     |reset_blk_ramfifo          |    21|
 +------+-------------------------------------+---------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:37 ; elapsed = 00:00:42 . Memory (MB): peak = 603.059 ; gain = 426.305
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:38 ; elapsed = 00:00:41 . Memory (MB): peak = 604.195 ; gain = 426.203
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:33 . Memory (MB): peak = 603.059 ; gain = 165.277
-Synthesis Optimization Complete : Time (s): cpu = 00:00:38 ; elapsed = 00:00:42 . Memory (MB): peak = 603.059 ; gain = 426.305
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:32 . Memory (MB): peak = 604.195 ; gain = 164.602
+Synthesis Optimization Complete : Time (s): cpu = 00:00:38 ; elapsed = 00:00:42 . Memory (MB): peak = 604.195 ; gain = 426.203
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 128 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 131 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 Parsing XDC File [c:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/fifo_generator_0/fifo_generator_0_ooc.xdc] for cell 'U0'
@@ -1268,9 +1296,9 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM64X1D => RAM64X1D (RAMD64E, RAMD64E): 64 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-63 Infos, 8 Warnings, 0 Critical Warnings and 0 Errors encountered.
+67 Infos, 8 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:40 . Memory (MB): peak = 603.059 ; gain = 397.570
-INFO: [Coretcl 2-1174] Renamed 17 cell refs.
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.094 . Memory (MB): peak = 603.059 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Tue Nov 24 00:07:23 2015...
+synth_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 604.195 ; gain = 397.254
+INFO: [Coretcl 2-1174] Renamed 19 cell refs.
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.067 . Memory (MB): peak = 604.195 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 24 19:06:01 2015...

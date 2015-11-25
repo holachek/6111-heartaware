@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.2.1 (win64) Build 1302555 Wed Aug  5 13:06:02 MDT 2015
-| Date         : Tue Nov 24 00:07:23 2015
+| Date         : Tue Nov 24 19:06:01 2015
 | Host         : PolarMarquis-PC running 64-bit Service Pack 1  (build 7601)
 | Command      : report_utilization -file fifo_generator_0_utilization_synth.rpt -pb fifo_generator_0_utilization_synth.pb
 | Design       : fifo_generator_0
@@ -30,13 +30,13 @@ Table of Contents
 +----------------------------+------+-------+-----------+-------+
 |          Site Type         | Used | Fixed | Available | Util% |
 +----------------------------+------+-------+-----------+-------+
-| Slice LUTs*                |  536 |     0 |     63400 |  0.85 |
-|   LUT as Logic             |  152 |     0 |     63400 |  0.24 |
+| Slice LUTs*                |  547 |     0 |     63400 |  0.86 |
+|   LUT as Logic             |  163 |     0 |     63400 |  0.26 |
 |   LUT as Memory            |  384 |     0 |     19000 |  2.02 |
 |     LUT as Distributed RAM |  384 |     0 |           |       |
 |     LUT as Shift Register  |    0 |     0 |           |       |
-| Slice Registers            |   85 |     0 |    126800 |  0.07 |
-|   Register as Flip Flop    |   85 |     0 |    126800 |  0.07 |
+| Slice Registers            |   96 |     0 |    126800 |  0.08 |
+|   Register as Flip Flop    |   96 |     0 |    126800 |  0.08 |
 |   Register as Latch        |    0 |     0 |    126800 |  0.00 |
 | F7 Muxes                   |   32 |     0 |     31700 |  0.10 |
 | F8 Muxes                   |    0 |     0 |     15850 |  0.00 |
@@ -57,7 +57,7 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 18    |          Yes |           - |          Set |
-| 63    |          Yes |           - |        Reset |
+| 74    |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
 | 4     |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
@@ -151,16 +151,16 @@ Table of Contents
 +----------+------+---------------------+
 | RAMD64E  |  384 |  Distributed Memory |
 | LUT6     |  112 |                 LUT |
-| FDCE     |   63 |        Flop & Latch |
+| FDCE     |   74 |        Flop & Latch |
 | MUXF7    |   32 |               MuxFx |
-| LUT4     |   24 |                 LUT |
+| LUT4     |   25 |                 LUT |
+| LUT2     |   25 |                 LUT |
 | FDPE     |   18 |        Flop & Latch |
-| LUT2     |   15 |                 LUT |
-| CARRY4   |    8 |          CarryLogic |
+| CARRY4   |   11 |          CarryLogic |
+| LUT3     |    6 |                 LUT |
 | LUT5     |    4 |                 LUT |
-| LUT3     |    4 |                 LUT |
 | FDRE     |    4 |        Flop & Latch |
-| LUT1     |    2 |                 LUT |
+| LUT1     |    3 |                 LUT |
 +----------+------+---------------------+
 
 

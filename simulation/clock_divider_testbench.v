@@ -9,7 +9,7 @@ module clock_divider_testbench;
 
 	// Inputs (reg)
    reg clk_in;
-   reg[15:0] divider; 
+   reg[31:0] divider; 
    reg reset;
 
    // Outputs (wire)
@@ -36,7 +36,7 @@ module clock_divider_testbench;
       // Wait 100 ns for global reset to finish
       #100;
       
-      divider = 16'd4;
+      divider = 32'd4;
 
       #1000000;
       $stop;

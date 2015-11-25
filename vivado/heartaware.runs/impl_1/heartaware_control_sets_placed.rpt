@@ -1,7 +1,7 @@
 Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2015.2.1 (win64) Build 1302555 Wed Aug  5 13:06:02 MDT 2015
-| Date         : Mon Nov 23 23:57:23 2015
+| Date         : Tue Nov 24 21:56:10 2015
 | Host         : PolarMarquis-PC running 64-bit Service Pack 1  (build 7601)
 | Command      : report_control_sets -verbose -file heartaware_control_sets_placed.rpt
 | Design       : heartaware
@@ -22,8 +22,8 @@ Table of Contents
 +-------------------------------------------------------------------+-------+
 |                               Status                              | Count |
 +-------------------------------------------------------------------+-------+
-| Number of unique control sets                                     |     6 |
-| Minimum Number of register sites lost to control set restrictions |    23 |
+| Number of unique control sets                                     |    53 |
+| Minimum Number of register sites lost to control set restrictions |    81 |
 +-------------------------------------------------------------------+-------+
 
 
@@ -33,27 +33,74 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              22 |            8 |
-| No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |              19 |            9 |
-| Yes          | No                    | No                     |               0 |            0 |
-| Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |               0 |            0 |
+| No           | No                    | No                     |              86 |           37 |
+| No           | No                    | Yes                    |              17 |            9 |
+| No           | Yes                   | No                     |              82 |           22 |
+| Yes          | No                    | No                     |              38 |           11 |
+| Yes          | No                    | Yes                    |              75 |           21 |
+| Yes          | Yes                   | No                     |              45 |           12 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 3. Detailed Control Set Information
 -----------------------------------
 
-+----------------------------+---------------+------------------------+------------------+----------------+
-|        Clock Signal        | Enable Signal |    Set/Reset Signal    | Slice Load Count | Bel Load Count |
-+----------------------------+---------------+------------------------+------------------+----------------+
-|  clk_48khz_inst/LED_reg[0] |               | SW_IBUF[15]            |                1 |              1 |
-|  clk_48khz_inst/clk_48khz  |               |                        |                1 |              2 |
-|  CLK100MHZ_BUFG            |               | display/p_0_in[1]      |                2 |              4 |
-|  CLK100MHZ_BUFG            |               | display/seg[5]_i_1_n_0 |                3 |              6 |
-|  CLK100MHZ_BUFG            |               | SW_IBUF[15]            |                3 |              8 |
-|  CLK100MHZ_BUFG            |               |                        |                7 |             20 |
-+----------------------------+---------------+------------------------+------------------+----------------+
++--------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+------------------+----------------+
+|    Clock Signal    |                                                    Enable Signal                                                    |                                               Set/Reset Signal                                               | Slice Load Count | Bel Load Count |
++--------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+------------------+----------------+
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rst_wr_reg2                                  |                1 |              1 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rst_rd_reg2                                  |                1 |              1 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg[1]_i_1_n_0 |                1 |              1 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.rd_rst_reg[2]_i_1_n_0 |                1 |              2 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/Q[1]                                         |                1 |              2 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/rst_d2                                       |                1 |              2 |
+|  clk_BUFG          |                                                                                                                     |                                                                                                              |                2 |              4 |
+|  CLK100MHZ_BUFG    | left/counter_reg[1]                                                                                                 | counter[7]_i_1_n_0                                                                                           |                2 |              7 |
+|  CLK100MHZ_BUFG    | left/E[0]                                                                                                           |                                                                                                              |                3 |              8 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/grss.rsts/gpr1.dout_i_reg[0]_0[0] | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/Q[0]                                         |                4 |              8 |
+|  clk_tone_inst/CLK |                                                                                                                     | audio_data_modified[7]_i_1_n_0                                                                               |                2 |              8 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/count_reg[10][0]        | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/Q[1]                                         |                3 |             11 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_13       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_19       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_14       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_10       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_1        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_0        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]          |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_12       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_11       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_9        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_8        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_7        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_6        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_5        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_4        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_30       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_3        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_29       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_28       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_27       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_26       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_25       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_24       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_23       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_22       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_21       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_20       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_2        |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_18       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_17       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_16       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gpr1.dout_i_reg[0]_15       |                                                                                                              |                3 |             12 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | SW_IBUF[15]                                                                                                  |                7 |             18 |
+|  clk_BUFG          | right/count[0]_i_2_n_0                                                                                              | right/count[0]_i_1__0_n_0                                                                                    |                5 |             19 |
+|  clk_BUFG          | left/count[0]_i_2__0_n_0                                                                                            | left/count[0]_i_1_n_0                                                                                        |                5 |             19 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/p_4_out                 | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/AR[0]                                        |                6 |             22 |
+|  CLK100MHZ_BUFG    | left/tone_divider_reg[2]                                                                                            |                                                                                                              |                8 |             30 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | clk_tone_inst/counter[0]_i_1__1_n_0                                                                          |                8 |             32 |
+|  CLK100MHZ_BUFG    |                                                                                                                     | clk_25mhz_inst/counter[0]_i_1__0_n_0                                                                         |                8 |             32 |
+|  CLK100MHZ_BUFG    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/grss.rsts/E[0]                    | audio_sample_buffer/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/Q[1]                                         |                8 |             34 |
+|  CLK100MHZ_BUFG    |                                                                                                                     |                                                                                                              |               35 |             82 |
++--------------------+---------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+------------------+----------------+
 
 

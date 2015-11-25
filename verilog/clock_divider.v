@@ -5,7 +5,7 @@ module clock_divider(input clk_in, input [31:0] divider, output reg clk_out = 0,
 
     reg [31:0] counter = 0;
 
-    always @(clk_in or reset) begin
+    always @(posedge clk_in) begin
         if (reset == 1) begin
             counter <= 0;
             clk_out <= 0;

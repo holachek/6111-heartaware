@@ -86,9 +86,13 @@ module heartaware(
     wire clk_48khz; // audio sample rate clock
     wire clk_1hz;
     
+    wire clk_tone;
+    reg [31:0] tone_divider = 32'd250_000;
+    
     clk_wiz_0 clk_65mhz_inst(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_reset));
     clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd4), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
     clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd2083), .reset(master_reset)); // 100_000_000 / 48_000 = 2083.33
+    clock_divider clk_tone_inst(.clk_in(clk_100mhz), .clk_out(clk_tone), .divider(tone_divider), .reset(master_reset));
     clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd100_000_000), .reset(master_reset));
 
     wire [15:0] sw_synced;
@@ -107,12 +111,13 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create a synchronous, debounced pulse from async inputs
 
-  wire btn_up;
-  wire btn_down;
+  wire btn_up, btn_down, btn_center, btn_left, btn_right;
 
   debounce up(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNU), .clean(btn_up));
   debounce down(.reset(master_reset), .clock(clk_25mhz), .noisy(BTND), .clean(btn_down));
-  
+  debounce center(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNC), .clean(btn_center));
+  debounce left(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNL), .clean(btn_left));
+  debounce right(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNR), .clean(btn_right));
 
 
 
@@ -122,25 +127,76 @@ module heartaware(
 
 
 
+// 7 SEGMENT DISPLAY
+//////////////////////////////////////////////////////////////////////////////////
+// 7 segment display related utilities
+
+  reg [31:0] display_data;
+  
+
+
+  // assign data = {'hFFFF, 'b0, SW[14:0]};
+
+  wire [6:0] segments;
+  display_8hex display(.clk(clk_100mhz), .data(display_data), .seg(segments), .strobe(AN));     // digit strobe
+  assign SEG[6:0] = segments;
+  assign SEG[7] = 1'b1;   // decimal point off
+
+
+
+
+
 
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
 
+//    wire [10:0] hcount;
+//    wire [9:0] vcount;
+//    wire hsync, vsync, blank;
+//    wire [11:0] rgb;
+    
+//    xvga xvga_module(.vclock(clk_65mhz), .hcount(hcount), .vcount(vcount),
+//        .hsync(hysnc), .vsync(vsync), .blank(blank));
+    
+//    assign VGA_R = rgb[11:8];
+//    assign VGA_G = rgb[7:4];
+//    assign VGA_B = rgb[3:0];
+//    assign VGA_HS = hsync;
+//    assign VGA_VS = vsync;
 
+    
+//    wire bram_sprite_en;
+//    wire [3:0] bram_sprite_we;
+//    wire [31:0] bram_sprite__addr;
+//    wire [31:0] bram_sprite__din;
+//    wire [31:0] bram_sprite_dout;
+    
+//    wire bram_font_en;
+//    wire [3:0] bram_font_we;
+//    wire [31:0] bram_font_addr;
+//    wire [31:0] bram_font_din;
+//    wire [31:0] bram_font_dout;
 
-
+//    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .ena(bram_sprite_en),
+//        .wea(bram_sprite_we), .addra(bram_sprite_addr), .dina(bram_sprite_din), .douta(bram_sprite_dout));
+        
+//    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
+//        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
+                                
 
 // AUDIO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to PWM audio output
 
-  wire [7:0] audio_data = 'h2F;
+  wire [7:0] audio_data;
+  reg [7:0] audio_data_modified;
   wire pwm_en = 1;
   
   assign AUD_SD = pwm_en;
 
-  audio_PWM audio_PWM_module(.clk(clk_100mhz), .reset(master_reset), .music_data(audio_data), .PWM_out(AUD_PWM));
+  audio_PWM audio_PWM_module(.clk(clk_100mhz), .reset(master_reset),
+        .music_data(audio_data_modified), .PWM_out(AUD_PWM));
 
 
 
@@ -148,47 +204,115 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // SD card objects
 
-  wire spiMiso = 1;
-  wire rd;
-  wire wr;
-  wire rst;
-  wire [31:0] adr = 32'h0000_0000;
-  wire [7:0] sd_din;
-  wire [7:0] sd_dout;
-  wire byte_available;
-  wire ready_for_next_byte;
-  wire [4:0] state;
+//  wire spiMiso = 1;
+//  reg rd; // when ready is high, asserting rd will begin a read
+//  wire wr = 0;
+//  wire rst = master_reset;
+//  reg [31:0] adr; // address of read operation
+//  wire [7:0] sd_din;
+//  wire [7:0] sd_dout; // data output for read operation
+//  wire byte_available; // signal that a new byte has been presented on dout
+//  wire ready_for_next_byte;
+//  wire [4:0] state; // for debug purposes
 
-  sd_controller sdcont(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(spiMiso),
-            .sclk(SD_SCK), .rd(rd), .wr(wr), .reset(rst),
-            .din(sd_din), .dout(sd_dout), .byte_available(byte_available),
-            .ready(ready), .address(adr), 
-            .ready_for_next_byte(ready_for_next_byte), .clk(clk_25mhz), 
-            .status(state));
+//  sd_controller sd_controller_module(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(spiMiso),
+//        .sclk(SD_SCK), .rd(rd), .wr(wr), .reset(rst),
+//        .din(sd_din), .dout(sd_dout), .byte_available(byte_available),
+//        .ready(ready), .address(adr), 
+//        .ready_for_next_byte(ready_for_next_byte), .clk(clk_25mhz), 
+//        .status(state));
+
+  reg [7:0] sd_dout;
+  reg wr_en;
+  reg rd_en;
 
   wire fifo_full;
   wire fifo_empty;
+  wire [10:0] fifo_count;
+  reg [7:0] counter;
 
-  fifo_generator_0 audio_sample_buffer(.clk(clk_25mhz), .rst(master_reset), .din(sd_dout), .wr_en(byte_available), .rd_en(clk_48khz), .dout(audio_data), .full(fifo_full), .empty(fifo_empty));
+  fifo_generator_0 audio_sample_buffer(.clk(clk_100mhz), .rst(master_reset), .din(sd_dout), .wr_en(wr_en),
+        .rd_en(rd_en), .dout(audio_data), .full(fifo_full), .empty(fifo_empty), .data_count(fifo_count));
 
-// 7 SEGMENT DISPLAY
-//////////////////////////////////////////////////////////////////////////////////
-// 7 segment display related utilities
+    reg last_btn_left = 0;
+    reg last_btn_right = 0;
+    
+  
+  always @ (posedge clk_tone) begin
+  
+      if (audio_data_modified)
+         audio_data_modified <= 0;
+      else
+         audio_data_modified <= audio_data;
+  
+  end
+  
 
-  wire [31:0] data;
 
-  assign data = {'hFFFF, 'b0, SW[14:0]};
+  always @ (posedge clk_100mhz) begin
+  
+    if (master_reset) begin
+        counter <= 0;
+    end
+  
+    // display_data[7:0] <= audio_data[7:0];  
+    // display_data[15:8] <= counter;
+    display_data[31:0] <= tone_divider;
+    LED[10:0] <= fifo_count[10:0];
+  
+    LED16_R <= fifo_full;
+    LED16_B <= fifo_empty;
+  
+    last_btn_left <= btn_left;
+    last_btn_right <= btn_right;
 
-  wire [6:0] segments;
-  display_8hex display(.clk(clk_100mhz), .data(data), .seg(segments), .strobe(AN));     // digit strobe
-  assign SEG[6:0] = segments;
-  assign SEG[7] = 1'b1;   // decimal point off
-
+  
+    // WRITE TO FIFO
+    if (btn_left) begin
+        if (last_btn_left == 0) begin
+            tone_divider <= tone_divider - 5000;
+            LED17_R <= 1;
+            counter <= counter + 1;
+            if (SW[7:0] == 0) begin
+                sd_dout <= counter[7:0];
+            end else begin
+                sd_dout <= SW[7:0];
+            end
+            wr_en <= 1;
+        end else begin
+            wr_en <= 0;
+            LED17_R <= 0;
+        end
+    end
+        
+    // READ FROM FIFO
+    if (btn_right) begin
+        if (last_btn_right == 0) begin
+            tone_divider <= tone_divider + 5000;
+            LED17_G <= 1;
+            rd_en <= 1;
+        end else begin
+            rd_en <= 0;
+            LED17_G <= 0;
+        end
+    end
+                    
+  
+  
+  end
 
 
 // TESTING
 //////////////////////////////////////////////////////////////////////////////////
 // for testing purposes
+
+//   always @ (clk_1hz) begin
+   
+//     // toggle red LED
+//     if (clk_1hz == 1) LED16_R <= 0;
+//     else LED16_R <= 1;
+   
+//   end
 
 //  always @ (posedge clk_25mhz) begin
 //    //if (btn_up) begin
