@@ -19,6 +19,12 @@ Ensure you have Vivado 2015.2.1 or newer installed. Open the project file under 
 #### Xilinx IP Modules
 Our project uses a few Xilinx IP core modules.
 
+#### Font
+We used the excellent [Dosis](http://www.impallari.com/dosis) font by Impallari, released under the Open Font License.
+
+#### Font to Bitmap
+Thanks to Codehead for [Bitmap Font Generator](http://www.codehead.co.uk/cbfg/), a way to generate bitmap font files from any fonts.
+
 #### COE Conversion
 Thanks to Javier Merino for [coetool](http://jqm.io/files/coetool/), a simple Python-based conversion utility to generate COE files from JPG/PNG/BMP images.
 
