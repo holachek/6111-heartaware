@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<Runs Version="1" Minor="0">
-	<Run Id="font_memory_synth_1" LaunchDir="C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.runs/font_memory_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
-</Runs>
-

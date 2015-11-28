@@ -1,6 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Polar Marquis/Desktop/heartaware/verilog/clock_divider.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module clock_divider
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Polar Marquis/Desktop/heartaware/simulation/clock_divider_testbench.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module clock_divider_testbench
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/Polar Marquis/Desktop/heartaware/vivado/heartaware.sim/sim_1/behav/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl
