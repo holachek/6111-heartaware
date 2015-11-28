@@ -1,0 +1,5 @@
+# Vivado temp files
+vivado/heartaware.runs/
+vivado/heartaware.sim/
+vivado/heartaware.cache/
+vivado/heartaware.hw/
