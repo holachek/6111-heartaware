@@ -149,10 +149,10 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
     
-    wire [9:0] hcount;
+    wire [10:0] hcount;
     wire [9:0] vcount;
     wire hsync, vsync, at_display_area;
-    vga vga1(.vga_clock(clk_25mhz),.hcount(hcount),.vcount(vcount),
+    xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
           .hsync(hsync),.vsync(vsync),.at_display_area(at_display_area));
     
     assign VGA_R = at_display_area ? {4{hcount[7]}} : 0;
