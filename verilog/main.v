@@ -88,11 +88,10 @@ module heartaware(
     reg [31:0] tone_divider = 32'd250_000;
     
     clk_wiz_0 clk_65mhz_inst(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_reset));
-    //clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd4), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
-    clock_quarter_divider(.clk100_mhz(clk_100mhz),.clock_25mhz(clk_25mhz));
-    clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd2083), .reset(master_reset)); // 100_000_000 / 48_000 = 2083.33
+    clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_reset)); // (100_000_000 / 25_000_000) / 2 = 2
+    clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd1042), .reset(master_reset)); // (100_000_000 / 48_000) / 2 = 1041.66
     clock_divider clk_tone_inst(.clk_in(clk_100mhz), .clk_out(clk_tone), .divider(tone_divider), .reset(master_reset));
-    clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd100_000_000), .reset(master_reset));
+    clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd50_000_000), .reset(master_reset));
 
     wire [15:0] sw_synced;
     genvar i;
@@ -337,15 +336,4 @@ module heartaware(
 
 
 
-endmodule
-
-module clock_quarter_divider(input clk100_mhz, output reg clock_25mhz = 0);
-    reg counter = 0;
-    
-    always @(posedge clk100_mhz) begin
-        counter <= counter + 1;
-        if (counter == 0) begin
-            clock_25mhz <= ~clock_25mhz;
-        end
-    end
 endmodule
