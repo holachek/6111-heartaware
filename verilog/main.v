@@ -77,7 +77,7 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create system and peripheral clocks, synced switches, master system reset
 
-  wire master_reset;
+  reg master_reset;
   wire master_test;
 
   wire clk_100mhz = CLK100MHZ; // master clock, connected to hardware crystal oscillator
@@ -98,8 +98,6 @@ module heartaware(
       synchronize s(clk_25mhz, SW[i], sw_synced[i]);
     end
   endgenerate
-
-  assign master_reset = SW[15];
     
 
 
@@ -243,10 +241,17 @@ module heartaware(
   reg last_btn_center;
   reg last_btn_left;
   reg last_btn_right;
-  reg [3:0] read_counter = 0;
+  reg [5:0] read_counter;
   reg read_new_sample;
 
+
   always @ (posedge clk_100mhz) begin
+  
+    if (btn_down == 1 && last_btn_down == 0) begin
+       master_reset <= 1;
+    end else begin
+       master_reset <= 0;
+    end
   
     last_clk_48khz <= clk_48khz;
     last_btn_up <= btn_up;
@@ -261,20 +266,23 @@ module heartaware(
         sd_adr <= sd_adr + 32'd512;
     end
   
-    if (btn_center == 1 && last_btn_center == 0) begin
-        read_new_sample <= 1;
-    end
+//    if (btn_center == 1 && last_btn_center == 0 && sd_ready == 1) begin
+//        read_new_sample <= 1;
+//    end
     
-    if (read_new_sample == 1 && sd_ready == 1) begin // && read_counter < 9
-        // read_counter <= read_counter + 1;
-        sd_rd <= 1;
-        fifo_wr_en <= 1;
-    end else if (read_counter == 9) begin
-        read_counter <= 0;
-        sd_rd <= 0; // comment out perhaps
-        read_new_sample <= 0;
-        fifo_wr_en <= 0;
-    end
+//    if (read_new_sample == 1 && read_counter <= 12) begin
+//        read_counter <= read_counter + 1;
+//        sd_rd <= 1;
+//        fifo_wr_en <= 1;
+//        LED16_R <= 0;
+//    end else begin
+//        read_counter <= 0;
+//        sd_rd <= 0; // comment out perhaps
+//        read_new_sample <= 0;
+//        fifo_wr_en <= 0;
+//        LED16_R <= 1;
+//    end
+
     
      // FIFO user interface
 //    if (btn_left == 1 && last_btn_left == 0) begin
@@ -283,11 +291,11 @@ module heartaware(
 //        fifo_wr_en <= 0;
 //    end
     
-//    if (btn_right == 1 && last_btn_right == 0) begin
-//       fifo_rd_en <= 1;
-//    end else if (btn_right == 1 && last_btn_right == 1) begin
-//        fifo_rd_en <= 0;
-//    end
+    if (btn_right == 1 && last_btn_right == 0) begin
+       fifo_rd_en <= 1;
+    end else if (btn_right == 1 && last_btn_right == 1) begin
+        fifo_rd_en <= 0;
+    end
   
 //    if (clk_48khz == 1 && last_clk_48khz == 0) begin
 //        fifo_rd_en <= 1; // will output a new sample on fifo_dout
@@ -295,13 +303,13 @@ module heartaware(
 //        fifo_rd_en <= 0;
 //    end
     
-//    if (fifo_almost_empty == 1 && sd_ready == 1 && sd_rd == 0) begin
-//        // load more samples from the SD card into FIFO buffer
-//        sd_adr <= sd_adr + 32'd512; // increment read address by 512 bytes
-//        sd_rd <= 1;
-//    end else begin
-//        sd_rd <= 0;
-//    end
+    if (sd_ready == 1 && sd_rd == 0 && fifo_full == 0) begin // fifo_almost_empty == 1
+        // load more samples from the SD card into FIFO buffer
+        // sd_adr <= sd_adr + 32'd512; // increment read address by 512 bytes
+        sd_rd <= 1;
+    end else begin
+        sd_rd <= 0;
+    end
   
   if (master_reset) begin
       read_counter <= 0;
@@ -312,7 +320,8 @@ module heartaware(
   
   // display_data[7:0] <= audio_data[7:0];  
   // display_data[15:8] <= counter;
-  display_data[23:0] <= sd_adr[23:0];
+  display_data[7:0] <= fifo_dout[7:0];
+  display_data[23:8] <= sd_adr[23:8];
   // LED[7:0] <= fifo_count[7:0];
   display_data[31:24] <= sd_state;
 
@@ -321,7 +330,7 @@ module heartaware(
 
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
-  LED16_G <= sd_ready;
+  LED17_G <= sd_ready;
   LED17_B <= sd_byte_available;
   
 end
