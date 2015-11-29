@@ -155,9 +155,15 @@ module heartaware(
     xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
           .hsync(hsync),.vsync(vsync),.at_display_area(at_display_area));
     
-    assign VGA_R = at_display_area ? {4{hcount[7]}} : 0;
-    assign VGA_G = at_display_area ? {4{hcount[6]}} : 0;
-    assign VGA_B = at_display_area ? {4{hcount[5]}} : 0;
+    wire [3:0] r_out;
+    wire [3:0] g_out;
+    wire [3:0] b_out;
+    
+    main_display xvga_display(.hcount(hcount),.vcount(vcount),.at_display_area(at_display_area),.r_out(r_out),.g_out(g_out),.b_out(b_out));
+          
+    assign VGA_R = r_out; 
+    assign VGA_G = g_out;
+    assign VGA_B = b_out;
     assign VGA_HS = ~hsync;
     assign VGA_VS = ~vsync;
     
