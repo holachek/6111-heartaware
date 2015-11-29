@@ -71,8 +71,6 @@ module heartaware(
   inout [3:0] SD_DAT
   );
 
-
-
 // CLOCKS, SYNC, & RESET
 //////////////////////////////////////////////////////////////////////////////////
 // create system and peripheral clocks, synced switches, master system reset
@@ -90,7 +88,8 @@ module heartaware(
     reg [31:0] tone_divider = 32'd250_000;
     
     clk_wiz_0 clk_65mhz_inst(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_reset));
-    clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd4), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
+    //clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd4), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
+    clock_quarter_divider(.clk100_mhz(clk_100mhz),.clock_25mhz(clk_25mhz));
     clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd2083), .reset(master_reset)); // 100_000_000 / 48_000 = 2083.33
     clock_divider clk_tone_inst(.clk_in(clk_100mhz), .clk_out(clk_tone), .divider(tone_divider), .reset(master_reset));
     clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd100_000_000), .reset(master_reset));
@@ -150,21 +149,18 @@ module heartaware(
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
-
-//    wire [10:0] hcount;
-//    wire [9:0] vcount;
-//    wire hsync, vsync, blank;
-//    wire [11:0] rgb;
     
-//    xvga xvga_module(.vclock(clk_65mhz), .hcount(hcount), .vcount(vcount),
-//        .hsync(hysnc), .vsync(vsync), .blank(blank));
+    wire [9:0] hcount;
+    wire [9:0] vcount;
+    wire hsync, vsync, at_display_area;
+    vga vga1(.vga_clock(clk_25mhz),.hcount(hcount),.vcount(vcount),
+          .hsync(hsync),.vsync(vsync),.at_display_area(at_display_area));
     
-//    assign VGA_R = rgb[11:8];
-//    assign VGA_G = rgb[7:4];
-//    assign VGA_B = rgb[3:0];
-//    assign VGA_HS = hsync;
-//    assign VGA_VS = vsync;
-
+    assign VGA_R = at_display_area ? {4{hcount[7]}} : 0;
+    assign VGA_G = at_display_area ? {4{hcount[6]}} : 0;
+    assign VGA_B = at_display_area ? {4{hcount[5]}} : 0;
+    assign VGA_HS = ~hsync;
+    assign VGA_VS = ~vsync;
     
 //    wire bram_sprite_en;
 //    wire [3:0] bram_sprite_we;
@@ -257,8 +253,8 @@ module heartaware(
   
     // display_data[7:0] <= audio_data[7:0];  
     // display_data[15:8] <= counter;
-    display_data[31:0] <= tone_divider;
-    LED[10:0] <= fifo_count[10:0];
+    //display_data[31:0] <= tone_divider;
+    // LED[10:0] <= fifo_count[10:0];
   
     LED16_R <= fifo_full;
     LED16_B <= fifo_empty;
@@ -341,4 +337,15 @@ module heartaware(
 
 
 
+endmodule
+
+module clock_quarter_divider(input clk100_mhz, output reg clock_25mhz = 0);
+    reg counter = 0;
+    
+    always @(posedge clk100_mhz) begin
+        counter <= counter + 1;
+        if (counter == 0) begin
+            clock_25mhz <= ~clock_25mhz;
+        end
+    end
 endmodule

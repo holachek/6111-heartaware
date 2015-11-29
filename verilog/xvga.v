@@ -34,12 +34,39 @@ module xvga(input vclock,
    always @(posedge vclock) begin
       hcount <= hreset ? 0 : hcount + 1;
       hblank <= next_hblank;
-      hsync <= hsyncon ? 0 : hsyncoff ? 1 : hsync;  // active low
+      //hsync <= hsyncon ? 0 : hsyncoff ? 1 : hsync;  // active low
+      hsync <= hsyncon ? 1 : hsyncoff ? 0 : ~hsync;  // active low
 
       vcount <= hreset ? (vreset ? 0 : vcount + 1) : vcount;
       vblank <= next_vblank;
-      vsync <= vsyncon ? 0 : vsyncoff ? 1 : vsync;  // active low
+      //vsync <= vsyncon ? 0 : vsyncoff ? 1 : vsync;  // active low
+      vsync <= vsyncon ? 1 : vsyncoff ? 0 : ~vsync;  // active low
 
       blank <= next_vblank | (next_hblank & ~hreset);
    end
+endmodule
+
+module vga(input vga_clock,
+            output reg [9:0] hcount = 0,    // pixel number on current line
+            output reg [9:0] vcount = 0,	 // line number
+            output vsync, hsync, at_display_area);
+    // Counters.
+    always @(posedge vga_clock) begin
+        if (hcount == 799) begin
+            hcount <= 0;
+        end
+        else begin
+            hcount <= hcount +  1;
+        end
+        if (vcount == 524) begin
+            vcount <= 0;
+        end
+        else if(hcount == 799) begin
+            vcount <= vcount + 1;
+        end
+    end
+    
+    assign hsync = (hcount < 96);
+    assign vsync = (vcount < 2);
+    assign at_display_area = (hcount >= 144 && hcount < 784 && vcount >= 35 && vcount < 515);
 endmodule
