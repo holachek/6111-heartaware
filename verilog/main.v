@@ -159,7 +159,16 @@ module heartaware(
     wire [3:0] g_out;
     wire [3:0] b_out;
     
-    main_display xvga_display(.hcount(hcount),.vcount(vcount),.at_display_area(at_display_area),.r_out(r_out),.g_out(g_out),.b_out(b_out));
+    reg [7:0] signal_in;
+    wire [9:0] v_val;
+    wire in_region;
+    always @ (posedge clk_25mhz) begin
+        signal_in <= SW[7:0];
+        display_data[15:0] <= v_val;
+    end
+    
+    
+    main_display xvga_display(.hcount(hcount),.vcount(vcount),.at_display_area(at_display_area),.signal_in(signal_in),.signal_pix(v_val),.in_region(in_region),.r_out(r_out),.g_out(g_out),.b_out(b_out));      
           
     assign VGA_R = r_out; 
     assign VGA_G = g_out;
