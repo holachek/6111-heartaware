@@ -194,6 +194,13 @@ module heartaware(
         .music_data(pwm_audio_sample_data), .PWM_out(AUD_PWM));
 
 
+  reg [7:0] lookup_number;
+  wire [7:0] result_number;
+  wire [31:0] number_start_adr;
+  wire [31:0] number_stop_adr;
+
+  audio_number_map audio_number_map_module(.clk(clk_100mhz), .reset(master_reset),
+        .number(lookup_number), .out_number(result_number), .start_adr(number_start_adr), .stop_adr(number_stop_adr));
 
 // SD CARD
 //////////////////////////////////////////////////////////////////////////////////
@@ -211,7 +218,7 @@ module heartaware(
   assign SD_RESET = 0;
     
   // read SD signals
-  reg [31:0] sd_adr = 'hcd000; // address of read operation
+  reg [31:0] sd_adr; // address of read operation
   wire [7:0] sd_dout; // data output for read operation
   wire sd_byte_available; // signal that a new byte has been presented on dout
   
@@ -219,28 +226,21 @@ module heartaware(
   wire [7:0] sd_din = 0;
   wire sd_ready_for_next_byte = 0;
   
-  assign JA[7:0] = clk_32khz;
+  assign JA[7:0] = sd_start_adr[23:16];
   
-  assign JB[7:0] = fifo_dout[7:0];
+  assign JB[7:0] = lookup_number;
   
-  assign JC[0] = fifo_empty;
-  assign JC[1] = fifo_full;
-  assign JC[2] = fifo_rd_en;
+  assign JC[0] = playing;
+  assign JC[1] = played_number_string;
+  assign JC[2] = trigger_play_number_sequence;
   assign JC[3] = SD_SCK;
   assign JC[4] = sd_byte_available;
-  assign JC[5] = sd_rd;
-  assign JC[6] = sd_state_changed;
+  assign JC[5] = sample_increment;
+  assign JC[6] = 0;
   assign JC[7] = master_reset;
   
-  assign JD[7] = clk_25mhz;
-  assign JD[6] = clk_25mhz;
-  assign JD[5] = clk_25mhz;
-  assign JD[4] = clk_25mhz;
-  assign JD[3] = clk_25mhz;
-  assign JD[2] = clk_25mhz;
-  assign JD[1] = clk_25mhz;
-  assign JD[0] = clk_25mhz;
-
+  assign JD[7:0] = lookup_number;
+  
   sd_controller sd_controller_module(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(SD_DAT[0]),
         .sclk(SD_SCK), .rd(sd_rd), .wr(sd_wr), .reset(master_reset),
         .din(sd_din), .dout(sd_dout), .byte_available(sd_byte_available),
@@ -283,11 +283,14 @@ module heartaware(
   reg [4:0] last_sd_state;
   reg [14:0] sd_rd_counter;
   reg [31:0] sample_increment;
+  reg last_playing;
   
-  wire playing;
+  reg trigger_play_number_sequence;
   
-  assign playing = SW[13];
-
+  reg playing;
+  
+  reg played_number_string;
+  
   // must end in 00
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
@@ -298,25 +301,107 @@ module heartaware(
         read_counter <= 0;
         sd_rd <= 0;
         fifo_rd_en <= 0;
-        sd_adr <= sd_start_adr;
+        playing <= 0;
+        sd_adr <= 'hcd_000;
+        sd_start_adr <= 'hcd_000;
+        sd_stop_adr <= 'h100_000;
         LED16_R <= 1;
         LED16_G <= 0;
         LED16_B <= 0;
-        LED17_R <= 1;
+        LED17_R <= 0;
         LED17_G <= 0;
         LED17_B <= 0;
+        LED[15] <= 1;
+        played_number_string <= 0;
     end else if (master_halt) begin
         // do nothing! used for capturing address of SD card
     end else begin
         LED16_R <= 0;
+        LED[15] <= 0;
         last_clk_32khz <= clk_32khz;
-    last_btn_up <= btn_up;
-    last_btn_down <= btn_down;
-    last_btn_center <= btn_center;
-    last_btn_left <= btn_left;
-    last_btn_right <= btn_right;
-    last_sd_state <= sd_state;
-    last_sd_byte_available <= sd_byte_available;
+         last_btn_up <= btn_up;
+         last_btn_down <= btn_down;
+         last_btn_center <= btn_center;
+         last_btn_left <= btn_left;
+         last_btn_right <= btn_right;
+         last_playing <= playing;
+         last_sd_state <= sd_state;
+           last_sd_byte_available <= sd_byte_available;
+    
+//    if (btn_up == 1) begin
+//        sd_start_adr <= 'h0;
+//        sd_stop_adr <= 'h100_000;
+//    end
+    
+//    else if (btn_left == 1) begin
+//        sd_start_adr <= 'h100_000;
+//        sd_stop_adr <= 'h10c_800;
+//    end
+    
+//    else if (btn_right == 1) begin
+//        sd_start_adr <= 'hcd_000;
+//        sd_stop_adr <= 'h100_000;
+//    end
+    
+//    else begin
+    
+//        sd_start_adr <= number_start_adr;
+//        sd_stop_adr <= number_stop_adr;
+    
+//    end
+    
+
+//    if (last_btn_down == 0 && btn_down == 1) begin
+//        if (temp_number == 0) begin
+//            input_number <= SW[7:0];
+//        end else begin
+//             input_number <= temp_number;
+//        end
+//    end
+    
+
+    if (last_btn_center == 0 && btn_center == 1) begin
+        trigger_play_number_sequence <= 1;
+        lookup_number <= SW[7:0];
+    end
+    
+    // currently playing number sequency
+    if (trigger_play_number_sequence) begin
+        if (lookup_number > 0) begin
+            sd_start_adr <= number_start_adr;
+            sd_stop_adr <= number_stop_adr;
+            playing <= 1;
+        end else if (lookup_number == 0) begin
+            playing <= 0;
+            trigger_play_number_sequence <= 0;
+        end
+    end
+    
+    // automatically roll over to the next number
+//    if (SW[12]) begin
+    
+//        if (last_playing == 1 && playing == 0 && result_number == 0) begin
+//            played_number_string <= 1;
+//        end else if (result_number == 0 && played_number_string == 0) begin
+//            lookup_number <= SW[7:0];
+//        end else if (played_number_string == 0) begin
+//            lookup_number <= result_number;
+//        end
+        
+//        playing <= 1;
+    
+//    end else begin
+//        played_number_string <= 0;
+//    end
+    
+//    if (sd_adr >= sd_stop_adr && SW[12]) begin
+//        if (temp_number == 0) begin
+//            input_number <= SW[7:0];
+//        end else begin
+//         input_number <= temp_number;
+//        end     
+//    end
+    
     
     // sd_byte_available can trigger high multiple cycles for one byte
     // we use this to ensure a positive clock edge
@@ -325,61 +410,61 @@ module heartaware(
           fifo_wr_en <= 1;
     end else begin
           fifo_wr_en <= 0;
-    end 
- 
+    end
     
 
-    
-    // doesn't work -- results in buzzing tone, does not increment sd_adr
-    if (sd_adr >= sd_stop_adr) begin
-       sd_adr <= sd_start_adr;
-    end
-
-      // read audio samples from FIFO buffer at correct frequency
-      if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
-          fifo_rd_en <= 1; // will output a new sample on fifo_dout
-          sample_increment <= sample_increment + 1;
-      end else begin
-          fifo_rd_en <= 0;
-      end
-
-//    // used for continuous playback
-    if (sample_increment >= 511) begin
-       sd_adr <= sd_adr + 32'd512;
-       sample_increment <= 0;
-    end
-
-            // pre-fill FIFO with samples
-          if (fifo_count < 'd500 && playing) begin // fifo_count < 'd50
-              sd_rd <= 1;
-          end else begin
-              sd_rd <= 0;
-          end  
-          
-          if (fifo_empty == 0 && playing) begin
-                      pwm_en <= 1;
-           end else begin
-                          pwm_en <= 0;
-           end
-
-//      if (playing) begin
+      if (playing) begin
       
+         if (last_playing == 0) begin
+            sd_start_adr <= number_start_adr;
+            sd_stop_adr <= number_stop_adr;
+            sd_adr <= number_start_adr;
+         end
+      
+         // enable audio output
+         pwm_en <= 1;
             
+          // load samples from SD
+         if (fifo_count < 'd50) begin // fifo_count < 'd50
+             sd_rd <= 1;
+         end else begin
+             sd_rd <= 0;
+         end  
+      
+         // stop playing when stop adr reached
+          if (sd_adr >= sd_stop_adr || sd_stop_adr < sd_start_adr) begin
+                // sd_adr <= sd_start_adr;
+                playing <= 0;
+                
+          end
+
+          // read samples from FIFO
+          if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
+              fifo_rd_en <= 1; // will output a new sample on fifo_dout
+              sample_increment <= sample_increment + 1;
+          end else begin
+              fifo_rd_en <= 0;
+          end
           
-//          if (sd_adr < sd_stop_adr && sd_adr >= sd_start_adr) begin
-//            sample_increment <= sample_increment + 1;
-//          end else if (sd_adr == sd_stop_adr) begin
-//            // reached end of requested samples
-//            // playing <= 0;
-//            sd_adr = sd_start_adr;
-//          end else begin
-//            // init with start sample addr
-//            sd_adr = sd_start_adr;
-//          end
+            // used for continuous playback
+            if (sample_increment >= 511) begin
+               sd_adr <= sd_adr + 32'h200;
+               sample_increment <= 0;
+            end
+          
+          
              
                   
-//      end else begin
-//      end
+      end else begin
+
+            sd_adr <= 0;
+            pwm_en <= 0;
+
+      end // playing
+      
+      if (playing == 0 && last_playing == 1) begin
+          lookup_number <= result_number;
+      end
     
 //    if (sd_ready == 1 && fifo_full == 0 && sd_rd_counter <= 512) begin // fifo_almost_empty == 1
 //        // load more samples from the SD card into FIFO buffer
@@ -389,28 +474,27 @@ module heartaware(
 //    end else begin
 //        sd_rd <= 0;
 //    end
-    
-//    if (fifo_full) begin
-//       sd_rd_counter <= 0;
-//       sd_adr <= sd_adr + 32'd512;
-//    end
+
 
 
   
   // display_data[7:0] <= audio_data[7:0];  
   // display_data[15:8] <= counter;
-  display_data[7:0] <= fifo_dout[7:0];
+  // display_data[7:0] <= fifo_dout[7:0];
   display_data[23:8] <= sd_adr[23:8];
   // LED[7:0] <= fifo_count[7:0];
-  display_data[31:24] <= sd_state;
+  // display_data[31:24] <= sd_state;
+  
+  display_data[7:0] <= result_number;
+  //display_data[15:8] <= input_number;
 
-  LED[15:8] <= sd_dout[7:0];   
-  LED[7:0] <= fifo_count[7:0]; 
+ // display_data[23:16] <= sd_start_adr[15:8]; 
+  display_data[31:24] <= sd_stop_adr[15:8];
 
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
-  LED17_G <= sd_ready;
-  LED17_B <= sd_byte_available;
+  // LED17_G <= sd_ready;
+  // LED17_B <= sd_byte_available;
   
   
   end // reset
