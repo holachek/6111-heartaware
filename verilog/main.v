@@ -194,13 +194,14 @@ module heartaware(
         .music_data(pwm_audio_sample_data), .PWM_out(AUD_PWM));
 
 
-  reg [7:0] lookup_number;
-  wire [7:0] result_number;
-  wire [31:0] number_start_adr;
-  wire [31:0] number_stop_adr;
+  reg [7:0] number_map_input_number;
+  wire [7:0] number_map_output_number;
+  wire [31:0] number_map_start_adr;
+  wire [31:0] number_map_stop_adr;
 
   audio_number_map audio_number_map_module(.clk(clk_100mhz), .reset(master_reset),
-        .number(lookup_number), .out_number(result_number), .start_adr(number_start_adr), .stop_adr(number_stop_adr));
+        .number(number_map_input_number), .out_number(number_map_output_number),
+        .start_adr(number_map_start_adr), .stop_adr(number_map_stop_adr));
 
 // SD CARD
 //////////////////////////////////////////////////////////////////////////////////
@@ -228,7 +229,7 @@ module heartaware(
   
   assign JA[7:0] = sd_start_adr[23:16];
   
-  assign JB[7:0] = lookup_number;
+  assign JB[7:0] = pwm_audio_sample_data;
   
   assign JC[0] = playing;
   assign JC[1] = played_number_string;
@@ -239,7 +240,7 @@ module heartaware(
   assign JC[6] = 0;
   assign JC[7] = master_reset;
   
-  assign JD[7:0] = lookup_number;
+  // assign JD[7:0] = lookup_number;
   
   sd_controller sd_controller_module(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(SD_DAT[0]),
         .sclk(SD_SCK), .rd(sd_rd), .wr(sd_wr), .reset(master_reset),
@@ -284,6 +285,8 @@ module heartaware(
   reg [14:0] sd_rd_counter;
   reg [31:0] sample_increment;
   reg last_playing;
+  reg last_last_playing;
+  reg last_fifo_empty;
   
   reg trigger_play_number_sequence;
   
@@ -325,30 +328,22 @@ module heartaware(
          last_btn_left <= btn_left;
          last_btn_right <= btn_right;
          last_playing <= playing;
+         last_last_playing <= last_playing;
          last_sd_state <= sd_state;
            last_sd_byte_available <= sd_byte_available;
+         last_fifo_empty <= fifo_empty;
     
-//    if (btn_up == 1) begin
-//        sd_start_adr <= 'h0;
-//        sd_stop_adr <= 'h100_000;
-//    end
+
     
-//    else if (btn_left == 1) begin
-//        sd_start_adr <= 'h100_000;
-//        sd_stop_adr <= 'h10c_800;
-//    end
+    if (last_btn_right == 0 && btn_right == 1) begin
+        sd_start_adr <= 'hcd_000;
+        sd_stop_adr <= 'h100_000;
+    end
     
-//    else if (btn_right == 1) begin
-//        sd_start_adr <= 'hcd_000;
-//        sd_stop_adr <= 'h100_000;
-//    end
+    if (last_btn_center == 0 && btn_center == 1) begin
+        playing <= 1;
+    end
     
-//    else begin
-    
-//        sd_start_adr <= number_start_adr;
-//        sd_stop_adr <= number_stop_adr;
-    
-//    end
     
 
 //    if (last_btn_down == 0 && btn_down == 1) begin
@@ -360,46 +355,21 @@ module heartaware(
 //    end
     
 
-    if (last_btn_center == 0 && btn_center == 1) begin
-        trigger_play_number_sequence <= 1;
-        lookup_number <= SW[7:0];
-    end
-    
-    // currently playing number sequency
-    if (trigger_play_number_sequence) begin
-        if (lookup_number > 0) begin
-            sd_start_adr <= number_start_adr;
-            sd_stop_adr <= number_stop_adr;
-            playing <= 1;
-        end else if (lookup_number == 0) begin
-            playing <= 0;
-            trigger_play_number_sequence <= 0;
-        end
-    end
-    
-    // automatically roll over to the next number
-//    if (SW[12]) begin
-    
-//        if (last_playing == 1 && playing == 0 && result_number == 0) begin
-//            played_number_string <= 1;
-//        end else if (result_number == 0 && played_number_string == 0) begin
-//            lookup_number <= SW[7:0];
-//        end else if (played_number_string == 0) begin
-//            lookup_number <= result_number;
-//        end
-        
-//        playing <= 1;
-    
-//    end else begin
-//        played_number_string <= 0;
+//    if (last_btn_center == 0 && btn_center == 1) begin
+//        trigger_play_number_sequence <= 1;
+//        lookup_number <= SW[7:0];
 //    end
     
-//    if (sd_adr >= sd_stop_adr && SW[12]) begin
-//        if (temp_number == 0) begin
-//            input_number <= SW[7:0];
-//        end else begin
-//         input_number <= temp_number;
-//        end     
+    // currently playing number sequency
+//    if (trigger_play_number_sequence) begin
+//        if (lookup_number > 0) begin
+//            sd_start_adr <= number_start_adr;
+//            sd_stop_adr <= number_stop_adr;
+//            playing <= 1;
+//        end else if (lookup_number == 0) begin
+//            playing <= 0;
+//            trigger_play_number_sequence <= 0;
+//        end
 //    end
     
     
@@ -413,31 +383,27 @@ module heartaware(
     end
     
 
+
+
       if (playing) begin
       
+         // load correct start address if beginning playback
          if (last_playing == 0) begin
-            sd_start_adr <= number_start_adr;
-            sd_stop_adr <= number_stop_adr;
-            sd_adr <= number_start_adr;
+            sd_adr <= sd_start_adr;
+            pwm_en <= 1;
          end
-      
-         // enable audio output
-         pwm_en <= 1;
-            
+                  
           // load samples from SD
-         if (fifo_count < 'd50) begin // fifo_count < 'd50
+         if (fifo_count < 'd50 && sd_adr <= sd_stop_adr) begin // fifo_count < 'd50
              sd_rd <= 1;
          end else begin
              sd_rd <= 0;
-         end  
+         end
+         
+//         if (sd_adr >= sd_stop_adr) begin
+//            playing <= 0;
+//         end
       
-         // stop playing when stop adr reached
-          if (sd_adr >= sd_stop_adr || sd_stop_adr < sd_start_adr) begin
-                // sd_adr <= sd_start_adr;
-                playing <= 0;
-                
-          end
-
           // read samples from FIFO
           if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
               fifo_rd_en <= 1; // will output a new sample on fifo_dout
@@ -446,14 +412,17 @@ module heartaware(
               fifo_rd_en <= 0;
           end
           
-            // used for continuous playback
-            if (sample_increment >= 511) begin
-               sd_adr <= sd_adr + 32'h200;
-               sample_increment <= 0;
-            end
+          // used for continuous playback
+          if (sample_increment >= 511) begin
+             sd_adr <= sd_adr + 32'h200;
+             sample_increment <= 0;
+          end
           
-          
-             
+          if (sd_adr >= sd_stop_adr) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
+            pwm_en <= 0;
+            playing <= 0;
+          end
+            
                   
       end else begin
 
@@ -462,9 +431,7 @@ module heartaware(
 
       end // playing
       
-      if (playing == 0 && last_playing == 1) begin
-          lookup_number <= result_number;
-      end
+      
     
 //    if (sd_ready == 1 && fifo_full == 0 && sd_rd_counter <= 512) begin // fifo_almost_empty == 1
 //        // load more samples from the SD card into FIFO buffer
@@ -485,7 +452,7 @@ module heartaware(
   // LED[7:0] <= fifo_count[7:0];
   // display_data[31:24] <= sd_state;
   
-  display_data[7:0] <= result_number;
+  display_data[7:0] <= number_map_input_number;
   //display_data[15:8] <= input_number;
 
  // display_data[23:16] <= sd_start_adr[15:8]; 
