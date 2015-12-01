@@ -80,6 +80,7 @@ module heartaware(
 // create system and peripheral clocks, synced switches, master system reset
 
   wire master_reset;
+  wire master_halt;
   wire master_test;
 
   wire clk_100mhz = CLK100MHZ; // master clock, connected to hardware crystal oscillator
@@ -104,6 +105,7 @@ module heartaware(
     
 
   assign master_reset = sw_synced[15];
+  assign master_halt = sw_synced[14];
 
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
@@ -184,13 +186,13 @@ module heartaware(
 // create all objects related to PWM audio output
 
   wire [7:0] pwm_audio_sample_data;
-  wire pwm_en = 1;
+  reg pwm_en;
+  assign AUD_SD = pwm_en;
   
   // use unsigned 8 bit uncompressed WAV file!
   audio_PWM audio_PWM_module(.clk(clk_100mhz), .reset(master_reset),
         .music_data(pwm_audio_sample_data), .PWM_out(AUD_PWM));
 
-  assign AUD_SD = pwm_en;
 
 
 // SD CARD
@@ -209,7 +211,7 @@ module heartaware(
   assign SD_RESET = 0;
     
   // read SD signals
-  reg [31:0] sd_adr; // address of read operation
+  reg [31:0] sd_adr = 'hcd000; // address of read operation
   wire [7:0] sd_dout; // data output for read operation
   wire sd_byte_available; // signal that a new byte has been presented on dout
   
@@ -268,8 +270,6 @@ module heartaware(
 
 
 
-
-
   reg last_clk_32khz;
   reg last_btn_up;
   reg last_btn_down;
@@ -283,7 +283,14 @@ module heartaware(
   reg [4:0] last_sd_state;
   reg [14:0] sd_rd_counter;
   reg [31:0] sample_increment;
+  
+  wire playing;
+  
+  assign playing = SW[13];
 
+  // must end in 00
+  reg [31:0] sd_start_adr = 'hcd_000;
+  reg [31:0] sd_stop_adr = 'h100_000;
 
   always @ (posedge clk_100mhz) begin
   
@@ -291,13 +298,15 @@ module heartaware(
         read_counter <= 0;
         sd_rd <= 0;
         fifo_rd_en <= 0;
-        sd_adr <= 0;
+        sd_adr <= sd_start_adr;
         LED16_R <= 1;
         LED16_G <= 0;
         LED16_B <= 0;
         LED17_R <= 1;
         LED17_G <= 0;
         LED17_B <= 0;
+    end else if (master_halt) begin
+        // do nothing! used for capturing address of SD card
     end else begin
         LED16_R <= 0;
         last_clk_32khz <= clk_32khz;
@@ -309,73 +318,68 @@ module heartaware(
     last_sd_state <= sd_state;
     last_sd_byte_available <= sd_byte_available;
     
+    // sd_byte_available can trigger high multiple cycles for one byte
+    // we use this to ensure a positive clock edge
+    // do not use fifo_wr_en <= sd_byte_available
     if (last_sd_byte_available == 0 && sd_byte_available == 1) begin
           fifo_wr_en <= 1;
     end else begin
           fifo_wr_en <= 0;
-    end
+    end 
+ 
     
-    if (last_sd_state != sd_state) begin
-       sd_state_changed <= 1;
-    end else begin
-       sd_state_changed <= 0;
-    end
-  
-    //  fifo_wr_en <= sd_byte_available;
-  
-    if (btn_up == 1 && last_btn_up == 0) begin
-        sd_adr <= sd_adr + 32'd512;
-    end
-  
-    if (btn_center == 1) begin
-        // read_new_sample <= 1;
-        sd_rd <= 1;
-    end else begin
-        sd_rd <= 0;
-    end
-    
-//    if (read_new_sample == 1 && read_counter <= 12) begin
-//        read_counter <= read_counter + 1;
-//        sd_rd <= 1;
-//        LED16_R <= 0;
-//    end else begin
-//        read_counter <= 0;
-//        sd_rd <= 0; // comment out perhaps
-//        read_new_sample <= 0;
-//        LED16_R <= 1;
-//    end
 
     
-     // FIFO user interface
-//    if (btn_left == 1 && last_btn_left == 0) begin
-//        fifo_wr_en <= 1;
-//    end else if (btn_left == 1 && last_btn_left == 1) begin
-//        fifo_wr_en <= 0;
-//    end
-    
-//    if (btn_right == 1 && last_btn_right == 0) begin
-//       fifo_rd_en <= 1;
-//    end else if (btn_right == 1 && last_btn_right == 1) begin
-//        fifo_rd_en <= 0;
-//    end
-  
-    if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
-        fifo_rd_en <= 1; // will output a new sample on fifo_dout
-        sample_increment <= sample_increment + 1;
-    end else begin
-        fifo_rd_en <= 0;
+    // doesn't work -- results in buzzing tone, does not increment sd_adr
+    if (sd_adr >= sd_stop_adr) begin
+       sd_adr <= sd_start_adr;
     end
-    
+
+      // read audio samples from FIFO buffer at correct frequency
+      if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
+          fifo_rd_en <= 1; // will output a new sample on fifo_dout
+          sample_increment <= sample_increment + 1;
+      end else begin
+          fifo_rd_en <= 0;
+      end
+
+//    // used for continuous playback
     if (sample_increment >= 511) begin
        sd_adr <= sd_adr + 32'd512;
        sample_increment <= 0;
     end
-    
-    if (fifo_count < 'd500) begin
-        sd_rd <= 1;
-    end else begin
-        sd_rd <= 0;
-    end
+
+            // pre-fill FIFO with samples
+          if (fifo_count < 'd500 && playing) begin // fifo_count < 'd50
+              sd_rd <= 1;
+          end else begin
+              sd_rd <= 0;
+          end  
+          
+          if (fifo_empty == 0 && playing) begin
+                      pwm_en <= 1;
+           end else begin
+                          pwm_en <= 0;
+           end
+
+//      if (playing) begin
+      
+            
+          
+//          if (sd_adr < sd_stop_adr && sd_adr >= sd_start_adr) begin
+//            sample_increment <= sample_increment + 1;
+//          end else if (sd_adr == sd_stop_adr) begin
+//            // reached end of requested samples
+//            // playing <= 0;
+//            sd_adr = sd_start_adr;
+//          end else begin
+//            // init with start sample addr
+//            sd_adr = sd_start_adr;
+//          end
+             
+                  
+//      end else begin
+//      end
     
 //    if (sd_ready == 1 && fifo_full == 0 && sd_rd_counter <= 512) begin // fifo_almost_empty == 1
 //        // load more samples from the SD card into FIFO buffer
@@ -390,6 +394,8 @@ module heartaware(
 //       sd_rd_counter <= 0;
 //       sd_adr <= sd_adr + 32'd512;
 //    end
+
+
   
   // display_data[7:0] <= audio_data[7:0];  
   // display_data[15:8] <= counter;
