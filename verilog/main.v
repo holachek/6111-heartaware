@@ -39,14 +39,16 @@ module heartaware(
   output reg [15:0] LED,
 
   // analog input module
-  input [7:0] JA, // level shifted ADC_OUT[7:0]
-  inout [7:0] JB,
+  output [7:0] JA, // level shifted ADC_OUT[7:0]
+  output [7:0] JB,
   // JB[0] active low CS for ADC,
   // JB[2] active low RD for ADC,
   // JB[4] active low WR for ADC,
   // JB[6] active low INTR for ADC,
   // sensor connect detection
   // pins JB[3], JB[5], JB[7] disconnected. to use, edit constraints file.
+  output [7:0] JC,
+  output [7:0] JD,
 
   // 7-segment LED
   output [7:0] SEG,
@@ -77,29 +79,31 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // create system and peripheral clocks, synced switches, master system reset
 
-  reg master_reset;
+  wire master_reset;
   wire master_test;
 
   wire clk_100mhz = CLK100MHZ; // master clock, connected to hardware crystal oscillator
   wire clk_65mhz; // VGA clock
   wire clk_25mhz; // SD clock
-  wire clk_48khz; // audio sample rate clock
+  wire clk_32khz; // audio sample rate clock
   wire clk_1hz;
       
-  clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_reset));
-  clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_reset)); // 100_000_000 / 25_000_000 = 4
-  clock_divider clk_48khz_module(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd1042), .reset(master_reset)); // 100_000_000 / 48_000 = 2083.33
-  clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_reset));
+  clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
+  clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
+  clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
+  clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
 
   wire [15:0] sw_synced;
   genvar i;
   generate   for(i=0; i<16; i=i+1) 
     begin: gen_modules  // generate 16 synchronize modules
-      synchronize s(clk_25mhz, SW[i], sw_synced[i]);
+      synchronize s(clk_100mhz, SW[i], sw_synced[i]); // WARNING! must be synced to master 100 MHz clock
+                                                      // otherwise reset will stop clocks and halt CPU in reset state
     end
   endgenerate
     
 
+  assign master_reset = sw_synced[15];
 
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
@@ -182,6 +186,7 @@ module heartaware(
   wire [7:0] pwm_audio_sample_data;
   wire pwm_en = 1;
   
+  // use unsigned 8 bit uncompressed WAV file!
   audio_PWM audio_PWM_module(.clk(clk_100mhz), .reset(master_reset),
         .music_data(pwm_audio_sample_data), .PWM_out(AUD_PWM));
 
@@ -198,15 +203,41 @@ module heartaware(
   wire sd_ready;
   wire [4:0] sd_state; // for debug purposes
   
+  // set SPI mode
+  assign SD_DAT[2] = 1;
+  assign SD_DAT[1] = 1;
+  assign SD_RESET = 0;
+    
   // read SD signals
   reg [31:0] sd_adr; // address of read operation
   wire [7:0] sd_dout; // data output for read operation
   wire sd_byte_available; // signal that a new byte has been presented on dout
   
   // write SD signals
-  wire [7:0] sd_din;
-  wire sd_ready_for_next_byte;
+  wire [7:0] sd_din = 0;
+  wire sd_ready_for_next_byte = 0;
   
+  assign JA[7:0] = clk_32khz;
+  
+  assign JB[7:0] = fifo_dout[7:0];
+  
+  assign JC[0] = fifo_empty;
+  assign JC[1] = fifo_full;
+  assign JC[2] = fifo_rd_en;
+  assign JC[3] = SD_SCK;
+  assign JC[4] = sd_byte_available;
+  assign JC[5] = sd_rd;
+  assign JC[6] = sd_state_changed;
+  assign JC[7] = master_reset;
+  
+  assign JD[7] = clk_25mhz;
+  assign JD[6] = clk_25mhz;
+  assign JD[5] = clk_25mhz;
+  assign JD[4] = clk_25mhz;
+  assign JD[3] = clk_25mhz;
+  assign JD[2] = clk_25mhz;
+  assign JD[1] = clk_25mhz;
+  assign JD[0] = clk_25mhz;
 
   sd_controller sd_controller_module(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(SD_DAT[0]),
         .sclk(SD_SCK), .rd(sd_rd), .wr(sd_wr), .reset(master_reset),
@@ -221,13 +252,17 @@ module heartaware(
   
   wire [7:0] fifo_dout;
   assign fifo_dout = pwm_audio_sample_data;
+  
+  wire [7:0] fifo_din;
+  assign fifo_din = sd_dout;
 
   wire fifo_full;
   wire fifo_empty;
   wire fifo_almost_empty;
-  wire [10:0] fifo_count;
+  wire [13:0] fifo_count;
+  
 
-  fifo_generator_0 audio_sample_buffer(.clk(clk_100mhz), .rst(master_reset), .din(sd_dout), .wr_en(fifo_wr_en),
+  fifo_generator_0 audio_sample_buffer(.clk(clk_100mhz), .rst(master_reset), .din(fifo_din), .wr_en(fifo_wr_en),
         .rd_en(fifo_rd_en), .dout(fifo_dout), .full(fifo_full), .empty(fifo_empty),
         .data_count(fifo_count), .almost_empty(fifo_almost_empty));
 
@@ -235,51 +270,78 @@ module heartaware(
 
 
 
-  reg last_clk_48khz;
+  reg last_clk_32khz;
   reg last_btn_up;
   reg last_btn_down;
   reg last_btn_center;
   reg last_btn_left;
   reg last_btn_right;
+  reg last_sd_byte_available;
   reg [5:0] read_counter;
   reg read_new_sample;
+  reg sd_state_changed;
+  reg [4:0] last_sd_state;
+  reg [14:0] sd_rd_counter;
+  reg [31:0] sample_increment;
 
 
   always @ (posedge clk_100mhz) begin
   
-    if (btn_down == 1 && last_btn_down == 0) begin
-       master_reset <= 1;
+    if (master_reset) begin
+        read_counter <= 0;
+        sd_rd <= 0;
+        fifo_rd_en <= 0;
+        sd_adr <= 0;
+        LED16_R <= 1;
+        LED16_G <= 0;
+        LED16_B <= 0;
+        LED17_R <= 1;
+        LED17_G <= 0;
+        LED17_B <= 0;
     end else begin
-       master_reset <= 0;
-    end
-  
-    last_clk_48khz <= clk_48khz;
+        LED16_R <= 0;
+        last_clk_32khz <= clk_32khz;
     last_btn_up <= btn_up;
     last_btn_down <= btn_down;
     last_btn_center <= btn_center;
     last_btn_left <= btn_left;
     last_btn_right <= btn_right;
+    last_sd_state <= sd_state;
+    last_sd_byte_available <= sd_byte_available;
     
-    fifo_wr_en <= sd_byte_available;
+    if (last_sd_byte_available == 0 && sd_byte_available == 1) begin
+          fifo_wr_en <= 1;
+    end else begin
+          fifo_wr_en <= 0;
+    end
+    
+    if (last_sd_state != sd_state) begin
+       sd_state_changed <= 1;
+    end else begin
+       sd_state_changed <= 0;
+    end
+  
+    //  fifo_wr_en <= sd_byte_available;
   
     if (btn_up == 1 && last_btn_up == 0) begin
         sd_adr <= sd_adr + 32'd512;
     end
   
-//    if (btn_center == 1 && last_btn_center == 0 && sd_ready == 1) begin
-//        read_new_sample <= 1;
-//    end
+    if (btn_center == 1) begin
+        // read_new_sample <= 1;
+        sd_rd <= 1;
+    end else begin
+        sd_rd <= 0;
+    end
     
 //    if (read_new_sample == 1 && read_counter <= 12) begin
 //        read_counter <= read_counter + 1;
 //        sd_rd <= 1;
-//        fifo_wr_en <= 1;
 //        LED16_R <= 0;
 //    end else begin
 //        read_counter <= 0;
 //        sd_rd <= 0; // comment out perhaps
 //        read_new_sample <= 0;
-//        fifo_wr_en <= 0;
 //        LED16_R <= 1;
 //    end
 
@@ -291,32 +353,43 @@ module heartaware(
 //        fifo_wr_en <= 0;
 //    end
     
-    if (btn_right == 1 && last_btn_right == 0) begin
-       fifo_rd_en <= 1;
-    end else if (btn_right == 1 && last_btn_right == 1) begin
-        fifo_rd_en <= 0;
-    end
-  
-//    if (clk_48khz == 1 && last_clk_48khz == 0) begin
-//        fifo_rd_en <= 1; // will output a new sample on fifo_dout
-//    end else 
+//    if (btn_right == 1 && last_btn_right == 0) begin
+//       fifo_rd_en <= 1;
+//    end else if (btn_right == 1 && last_btn_right == 1) begin
 //        fifo_rd_en <= 0;
 //    end
+  
+    if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
+        fifo_rd_en <= 1; // will output a new sample on fifo_dout
+        sample_increment <= sample_increment + 1;
+    end else begin
+        fifo_rd_en <= 0;
+    end
     
-    if (sd_ready == 1 && sd_rd == 0 && fifo_full == 0) begin // fifo_almost_empty == 1
-        // load more samples from the SD card into FIFO buffer
-        // sd_adr <= sd_adr + 32'd512; // increment read address by 512 bytes
+    if (sample_increment >= 511) begin
+       sd_adr <= sd_adr + 32'd512;
+       sample_increment <= 0;
+    end
+    
+    if (fifo_count < 'd500) begin
         sd_rd <= 1;
     end else begin
         sd_rd <= 0;
     end
-  
-  if (master_reset) begin
-      read_counter <= 0;
-      sd_rd <= 0;
-      fifo_rd_en <= 0;
-      sd_adr <= 0;
-  end
+    
+//    if (sd_ready == 1 && fifo_full == 0 && sd_rd_counter <= 512) begin // fifo_almost_empty == 1
+//        // load more samples from the SD card into FIFO buffer
+//        // sd_adr <= sd_adr + 32'd512; // increment read address by 512 bytes
+//        sd_rd <= 1;
+//        sd_rd_counter <= sd_rd_counter + 1;
+//    end else begin
+//        sd_rd <= 0;
+//    end
+    
+//    if (fifo_full) begin
+//       sd_rd_counter <= 0;
+//       sd_adr <= sd_adr + 32'd512;
+//    end
   
   // display_data[7:0] <= audio_data[7:0];  
   // display_data[15:8] <= counter;
@@ -333,7 +406,9 @@ module heartaware(
   LED17_G <= sd_ready;
   LED17_B <= sd_byte_available;
   
-end
+  
+  end // reset
+end // always @
 
 
 
