@@ -235,9 +235,7 @@ module heartaware(
   assign JC[1] = last_audio_playing;
   assign JC[2] = audio_announcer_state;
   assign JC[3] = end_of_number_sample;
-  assign JC[4] = btn_left;
-  assign JC[5] = sample_increment;
-  assign JC[6] = 0;
+  // assign JC[4:6] = audio_number_loop_count;
   assign JC[7] = master_reset;
   
   // assign JD[7:0] = lookup_number;
@@ -288,10 +286,16 @@ module heartaware(
   reg last_audio_playing;
   reg last_fifo_empty;
   
+  reg [2:0] audio_number_loop_count;
+  
   reg last_audio_announcer;
   reg begin_audio_announcer = 0;
   
   reg audio_announcer_state;
+  
+  reg audio_number_loop_playing;
+  
+  reg audio_playing_done;
   
   reg end_of_number_sample = 0;
   
@@ -343,27 +347,89 @@ module heartaware(
     if (last_btn_right == 0 && btn_right == 1) begin
         sd_start_adr <= 'hcd_000;
         sd_stop_adr <= 'h100_000;
-    end
-    
-    if (last_btn_center == 0 && btn_center == 1) begin // start
-        // number_map_input_number <= 0;
         audio_playing <= 1;
     end
     
-    if (last_btn_left == 0 && btn_left == 1) begin
-        // start number announcer looper
-        sd_start_adr <= number_map_start_adr;
-        sd_stop_adr <= number_map_stop_adr;
-    end
+//    if (last_btn_center == 0 && btn_center == 1) begin // start
+//        // number_map_input_number <= 0;
+//        audio_playing <= 1;
+//    end
     
-    if (last_btn_down == 0 && btn_down == 1) begin // stop
-        number_map_input_number <= SW[7:0];
+//    if (last_btn_left == 0 && btn_left == 1) begin
+//        // start number announcer looper
+//        sd_start_adr <= number_map_start_adr;
+//        sd_stop_adr <= number_map_stop_adr;
+//    end
+    
+//    if (last_btn_down == 0 && btn_down == 1) begin // stop
+//        number_map_input_number <= SW[7:0];
+//    end
+    
+//    if (last_btn_up == 0 && btn_up == 1) begin
+//         number_map_input_number <= number_map_output_number;
+//    end
+    
+     
+    
+    if (last_btn_center == 0 && btn_center == 1) begin
+        audio_number_loop_playing <= 1;
     end
     
     if (last_btn_up == 0 && btn_up == 1) begin
-         number_map_input_number <= number_map_output_number;
+        audio_playing <= 1;
     end
     
+    
+    
+    // KNOWN BUG:
+    // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
+    // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
+        
+    if (audio_number_loop_playing == 1) begin
+    
+        // check if number is zero after playing
+        if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
+               audio_number_loop_playing <= 0;
+               audio_number_loop_count <= 0;
+           end
+    
+       // init number from switches, load first adrs
+       else if (audio_number_loop_count == 0) begin
+             number_map_input_number <= SW[7:0];
+             audio_playing <= 1;
+             sd_start_adr <= number_map_start_adr;
+             sd_stop_adr <= number_map_stop_adr;
+            audio_number_loop_count <= audio_number_loop_count + 1;
+        end
+        
+        // play first number
+        else if (audio_number_loop_count == 1) begin
+             audio_playing <= 1;
+                sd_start_adr <= number_map_start_adr;
+             sd_stop_adr <= number_map_stop_adr;
+            audio_number_loop_count <= audio_number_loop_count + 1;        
+        end
+        
+        // play next numbers
+        else if (audio_number_loop_count > 1 && audio_playing_done == 1) begin
+            number_map_input_number <= number_map_output_number;
+            sd_start_adr <= number_map_start_adr;
+             sd_stop_adr <= number_map_stop_adr;
+             audio_playing <= 1; 
+             audio_number_loop_count <= audio_number_loop_count + 1;
+        end
+       
+        // if number is zero before playing, quit
+        else if (number_map_input_number == 0) begin
+            audio_number_loop_playing <= 0;
+            audio_number_loop_count <= 0;
+        end
+
+                  
+    end else begin
+    
+        
+    end
     
 //    if (state == silence) begin
     
@@ -508,6 +574,7 @@ module heartaware(
           if (sd_adr >= sd_stop_adr) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
             pwm_en <= 0;
             audio_playing <= 0;
+            audio_playing_done <= 1;
           end
             
                   
@@ -515,6 +582,7 @@ module heartaware(
 
             sd_adr <= 0;
             pwm_en <= 0;
+            audio_playing_done <= 0;
 
       end // audio_playing
       
@@ -537,6 +605,7 @@ module heartaware(
  // display_data[23:16] <= sd_start_adr[15:8]; 
   display_data[31:24] <= sd_stop_adr[15:8];
 
+  LED[2:0] <= audio_number_loop_count;
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
   // LED17_G <= sd_ready;
