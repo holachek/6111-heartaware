@@ -13,8 +13,8 @@
 module waveform
    #(parameter WIDTH = 1024,            // default: full screen
                THICKNESS = 3,
-               TOP_HEIGHT = 0,
-               BOTTOM_HEIGHT = 768,
+               TOP = 0,
+               BOTTOM =768,
                COLOR = 12'hF00)       // default color: red
    (input [10:0] hcount,
     input [9:0] vcount,
@@ -27,7 +27,7 @@ module waveform
    
    always @ * begin
       x_begin <= 0+296;
-      signal_pix <= 768-3*signal_in+35;
+      signal_pix <= BOTTOM-(((BOTTOM-TOP)*signal_in)>>8)+35;
       if ((hcount >= x_begin && hcount < (x_begin+WIDTH)) &&
 			(vcount >= signal_pix && vcount < (signal_pix+THICKNESS)))
 	   pixel = COLOR;

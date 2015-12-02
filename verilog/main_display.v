@@ -26,7 +26,7 @@ module main_display(
 	parameter WAVEFORM_WIDTH= 3;
     
 	wire [11:0] waveform_pixel;
-    waveform #(.THICKNESS(WAVEFORM_WIDTH),.COLOR(12'hF00)) // red
+    waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'hF00)) // red
           waveform1(.signal_in(signal_in),.signal_pix(signal_pix),.hcount(hcount),.vcount(vcount),
                      .pixel(waveform_pixel));  
                             
