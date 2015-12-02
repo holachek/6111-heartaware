@@ -82,6 +82,7 @@ module heartaware(
     wire clk_65mhz; // VGA clock
     wire clk_25mhz; // SD clock
     wire clk_48khz; // audio sample rate clock
+    wire clk_10hz; // memory write rate clock
     wire clk_1hz;
     
     wire clk_tone;
@@ -91,6 +92,7 @@ module heartaware(
     clock_divider clk_25mhz_inst(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_reset)); // (100_000_000 / 25_000_000) / 2 = 2
     clock_divider clk_48khz_inst(.clk_in(clk_100mhz), .clk_out(clk_48khz), .divider(32'd1042), .reset(master_reset)); // (100_000_000 / 48_000) / 2 = 1041.66
     clock_divider clk_tone_inst(.clk_in(clk_100mhz), .clk_out(clk_tone), .divider(tone_divider), .reset(master_reset));
+    clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
     clock_divider clk_1hz_inst(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd50_000_000), .reset(master_reset));
 
     wire [15:0] sw_synced;
@@ -141,8 +143,40 @@ module heartaware(
   assign SEG[7] = 1'b1;   // decimal point off
 
 
+// SIGNAL RECORDING
+//////////////////////////////////////////////////////////////////////////////////
+// Signal recording
+    reg [7:0] signal_in;
+
+	//make registers to hold intermediate signals
+	reg ena = 1;
+	reg wea; initial wea = 1;
+	reg enb; initial enb = 1;
+	reg [9:0] addra; initial addra = 0;
+	reg [9:0] addrb; initial addrb = 0;
+	wire [7:0] doutb;
+	
+	always @(posedge clk_10hz) begin
+	   signal_in <= SW[7:0];
+	   addra <= addra+1;
+	end
+
+    //make memory to hold signal
+    blk_mem_gen_4 signal_memory (
+      .clka(clk_10hz),    // input wire clka
+      .wea(wea),      // input wire [0 : 0] wea
+      .addra(addra),  // input wire [9 : 0] addra
+      .dina(signal_in),    // input wire [7 : 0] dina
+      .clkb(clk_65mhz),    // input wire clkb
+      .enb(enb),      // input wire enb
+      .addrb(addrb),  // input wire [9 : 0] addrb
+      .doutb(doutb)  // output wire [7 : 0] doutb
+    );
 
 
+// SIGNAL PROCESSING
+//////////////////////////////////////////////////////////////////////////////////
+// Signal processing modules
 
 
 // VIDEO
@@ -158,17 +192,23 @@ module heartaware(
     wire [3:0] r_out;
     wire [3:0] g_out;
     wire [3:0] b_out;
-    
-    reg [7:0] signal_in;
+
     wire [9:0] v_val;
     wire in_region;
-    always @ (posedge clk_25mhz) begin
-        signal_in <= SW[7:0];
-        display_data[15:0] <= v_val;
+
+    always @ (posedge clk_65mhz) begin
+        addrb <= hcount;
     end
     
     
-    main_display xvga_display(.hcount(hcount),.vcount(vcount),.at_display_area(at_display_area),.signal_in(signal_in),.signal_pix(v_val),.in_region(in_region),.r_out(r_out),.g_out(g_out),.b_out(b_out));      
+    main_display xvga_display(.hcount(hcount),.vcount(vcount),
+        .at_display_area(at_display_area),
+        .signal_in(doutb),
+        .signal_pix(v_val),
+        .in_region(in_region),
+        .r_out(r_out),
+        .g_out(g_out),
+        .b_out(b_out));      
           
     assign VGA_R = r_out; 
     assign VGA_G = g_out;
