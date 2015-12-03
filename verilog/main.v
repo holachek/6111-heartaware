@@ -81,7 +81,6 @@ module heartaware(
 
   wire master_reset;
   wire master_halt;
-  wire master_test;
 
   wire clk_100mhz = CLK100MHZ; // master clock, connected to hardware crystal oscillator
   wire clk_65mhz; // VGA clock
@@ -227,18 +226,6 @@ module heartaware(
   wire [7:0] sd_din = 0;
   wire sd_ready_for_next_byte = 0;
   
-  assign JA[7:0] = sd_start_adr[23:16];
-  
-  assign JB[7:0] = sd_stop_adr[23:16];
-  
-  assign JC[0] = audio_playing;
-  assign JC[1] = last_audio_playing;
-  assign JC[2] = audio_announcer_state;
-  assign JC[3] = end_of_number_sample;
-  // assign JC[4:6] = audio_number_loop_count;
-  assign JC[7] = master_reset;
-  
-  // assign JD[7:0] = lookup_number;
   
   sd_controller sd_controller_module(.cs(SD_DAT[3]), .mosi(SD_CMD), .miso(SD_DAT[0]),
         .sclk(SD_SCK), .rd(sd_rd), .wr(sd_wr), .reset(master_reset),
@@ -286,7 +273,7 @@ module heartaware(
   reg last_audio_playing;
   reg last_fifo_empty;
   
-  reg [2:0] audio_number_loop_count;
+  reg [3:0] audio_number_loop_count;
   
   reg last_audio_announcer;
   reg begin_audio_announcer = 0;
@@ -294,10 +281,13 @@ module heartaware(
   reg audio_announcer_state;
   
   reg audio_number_loop_playing;
+  reg last_audio_number_loop_playing;
   
   reg audio_playing_done;
   
   reg end_of_number_sample = 0;
+  
+  reg [31:0] beats_per_minute_loop_count;
   
   reg audio_playing;
   
@@ -307,6 +297,19 @@ module heartaware(
   // must end in 00
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
+
+
+
+    assign JA[7:0] = sd_start_adr[23:16];
+    
+    assign JB[7:0] = sd_stop_adr[23:16];
+    
+    assign JC[0] = audio_playing;
+    assign JC[1] = audio_playing_done;
+    assign JC[2] = audio_number_loop_playing;
+    assign JC[6:3] = audio_number_loop_count[3:0];
+    assign JC[7] = master_reset;
+
 
   always @ (posedge clk_100mhz) begin
   
@@ -326,57 +329,43 @@ module heartaware(
         LED17_B <= 0;
         LED[15] <= 1;
     end else if (master_halt) begin
-        // do nothing! used for capturing address of SD card
+        // do nothing! used for capturing address of SD card when writing number map
     end else begin
         LED16_R <= 0;
         LED[15] <= 0;
         last_clk_32khz <= clk_32khz;
+        
+        // mtn press history used for btn edge triggers
          last_btn_up <= btn_up;
          last_btn_down <= btn_down;
          last_btn_center <= btn_center;
          last_btn_left <= btn_left;
          last_btn_right <= btn_right;
+         
+        // misc edge triggers
          last_audio_playing <= audio_playing;
-         last_last_btn_left <= last_btn_left;
-         last_sd_state <= sd_state;
-           last_sd_byte_available <= sd_byte_available;
+         last_sd_byte_available <= sd_byte_available;
+         last_audio_number_loop_playing <= audio_number_loop_playing;
          last_fifo_empty <= fifo_empty;
     
 
-    
+    // play windows startup tone
     if (last_btn_right == 0 && btn_right == 1) begin
         sd_start_adr <= 'hcd_000;
         sd_stop_adr <= 'h100_000;
         audio_playing <= 1;
     end
     
-//    if (last_btn_center == 0 && btn_center == 1) begin // start
-//        // number_map_input_number <= 0;
-//        audio_playing <= 1;
-//    end
-    
-//    if (last_btn_left == 0 && btn_left == 1) begin
-//        // start number announcer looper
-//        sd_start_adr <= number_map_start_adr;
-//        sd_stop_adr <= number_map_stop_adr;
-//    end
-    
-//    if (last_btn_down == 0 && btn_down == 1) begin // stop
-//        number_map_input_number <= SW[7:0];
-//    end
-    
-//    if (last_btn_up == 0 && btn_up == 1) begin
-//         number_map_input_number <= number_map_output_number;
-//    end
-    
-     
-    
-    if (last_btn_center == 0 && btn_center == 1) begin
-        audio_number_loop_playing <= 1;
+    // play system error
+    if (last_btn_left == 0 && btn_left == 1) begin
+        sd_start_adr <= 'hbf_a00;
+        sd_stop_adr <= 'hcd_000;
+        audio_playing <= 1;
     end
     
-    if (last_btn_up == 0 && btn_up == 1) begin
-        audio_playing <= 1;
+    // play number from switch
+    if (last_btn_center == 0 && btn_center == 1) begin
+        audio_number_loop_playing <= 1;
     end
     
     
@@ -385,13 +374,39 @@ module heartaware(
     // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
     // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
         
+        
+        
+        
+    // Code to play "beats per minute" after number
+    
+//     if (SW[10]) begin
+    
+//        // we potentially might need a pipeline here
+    
+//        if (audio_playing == 0 && audio_number_loop_playing == 0 && last_audio_number_loop_playing == 1) begin
+//         // "beats per minute"
+//             sd_start_adr <= 'hb2_800;
+//             sd_stop_adr <= 'hbf_a00;
+//             audio_playing <= 1;
+//        end
+        
+        
+//     end
+        
+        
+        
+        
+        
+    /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
+    // DO NOT MODIFY
+    
     if (audio_number_loop_playing == 1) begin
     
-        // check if number is zero after playing
-        if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
-               audio_number_loop_playing <= 0;
-               audio_number_loop_count <= 0;
-           end
+       // check if number is zero after playing, play beats per minute
+       if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
+             audio_number_loop_playing <= 0;
+             audio_number_loop_count <= 0;
+       end
     
        // init number from switches, load first adrs
        else if (audio_number_loop_count == 0) begin
@@ -405,7 +420,7 @@ module heartaware(
         // play first number
         else if (audio_number_loop_count == 1) begin
              audio_playing <= 1;
-                sd_start_adr <= number_map_start_adr;
+             sd_start_adr <= number_map_start_adr;
              sd_stop_adr <= number_map_stop_adr;
             audio_number_loop_count <= audio_number_loop_count + 1;        
         end
@@ -426,111 +441,14 @@ module heartaware(
         end
 
                   
-    end else begin
-    
-        
     end
     
-//    if (state == silence) begin
-    
-        
-    
-//    end else if (state == number_load) begin
-    
-        
-    
-//    end else if (state == playing) begin
-    
-        
-    
-//    end
-   
-   
-//    if (begin_audio_announcer) begin
-//        if (number_map_input_number == 0) begin
-//            number_map_input_number <= SW[7:0];
-//        end
-//        audio_announcer_state <= 1;
-//    end
-    
-//    if (audio_announcer_state == 1) begin // running
-    
-//        if (number_map_input_number > 0) begin
-        
-//              sd_start_adr <= number_map_start_adr;
-//              sd_stop_adr <= number_map_stop_adr;
-//              audio_playing <= 1;
-              
-//              if (sd_adr >= sd_stop_adr && end_of_number_sample == 0) begin // we've reached the end of the sample
-//                    number_map_input_number <= number_map_output_number;
-//                    end_of_number_sample <= 1;
-//              end else begin
-//                    end_of_number_sample <= 0;
-//              end
-              
-//              if (last_audio_playing == 1 && audio_playing == 0) begin // negedge of audio_playing
-//                  end_of_number_sample <= 0;
-//              end
-        
-////            if (audio_playing == 0 && last_audio_playing == 1) begin
-            
-////                // after completed playing last number, switch to next number
-////                // number_map_input_number <= number_map_output_number;
-            
-////            end else if (audio_playing == 0 && last_audio_playing == 0) begin // must set up playing a new sound
-////                // set the new SD addresses
-////                sd_start_adr <= number_map_start_adr;
-////                sd_stop_adr <= number_map_stop_adr;
-////                audio_playing <= 1;
-                                
-////            end else begin // audio currently playing, don't do anything!
-            
-            
-////            end
-                    
-//        end else begin
-//            exit_count <= exit_count + 1;
-            
-//            if (exit_count > 50) begin
-//                audio_announcer_state <= 0; // done
-//                exit_count <= 0;
-//            end
-//        end
-    
-//    end
-
-//    if (last_btn_down == 0 && btn_down == 1) begin
-//        if (temp_number == 0) begin
-//            input_number <= SW[7:0];
-//        end else begin
-//             input_number <= temp_number;
-//        end
-//    end
     
 
-//    if (last_btn_center == 0 && btn_center == 1) begin
-//        trigger_play_number_sequence <= 1;
-//        lookup_number <= SW[7:0];
-//    end
-    
-    // currently audio_playing number sequency
-//    if (trigger_play_number_sequence) begin
-//        if (lookup_number > 0) begin
-//            sd_start_adr <= number_start_adr;
-//            sd_stop_adr <= number_stop_adr;
-//            audio_playing <= 1;
-//        end else if (lookup_number == 0) begin
-//            audio_playing <= 0;
-//            trigger_play_number_sequence <= 0;
-//        end
-//    end
-    
-   
 
-
-       // WORKING CODE FOR AUDIO PLAYBACK
-       // provide sd_start_addr, sd_stop_addr, audio_playing_en
-       // DO NOT MODIFY
+     // WORKING CODE FOR AUDIO PLAYBACK
+     // provide sd_start_addr, sd_stop_addr, audio_playing_en
+     // DO NOT MODIFY-
 
     // sd_byte_available can trigger high multiple cycles for one byte
     // we use this to ensure a positive clock edge
@@ -571,7 +489,7 @@ module heartaware(
              sample_increment <= 0;
           end
           
-          if (sd_adr >= sd_stop_adr) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
+          if (sd_adr >= sd_stop_adr && last_audio_playing == 1) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
             pwm_en <= 0;
             audio_playing <= 0;
             audio_playing_done <= 1;
