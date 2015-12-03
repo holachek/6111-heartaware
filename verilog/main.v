@@ -184,7 +184,8 @@ module heartaware(
 // create all objects related to VGA video display
     
     wire [10:0] hcount;
-    wire [9:0] hcount_active;
+    reg  [9:0] hcount_offset; initial hcount_offset = 0;
+    reg  [9:0] hcount_sliding; 
     wire [9:0] vcount;
     wire hsync, vsync, at_display_area;
     xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
@@ -196,10 +197,20 @@ module heartaware(
 
     wire [9:0] v_val;
     wire in_region;
-
-    always @ (posedge clk_65mhz) begin
-        addrb <= hcount;
+    
+    always @ (posedge clk_10hz) begin
+        hcount_offset <= hcount_offset+1;
+        if(addra==1023) begin            
+            display_data[31:16] <= hcount_offset;
+            display_data[15:0] <= hcount_sliding;
+        end
     end
+    
+    always @ (posedge clk_65mhz) begin
+        hcount_sliding <= hcount+hcount_offset;
+        addrb <= hcount_sliding;
+    end
+    
     
     
     main_display xvga_display(.hcount(hcount),.vcount(vcount),
