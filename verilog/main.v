@@ -47,7 +47,7 @@ module heartaware(
   // JB[6] active low INTR for ADC,
   // sensor connect detection
   // pins JB[3], JB[5], JB[7] disconnected. to use, edit constraints file.
-  output [7:0] JC,
+  input [7:0] JC,
   output [7:0] JD,
 
   // 7-segment LED
@@ -84,14 +84,18 @@ module heartaware(
   wire clk_65mhz; // VGA clock
   wire clk_25mhz; // SD clock
   wire clk_32khz; // audio sample rate clock
+  wire clk_1khz; // ADC trigger sample rate clock
   wire clk_10hz; // memory write rate clock
   wire clk_1hz;
+  wire clk_point_2hz;
       
   clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
   clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
+  clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset));
   clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
+  clock_divider clk_point_2hz_module(.clk_in(clk_100mhz), .clk_out(clk_point_2hz), .divider(32'd1_000_000_000), .reset(master_clock_reset));
 
   wire [15:0] sw_synced;
   genvar i;
@@ -104,6 +108,16 @@ module heartaware(
 
   assign master_reset = sw_synced[15];
   assign master_halt = sw_synced[14];
+  
+  wire [7:0] port_adc_in;
+  
+  assign port_adc_in[7:0] = JC[7:0];
+  
+  reg [2:0] system_status = 3;
+  // 0 = paused
+  // 1 = run
+  // 2 = error
+  // 3 = startup
 
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
@@ -151,10 +165,18 @@ module heartaware(
 	reg [9:0] addrb; initial addrb = 0;
 	wire [7:0] doutb;
 	
-	always @(posedge clk_10hz) begin
-	   signal_in <= SW[7:0];
-	   addra <= addra+1;
-	end
+	//output the input signal
+	// assign JA[7:0] = JC[7:0];
+	
+	assign JA[0] = audio_playing;
+	assign JA[1] = audio_playing_done;
+	assign JA[2] = audio_number_loop_playing;
+	assign JA[3] = clk_point_2hz;
+	assign JA[7:4] = audio_number_loop_count;
+	
+	//provide clock to pulse oximeter
+	assign JD[7] = clk_1khz;
+
 
     //make memory to hold signal
     blk_mem_gen_4 signal_memory (
@@ -195,18 +217,27 @@ module heartaware(
     wire [9:0] v_val;
     wire in_region;
     
+    
     always @ (posedge clk_10hz) begin
-        hcount_offset <= hcount_offset+1;
+        signal_in <= port_adc_in;
+        addra <= addra+1;
+        
+        if (system_status == 1) hcount_offset <= hcount_offset+1;
+        else hcount_offset <= 0;
+    
     end
+
     
     always @ (posedge clk_65mhz) begin
-        hcount_sliding <= hcount+hcount_offset;
-        addrb <= hcount_sliding;
+        if (system_status == 1) begin
+            hcount_sliding <= hcount+hcount_offset;
+            addrb <= hcount_sliding;
+        end
     end
     
     
     
-    main_display xvga_display(.hcount(hcount),.vcount(vcount),
+    main_display xvga_display(.clk_100mhz(clk_100mhz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
         .at_display_area(at_display_area),
         .signal_in(doutb),
         .signal_pix(v_val),
@@ -221,20 +252,8 @@ module heartaware(
     assign VGA_HS = ~hsync;
     assign VGA_VS = ~vsync;
     
-//    wire bram_sprite_en;
-//    wire [3:0] bram_sprite_we;
-//    wire [31:0] bram_sprite__addr;
-//    wire [31:0] bram_sprite__din;
-//    wire [31:0] bram_sprite_dout;
-    
-//    wire bram_font_en;
-//    wire [3:0] bram_font_we;
-//    wire [31:0] bram_font_addr;
-//    wire [31:0] bram_font_din;
-//    wire [31:0] bram_font_dout;
 
-//    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .ena(bram_sprite_en),
-//        .wea(bram_sprite_we), .addra(bram_sprite_addr), .dina(bram_sprite_din), .douta(bram_sprite_dout));
+ 
         
 //    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
 //        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
@@ -333,6 +352,8 @@ module heartaware(
   reg last_audio_playing;
   reg last_fifo_empty;
   
+  reg last_clk_point_2hz;
+  
   reg [3:0] audio_number_loop_count;
   
   reg last_audio_announcer;
@@ -349,11 +370,15 @@ module heartaware(
   
   reg end_of_number_sample = 0;
   
+  reg [3:0] boot_counter;
   
   reg audio_playing;
   
   reg [15:0] exit_count;
   
+  reg last_clk_10hz;
+  
+  reg [1:0] last_system_status;
   
   // must end in 00
   reg [31:0] sd_start_adr = 'hcd_000;
@@ -366,15 +391,6 @@ module heartaware(
 
 
 
-    assign JA[7:0] = sd_start_adr[23:16];
-    
-    assign JB[7:0] = sd_stop_adr[23:16];
-    
-    assign JC[0] = audio_playing;
-    assign JC[1] = audio_playing_done;
-    assign JC[2] = audio_number_loop_playing;
-    assign JC[6:3] = audio_number_loop_count[3:0];
-    assign JC[7] = master_reset;
 
 
   always @ (posedge clk_100mhz) begin
@@ -394,67 +410,134 @@ module heartaware(
         LED17_G <= 0;
         LED17_B <= 0;
         LED[15] <= 1;
+        system_status <= 3;
     end else if (master_halt) begin
-        // do nothing! used for capturing address of SD card when writing number map
+    
+        // do nothing, keep 7 segment displayed
+    
     end else begin
-        LED16_R <= 0;
-        LED[15] <= 0;
-        last_clk_32khz <= clk_32khz;
-        last_clk_1hz <= clk_1hz;
-        
-        // mtn press history used for btn edge triggers
-         last_btn_up <= btn_up;
-         last_btn_down <= btn_down;
-         last_btn_center <= btn_center;
-         last_btn_left <= btn_left;
-         last_btn_right <= btn_right;
-         
-        // misc edge triggers
-         last_audio_playing <= audio_playing;
-         last_sd_byte_available <= sd_byte_available;
-         last_audio_number_loop_playing <= audio_number_loop_playing;
-         last_fifo_empty <= fifo_empty;
     
 
-    // play windows startup tone
-    if (last_btn_right == 0 && btn_right == 1) begin
-        sd_start_adr <= 'hcd_000;
-        sd_stop_adr <= 'h100_000;
-        audio_playing <= 1;
-    end
     
-    // play system error
-    if (last_btn_left == 0 && btn_left == 1) begin
-        sd_start_adr <= 'hbf_a00;
-        sd_stop_adr <= 'hcc_000;
-        audio_playing <= 1;
-    end
+        // state machine check
+                if (system_status == 3) begin // boot state
+                    
+                    
+                    if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                        boot_counter <= boot_counter + 1;
+                    end
+                    
+                    if (boot_counter == 0) begin
+                        sd_start_adr <= 'hcd_000;
+                        sd_stop_adr <= 'h100_000;
+                        audio_playing <= 1;
+                    end else if (boot_counter == 2) begin
+                        
+                    end else if (boot_counter >= 3) begin
+                        system_status <= 1;
+                        boot_counter <= 0;
+                    end
+                end else if (last_btn_down == 0 && btn_down == 1) begin
+                
+                    system_status <= 1;
+                
+                end else if (last_btn_up == 0 && btn_up == 1) begin
+                    system_status <= 2;
+                     sd_start_adr <= 'hbf_a00;
+                     sd_stop_adr <= 'hcc_000;
+                     audio_playing <= 1;
+                    
+                end else if (last_system_status != 1 && SW[9]) begin
+                    system_status <= 1;
+                    
+                end else if (system_status == 2) begin // error
+                   
+                    
+                
+                end else if (system_status == 0) begin // paused
+  
+                
+                end else begin
+                    system_status <= 1;
+                    LED16_R <= 0;
+                    LED[15] <= 0;
+            
+            
+            
+   
+                      
+            
+                // play windows startup tone
+                if (last_btn_right == 0 && btn_right == 1) begin
+                    sd_start_adr <= 'hcd_000;
+                    sd_stop_adr <= 'h100_000;
+                    audio_playing <= 1;
+                end
+                
+                // play system error
+                if (last_btn_left == 0 && btn_left == 1) begin
+                    sd_start_adr <= 'hbf_a00;
+                    sd_stop_adr <= 'hcc_000;
+                    audio_playing <= 1;
+                end
+                
+                // play number from switch
+                if (last_btn_center == 0 && btn_center == 1) begin
+                    audio_number_loop_playing <= 1;
+                end
+                
+                
+                if (last_clk_point_2hz == 0 && clk_point_2hz == 1 && audio_playing == 0) begin
+                    audio_number_loop_playing <= 1;
+                end else begin
+                
+                    if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                    
+                        // beeps will not overtake announcement
+                        if (audio_playing == 0) begin
+                            audio_beep_counter <= 1;
+                        end
+                        
+                    //    // flatline
+                    //    sd_start_adr <= 'h114_e00;
+                    //    sd_stop_adr <= 'h150_e00;
+                    
+                    end
+                
+                end
+                
+                
+                if (audio_beep_counter == 1) begin
+                        //    // beep
+                        sd_start_adr <= 'h111_600;
+                        sd_stop_adr <= 'h114_e00;
+                        audio_playing <= 1;
+                        audio_beep_counter <= 0;
+                end
+                
+                
+                
+                end // state machine check
     
-    // play number from switch
-    if (last_btn_center == 0 && btn_center == 1) begin
-        audio_number_loop_playing <= 1;
-    end
     
     
-    if (clk_1hz == 1 && last_clk_1hz == 0) begin
+            
+    // mtn press history used for btn edge triggers
+     last_btn_up <= btn_up;
+     last_btn_down <= btn_down;
+     last_btn_center <= btn_center;
+     last_btn_left <= btn_left;
+     last_btn_right <= btn_right;
     
-        audio_beep_counter <= 1;
-        audio_playing <= 0;
-        
-    //    // flatline
-    //    sd_start_adr <= 'h114_e00;
-    //    sd_stop_adr <= 'h150_e00;
-    
-    end
-    
-    
-    if (audio_beep_counter == 1) begin
-            //    // beep
-            sd_start_adr <= 'h111_600;
-            sd_stop_adr <= 'h114_e00;
-            audio_playing <= 1;
-            audio_beep_counter <= 0;
-    end
+    // misc edge triggers
+    last_audio_playing <= audio_playing;
+    last_sd_byte_available <= sd_byte_available;
+    last_audio_number_loop_playing <= audio_number_loop_playing;
+    last_fifo_empty <= fifo_empty;
+    last_clk_32khz <= clk_32khz;
+    last_clk_1hz <= clk_1hz;
+    last_clk_point_2hz <= clk_point_2hz;
+    last_system_status <= system_status;
     
     // KNOWN BUG:
     // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
@@ -464,7 +547,7 @@ module heartaware(
     /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
     // DO NOT MODIFY
     
-    if (audio_number_loop_playing == 1 && audio_play_lockout == 0) begin
+    if (audio_number_loop_playing == 1) begin
     
        // check if number is zero after playing, play beats per minute
        if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
@@ -591,14 +674,13 @@ module heartaware(
  // display_data[23:16] <= sd_start_adr[15:8]; 
   display_data[31:0] <= sd_adr[31:0];
 
-  LED[3:0] <= audio_number_loop_count;
+  // LED[3:0] <= audio_number_loop_count;
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
   // LED17_G <= sd_ready;
   // LED17_B <= sd_byte_available;
   
-  
-  end // reset
+  end // reset check
 end // always @
 
 

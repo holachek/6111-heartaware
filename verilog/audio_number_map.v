@@ -1,8 +1,20 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+
+// HeartAware
+// M. Holachek and N. Singh
+// 6.111 Final Project, Fall 2015
+// https://github.com/holachek/heartaware
+
+// Module: Audio Number Map
+// Description: Generate start/stop addresses of audio files from number that needs to be spoken
+
+//////////////////////////////////////////////////////////////////////////////////
 
 module audio_number_map(input clk, input [7:0] number, input step, output reg [31:0] start_adr,
 output reg [31:0] stop_adr, output reg [7:0] out_number, input reset);
 
-    // capable of playing numebrs 1-199
+    // capable of playing numbers 1-199
     // special number 230 for "beats per minute"
 
     always @(posedge clk) begin
