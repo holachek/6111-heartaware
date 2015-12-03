@@ -280,6 +280,8 @@ module heartaware(
   
   reg audio_announcer_state;
   
+  reg last_clk_1hz;
+  
   reg audio_number_loop_playing;
   reg last_audio_number_loop_playing;
   
@@ -298,6 +300,10 @@ module heartaware(
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
   reg [31:0] internal_sd_stop_adr;
+  
+  reg audio_play_lockout;
+  
+  reg [15:0] audio_beep_counter;
 
 
 
@@ -335,6 +341,7 @@ module heartaware(
         LED16_R <= 0;
         LED[15] <= 0;
         last_clk_32khz <= clk_32khz;
+        last_clk_1hz <= clk_1hz;
         
         // mtn press history used for btn edge triggers
          last_btn_up <= btn_up;
@@ -360,7 +367,7 @@ module heartaware(
     // play system error
     if (last_btn_left == 0 && btn_left == 1) begin
         sd_start_adr <= 'hbf_a00;
-        sd_stop_adr <= 'hcd_000;
+        sd_stop_adr <= 'hcc_000;
         audio_playing <= 1;
     end
     
@@ -370,6 +377,25 @@ module heartaware(
     end
     
     
+    if (clk_1hz == 1 && last_clk_1hz == 0) begin
+    
+        audio_beep_counter <= 1;
+        audio_playing <= 0;
+        
+    //    // flatline
+    //    sd_start_adr <= 'h114_e00;
+    //    sd_stop_adr <= 'h150_e00;
+    
+    end
+    
+    
+    if (audio_beep_counter == 1) begin
+            //    // beep
+            sd_start_adr <= 'h111_600;
+            sd_stop_adr <= 'h114_e00;
+            audio_playing <= 1;
+            audio_beep_counter <= 0;
+    end
     
     // KNOWN BUG:
     // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
@@ -379,7 +405,7 @@ module heartaware(
     /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
     // DO NOT MODIFY
     
-    if (audio_number_loop_playing == 1) begin
+    if (audio_number_loop_playing == 1 && audio_play_lockout == 0) begin
     
        // check if number is zero after playing, play beats per minute
        if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
@@ -499,14 +525,14 @@ module heartaware(
   // LED[7:0] <= fifo_count[7:0];
   // display_data[31:24] <= sd_state;
   
-  display_data[7:0] <= number_map_input_number;
-  display_data[15:8] <= number_map_output_number;
+ // display_data[7:0] <= number_map_input_number;
+  // display_data[15:8] <= number_map_output_number;
   //display_data[15:8] <= input_number;
 
  // display_data[23:16] <= sd_start_adr[15:8]; 
-  display_data[31:24] <= sd_stop_adr[15:8];
+  display_data[31:0] <= sd_adr[31:0];
 
-  LED[2:0] <= audio_number_loop_count;
+  LED[3:0] <= audio_number_loop_count;
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
   // LED17_G <= sd_ready;
