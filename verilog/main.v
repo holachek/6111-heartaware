@@ -47,7 +47,7 @@ module heartaware(
   // JB[6] active low INTR for ADC,
   // sensor connect detection
   // pins JB[3], JB[5], JB[7] disconnected. to use, edit constraints file.
-  output [7:0] JC,
+  input  [7:0] JC,
   output [7:0] JD,
 
   // 7-segment LED
@@ -84,12 +84,14 @@ module heartaware(
   wire clk_65mhz; // VGA clock
   wire clk_25mhz; // SD clock
   wire clk_32khz; // audio sample rate clock
+  wire clk_1khz;  // pulse ox sample clock
   wire clk_10hz; // memory write rate clock
   wire clk_1hz;
       
   clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
   clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
+  clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
 
@@ -142,7 +144,7 @@ module heartaware(
 //////////////////////////////////////////////////////////////////////////////////
 // Signal recording
     reg [7:0] signal_in;
-
+    
 	//make registers to hold intermediate signals
 	reg ena = 1;
 	reg wea; initial wea = 1;
@@ -151,8 +153,15 @@ module heartaware(
 	reg [9:0] addrb; initial addrb = 0;
 	wire [7:0] doutb;
 	
+	//output the input signal
+	assign JA[7:0] = JC[7:0];
+	
+	//provide clock to pulse oximeter
+	assign JD[0] = clk_1khz;
+	
+	//read in pulse oximeter signal values
 	always @(posedge clk_10hz) begin
-	   signal_in <= SW[7:0];
+	   signal_in <= {JC[6],JC[4],JC[2],JC[0],JC[1],JC[3],JC[5],JC[7]};
 	   addra <= addra+1;
 	end
 
@@ -364,18 +373,8 @@ module heartaware(
   
   reg [15:0] audio_beep_counter;
 
-
-
-    assign JA[7:0] = sd_start_adr[23:16];
     
     assign JB[7:0] = sd_stop_adr[23:16];
-    
-    assign JC[0] = audio_playing;
-    assign JC[1] = audio_playing_done;
-    assign JC[2] = audio_number_loop_playing;
-    assign JC[6:3] = audio_number_loop_count[3:0];
-    assign JC[7] = master_reset;
-
 
   always @ (posedge clk_100mhz) begin
   
