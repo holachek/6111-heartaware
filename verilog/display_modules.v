@@ -26,8 +26,8 @@ module waveform
    reg [10:0] signal_pix; 
    
    always @ * begin
-      x_begin <= 0+296;
-      signal_pix <= BOTTOM-(((BOTTOM-TOP)*signal_in)>>8)+35;
+      x_begin <= 0;
+      signal_pix <= BOTTOM-(((BOTTOM-TOP)*signal_in)>>8);
       if ((hcount >= x_begin && hcount < (x_begin+WIDTH)) &&
 			(vcount >= signal_pix && vcount < (signal_pix+THICKNESS)))
 	   pixel = COLOR;

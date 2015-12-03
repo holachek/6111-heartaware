@@ -184,6 +184,7 @@ module heartaware(
 // create all objects related to VGA video display
     
     wire [10:0] hcount;
+    wire [9:0] hcount_active;
     wire [9:0] vcount;
     wire hsync, vsync, at_display_area;
     xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
