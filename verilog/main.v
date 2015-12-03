@@ -73,8 +73,6 @@ module heartaware(
   inout [3:0] SD_DAT
   );
 
-
-
 // CLOCKS, SYNC, & RESET
 //////////////////////////////////////////////////////////////////////////////////
 // create system and peripheral clocks, synced switches, master system reset
@@ -101,6 +99,7 @@ module heartaware(
                                                       // otherwise reset will stop clocks and halt CPU in reset state
     end
   endgenerate
+
     
 
   assign master_reset = sw_synced[15];
@@ -145,21 +144,24 @@ module heartaware(
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
-
-//    wire [10:0] hcount;
-//    wire [9:0] vcount;
-//    wire hsync, vsync, blank;
-//    wire [11:0] rgb;
     
-//    xvga xvga_module(.vclock(clk_65mhz), .hcount(hcount), .vcount(vcount),
-//        .hsync(hysnc), .vsync(vsync), .blank(blank));
+    wire [10:0] hcount;
+    wire [9:0] vcount;
+    wire hsync, vsync, at_display_area;
+    xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
+          .hsync(hsync),.vsync(vsync),.at_display_area(at_display_area));
     
-//    assign VGA_R = rgb[11:8];
-//    assign VGA_G = rgb[7:4];
-//    assign VGA_B = rgb[3:0];
-//    assign VGA_HS = hsync;
-//    assign VGA_VS = vsync;
-
+    wire [3:0] r_out;
+    wire [3:0] g_out;
+    wire [3:0] b_out;
+    
+    main_display xvga_display(.hcount(hcount),.vcount(vcount),.at_display_area(at_display_area),.r_out(r_out),.g_out(g_out),.b_out(b_out));
+          
+    assign VGA_R = r_out; 
+    assign VGA_G = g_out;
+    assign VGA_B = b_out;
+    assign VGA_HS = ~hsync;
+    assign VGA_VS = ~vsync;
     
 //    wire bram_sprite_en;
 //    wire [3:0] bram_sprite_we;
@@ -289,7 +291,6 @@ module heartaware(
   
   reg end_of_number_sample = 0;
   
-  reg [31:0] beats_per_minute_loop_count;
   
   reg audio_playing;
   
