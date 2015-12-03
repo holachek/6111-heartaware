@@ -85,6 +85,7 @@ module heartaware(
   wire clk_25mhz; // SD clock
   wire clk_32khz; // audio sample rate clock
   wire clk_1khz;  // pulse ox sample clock
+  wire clk_300hz; 
   wire clk_10hz; // memory write rate clock
   wire clk_1hz;
       
@@ -92,6 +93,7 @@ module heartaware(
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
   clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
+  clock_divider clk_300hz_module(.clk_in(clk_100mhz), .clk_out(clk_300hz), .divider(32'd500_000), .reset(master_clock_reset));
   clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
 
@@ -157,17 +159,18 @@ module heartaware(
 	assign JA[7:0] = JC[7:0];
 	
 	//provide clock to pulse oximeter
-	assign JD[0] = clk_1khz;
+	assign JD[7] = clk_1khz;
 	
 	//read in pulse oximeter signal values
-	always @(posedge clk_10hz) begin
-	   signal_in <= {JC[6],JC[4],JC[2],JC[0],JC[1],JC[3],JC[5],JC[7]};
+	always @(posedge clk_300hz) begin
+	   //signal_in <= {JC[6],JC[4],JC[2],JC[0],JC[1],JC[3],JC[5],JC[7]};
+	   signal_in <= {JC[7],JC[3],JC[6],JC[2],JC[5],JC[1],JC[4],JC[0]};
 	   addra <= addra+1;
 	end
 
     //make memory to hold signal
     blk_mem_gen_4 signal_memory (
-      .clka(clk_10hz),    // input wire clka
+      .clka(clk_300hz),    // input wire clka
       .wea(wea),      // input wire [0 : 0] wea
       .addra(addra),  // input wire [9 : 0] addra
       .dina(signal_in),    // input wire [7 : 0] dina
@@ -204,7 +207,7 @@ module heartaware(
     wire [9:0] v_val;
     wire in_region;
     
-    always @ (posedge clk_10hz) begin
+    always @ (posedge clk_300hz) begin
         hcount_offset <= hcount_offset+1;
     end
     

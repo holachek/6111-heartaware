@@ -29,8 +29,7 @@ module main_display(
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'hF00)) // red
           waveform1(.signal_in(signal_in),.signal_pix(signal_pix),.hcount(hcount),.vcount(vcount),
                      .pixel(waveform_pixel));  
-                            
-                     
+                                                
     assign r_out = at_display_area ? waveform_pixel[11:8] : 0;
     assign g_out = at_display_area ? waveform_pixel[7:4] : 0;
     assign b_out = at_display_area ? waveform_pixel[3:0] : 0;
