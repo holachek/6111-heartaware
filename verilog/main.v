@@ -297,6 +297,7 @@ module heartaware(
   // must end in 00
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
+  reg [31:0] internal_sd_stop_adr;
 
 
 
@@ -375,28 +376,6 @@ module heartaware(
     // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
         
         
-        
-        
-    // Code to play "beats per minute" after number
-    
-//     if (SW[10]) begin
-    
-//        // we potentially might need a pipeline here
-    
-//        if (audio_playing == 0 && audio_number_loop_playing == 0 && last_audio_number_loop_playing == 1) begin
-//         // "beats per minute"
-//             sd_start_adr <= 'hb2_800;
-//             sd_stop_adr <= 'hbf_a00;
-//             audio_playing <= 1;
-//        end
-        
-        
-//     end
-        
-        
-        
-        
-        
     /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
     // DO NOT MODIFY
     
@@ -465,36 +444,40 @@ module heartaware(
          // load correct start address if beginning playback
          if (last_audio_playing == 0) begin
             sd_adr <= sd_start_adr;
+            internal_sd_stop_adr <= sd_stop_adr;
             pwm_en <= 1;
          end
+         
+         else begin
                   
-          // load samples from SD
-         if (fifo_count < 'd50 && sd_adr <= sd_stop_adr) begin // fifo_count < 'd50
-             sd_rd <= 1;
-         end else begin
-             sd_rd <= 0;
-         end
-      
-          // read samples from FIFO
-          if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
-              fifo_rd_en <= 1; // will output a new sample on fifo_dout
-              sample_increment <= sample_increment + 1;
-          end else begin
-              fifo_rd_en <= 0;
-          end
+              // load samples from SD
+             if (fifo_count < 'd50 && sd_adr <= internal_sd_stop_adr) begin // fifo_count < 'd50
+                 sd_rd <= 1;
+             end else begin
+                 sd_rd <= 0;
+             end
           
-          // used for continuous playback
-          if (sample_increment >= 511) begin
-             sd_adr <= sd_adr + 32'h200;
-             sample_increment <= 0;
-          end
+              // read samples from FIFO
+              if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
+                  fifo_rd_en <= 1; // will output a new sample on fifo_dout
+                  sample_increment <= sample_increment + 1;
+              end else begin
+                  fifo_rd_en <= 0;
+              end
+              
+              // used for continuous playback
+              if (sample_increment >= 511) begin
+                 sd_adr <= sd_adr + 32'h200;
+                 sample_increment <= 0;
+              end
+              
+              if (sd_adr >= internal_sd_stop_adr && last_audio_playing == 1) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
+                pwm_en <= 0;
+                audio_playing <= 0;
+                audio_playing_done <= 1;
+              end
           
-          if (sd_adr >= sd_stop_adr && last_audio_playing == 1) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
-            pwm_en <= 0;
-            audio_playing <= 0;
-            audio_playing_done <= 1;
           end
-            
                   
       end else begin
 
