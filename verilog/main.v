@@ -85,7 +85,7 @@ module heartaware(
   wire clk_25mhz; // SD clock
   wire clk_32khz; // audio sample rate clock
   wire clk_1khz;  // pulse ox sample clock
-  wire clk_300hz; 
+  wire clk_100hz; 
   wire clk_10hz; // memory write rate clock
   wire clk_1hz;
       
@@ -93,7 +93,7 @@ module heartaware(
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
   clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
-  clock_divider clk_300hz_module(.clk_in(clk_100mhz), .clk_out(clk_300hz), .divider(32'd500_000), .reset(master_clock_reset));
+  clock_divider clk_100hz_module(.clk_in(clk_100mhz), .clk_out(clk_100hz), .divider(32'd500_000), .reset(master_clock_reset));
   clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
 
@@ -156,36 +156,58 @@ module heartaware(
 	wire [7:0] doutb;
 	
 	//output the input signal
-	assign JA[7:0] = JC[7:0];
+	assign JA[7:0] = signal_in;
 	
 	//provide clock to pulse oximeter
 	assign JD[7] = clk_1khz;
 	
 	//read in pulse oximeter signal values
-	always @(posedge clk_300hz) begin
+	always @(posedge clk_100hz) begin
 	   //signal_in <= {JC[6],JC[4],JC[2],JC[0],JC[1],JC[3],JC[5],JC[7]};
 	   signal_in <= {JC[7],JC[3],JC[6],JC[2],JC[5],JC[1],JC[4],JC[0]};
 	   addra <= addra+1;
 	end
-
-    //make memory to hold signal
-    blk_mem_gen_4 signal_memory (
-      .clka(clk_300hz),    // input wire clka
-      .wea(wea),      // input wire [0 : 0] wea
-      .addra(addra),  // input wire [9 : 0] addra
-      .dina(signal_in),    // input wire [7 : 0] dina
-      .clkb(clk_65mhz),    // input wire clkb
-      .enb(enb),      // input wire enb
-      .addrb(addrb),  // input wire [9 : 0] addrb
-      .doutb(doutb)  // output wire [7 : 0] doutb
-    );
 
 
 // SIGNAL PROCESSING
 //////////////////////////////////////////////////////////////////////////////////
 // Signal processing modules
 
-
+    wire sp_ready;
+    wire [17:0] signal_lp_mult;
+    wire [7:0] signal_lp;
+    
+    reg [2:0] ready_sync;
+    always @ (posedge clk_65mhz) begin
+        ready_sync <= {ready_sync[1:0], clk_100hz};
+    end
+    assign sp_ready = ready_sync[1] & ~ready_sync[2];
+    
+    always@(posedge clk_100hz) begin
+        LED[15] <= sp_ready;
+    end
+    
+    //instantiate low pass filter
+    fir31_lp lowpass_filter(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.x(signal_in),.y(signal_lp_mult));
+    assign signal_lp = signal_lp_mult[17:10];
+    
+    always@(posedge clk_100hz) begin
+	   display_data[19:0] <= signal_lp_mult;
+	   display_data[27:20] <= signal_lp;
+	end
+	
+    
+    //make memory to hold signal
+    blk_mem_gen_4 signal_memory (
+      .clka(clk_100hz),    // input wire clka
+      .wea(wea),      // input wire [0 : 0] wea
+      .addra(addra),  // input wire [9 : 0] addra
+      .dina(signal_lp),    // input wire [7 : 0] dina
+      .clkb(clk_65mhz),    // input wire clkb
+      .enb(enb),      // input wire enb
+      .addrb(addrb),  // input wire [9 : 0] addrb
+      .doutb(doutb)  // output wire [7 : 0] doutb
+    );
 
 
 // VIDEO
@@ -207,7 +229,7 @@ module heartaware(
     wire [9:0] v_val;
     wire in_region;
     
-    always @ (posedge clk_300hz) begin
+    always @ (posedge clk_100hz) begin
         hcount_offset <= hcount_offset+1;
     end
     
@@ -376,8 +398,6 @@ module heartaware(
   
   reg [15:0] audio_beep_counter;
 
-    
-    assign JB[7:0] = sd_stop_adr[23:16];
 
   always @ (posedge clk_100mhz) begin
   
@@ -395,12 +415,12 @@ module heartaware(
         LED17_R <= 0;
         LED17_G <= 0;
         LED17_B <= 0;
-        LED[15] <= 1;
+        //LED[15] <= 1;
     end else if (master_halt) begin
         // do nothing! used for capturing address of SD card when writing number map
     end else begin
         LED16_R <= 0;
-        LED[15] <= 0;
+        //LED[15] <= 0;
         last_clk_32khz <= clk_32khz;
         last_clk_1hz <= clk_1hz;
         
@@ -591,7 +611,6 @@ module heartaware(
   //display_data[15:8] <= input_number;
 
  // display_data[23:16] <= sd_start_adr[15:8]; 
-  display_data[31:0] <= sd_adr[31:0];
 
   LED[3:0] <= audio_number_loop_count;
   // LED16_R <= fifo_full;
