@@ -14,8 +14,16 @@
 
 module main_display(
     input clk_100mhz,
+    input clk_65mhz,
     input [10:0] hcount,
     input [9:0] vcount,
+    
+    // bram
+    output [15:0] bram_sprite_adr,
+    input bram_sprite_data,
+    output [18:0] bram_font_adr,
+    input bram_font_data,
+    
     input at_display_area,
     input [7:0] signal_in,
     input [2:0] system_status,
@@ -36,6 +44,7 @@ module main_display(
     reg [18:0] progress_bar_counter;
 
     always @ (posedge clk_100mhz) begin
+    
     
         if (system_status == 0) begin // paused
         
@@ -126,28 +135,37 @@ module main_display(
             blob_animated progress_bar(.width(progress_bar_width), .height(20), .color('hFFF), .x(0),.y(384-10),.hcount(hcount),.vcount(vcount),
             .pixel(progress_bar_pixel), .enable(progress_bar_display_enable));
     
-            wire bram_sprite_we;
- wire [15:0] bram_sprite_adr;
- wire [15:0] bram_sprite_din;
- wire [15:0] bram_sprite_dout;
- 
- reg [7:0] height_counter;
- reg [8:0] width_counter;
- wire [11:0] sprite_pixel;
- reg pixel_counter;
- 
-     blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .wea(bram_sprite_we),
-       .addra(bram_sprite_adr), .dina(bram_sprite_din), .douta(bram_sprite_dout));
-       
-       wire sprite_enable;
-       wire [11:0] sprite_pixel = 0;
-       
-       // sprite sprite_test(.width(128), .height(128), .color('hF00), .x(100), .y(100), .hcount(hcount), .vcount(vcount),
-       //  .pixel(sprite_pixel), .enable(sprite_enable), .sprite_start_adr(0), .bram_read_adr(bram_sprite_adr), .pixel_data(bram_sprite_dout));
-       
 
-                     
-                     
+ 
+    reg [7:0] height_counter;
+    reg [8:0] width_counter;
+    wire [11:0] sprite_pixel;
+    reg pixel_counter;
+ 
+       
+       wire [11:0] sprite_pixel;
+       
+       wire sprite_enable = 1;
+       
+       wire [15:0] bram_sprite_adr1, bram_sprite_adr2, bram_sprite_adr3;
+       wire [11:0] sprite_pixel1, sprite_pixel2, sprite_pixel3;
+       
+    assign bram_sprite_adr = (bram_sprite_adr1 + bram_sprite_adr2 + bram_sprite_adr3);
+      assign sprite_pixel = (sprite_pixel1 + sprite_pixel2 + sprite_pixel3);
+       
+       // pixel x,y = width*y + x
+        sprite sprite_test(.width(260), .height(157), .color('hF00), .x(100), .y(100), .hcount(hcount), .vcount(vcount), .sprite_x_offset(0), .sprite_y_offset(0),
+         .pixel(sprite_pixel1), .enable(sprite_enable), .sprite_width(260), .bram_read_adr(bram_sprite_adr1), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+     
+        // w=98, h=75
+          sprite sprite_test2(.width(98), .height(75), .color('h0F0), .x(100), .y(400), .hcount(hcount), .vcount(vcount), .sprite_x_offset(0), .sprite_y_offset(0),
+           .pixel(sprite_pixel2), .enable(1), .sprite_width(260), .bram_read_adr(bram_sprite_adr2), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                           
+         
+                   sprite sprite_test3(.width(87), .height(75), .color('h0F0), .x(100), .y(700), .hcount(hcount), .vcount(vcount), .sprite_x_offset(98), .sprite_y_offset(0),
+            .pixel(sprite_pixel3), .enable(1), .sprite_width(260), .bram_read_adr(bram_sprite_adr3), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+            
+            
     assign r_out = at_display_area ? (background_color[11:8] + waveform_pixel[11:8] + top_menubar_pixel[11:8] + bottom_menubar_pixel[11:8] + error_box_pixel[11:8] + progress_bar_pixel[11:8] + sprite_pixel[11:8]) : 0;
     assign g_out = at_display_area ? (background_color[7:4] + waveform_pixel[7:4] + top_menubar_pixel[7:4] + bottom_menubar_pixel[7:4] + error_box_pixel[7:4] + progress_bar_pixel[7:4] + sprite_pixel[7:4]) : 0;
     assign b_out = at_display_area ? (background_color[3:0] + waveform_pixel[3:0] + top_menubar_pixel[3:0] + bottom_menubar_pixel[3:0] + error_box_pixel[3:0] + progress_bar_pixel[3:0] + sprite_pixel[3:0]) : 0;

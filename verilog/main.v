@@ -168,11 +168,11 @@ module heartaware(
 	//output the input signal
 	// assign JA[7:0] = JC[7:0];
 	
-	assign JA[0] = audio_playing;
-	assign JA[1] = audio_playing_done;
-	assign JA[2] = audio_number_loop_playing;
-	assign JA[3] = clk_point_2hz;
-	assign JA[7:4] = audio_number_loop_count;
+//	assign JA[0] = audio_playing;
+//	assign JA[1] = audio_playing_done;
+//	assign JA[2] = audio_number_loop_playing;
+//	assign JA[3] = clk_point_2hz;
+//	assign JA[7:4] = audio_number_loop_count;
 	
 	//provide clock to pulse oximeter
 	assign JD[7] = clk_1khz;
@@ -237,7 +237,26 @@ module heartaware(
     
     
     
-    main_display xvga_display(.clk_100mhz(clk_100mhz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
+    wire [15:0] bram_sprite_adr;
+    wire [18:0] bram_font_adr;
+    
+    wire bram_sprite_data;
+    wire bram_font_data;
+    
+    assign JA[7:0] = bram_sprite_adr[7:0];
+    assign JB[0] = bram_sprite_data;
+    assign JB[1] = bram_font_data;
+    // assign JB[2] = clk_100mhz;
+    
+
+    
+    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
+   // blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .addra(bram_font_adr), .douta(bram_font_data));
+
+    
+    main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
+        .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
+        .bram_font_adr(bram_font_adr), .bram_font_data(bram_font_data),
         .at_display_area(at_display_area),
         .signal_in(doutb),
         .signal_pix(v_val),
@@ -395,6 +414,7 @@ module heartaware(
 
   always @ (posedge clk_100mhz) begin
   
+  
     if (master_reset) begin
         read_counter <= 0;
         sd_rd <= 0;
@@ -417,8 +437,8 @@ module heartaware(
     
     end else begin
     
-
-    
+             
+        
         // state machine check
                 if (system_status == 3) begin // boot state
                     

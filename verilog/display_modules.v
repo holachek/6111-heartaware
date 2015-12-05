@@ -87,24 +87,43 @@ module blob_animated
 endmodule
 
 
+
 module sprite
-   (input [10:0] x,width,hcount,
+   (input clk,
+    input [10:0] x,width,hcount,
     input [9:0] y,height,vcount,
-    input [15:0] sprite_start_adr,
-    input [11:0] pixel_data,
+    input [10:0] sprite_x_offset,
+    input [9:0] sprite_y_offset,
+    input pixel_data,
+    input [10:0] sprite_width,
     input [11:0] color,
     input enable,
     output reg [15:0] bram_read_adr,
     output reg [11:0] pixel);
-    
-    parameter BRAM_HEIGHT = 127;
-    
-   always @ * begin
+        
+                
+   always @ (posedge clk) begin
    
-      if ((hcount >= x && hcount < (x+width)) &&
-	 (vcount >= y && vcount < (y+height))) begin
-	       bram_read_adr <= sprite_start_adr + BRAM_HEIGHT*(height-y) + (width-x);
-	       if (enable) pixel = pixel_data;
-      end else pixel = 0;
+    // width = sprite_x_right - sprite_x_left
+    // height = sprite_y_bottom - sprite_y_top
+
+    if (enable) begin
+
+        if ((hcount >= x && hcount < (x+width)) &&
+             (vcount >= y && vcount < (y+height))) begin
+                
+                bram_read_adr <= sprite_width*(vcount-y+sprite_y_offset) + (hcount-x+sprite_x_offset);
+                
+                if (pixel_data) pixel = color;
+                else pixel = 0;
+     
+          end else begin
+          
+            bram_read_adr <= 0;
+             pixel = 0;
+           
+             end
+         
+         end
    end
 endmodule
