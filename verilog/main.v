@@ -153,7 +153,7 @@ module heartaware(
 	reg enb; initial enb = 1;
 	reg [9:0] addra; initial addra = 0;
 	reg [9:0] addrb; initial addrb = 0;
-	wire [7:0] doutb;
+	wire [7:0] doutb_lp;
 	
 	//output the input signal
 	assign JA[7:0] = signal_in;
@@ -190,11 +190,6 @@ module heartaware(
     //instantiate low pass filter
     fir31_lp lowpass_filter(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.x(signal_in),.y(signal_lp_mult));
     assign signal_lp = signal_lp_mult[17:10];
-    
-    always@(posedge clk_100hz) begin
-	   display_data[19:0] <= signal_lp_mult;
-	   display_data[27:20] <= signal_lp;
-	end
 	
     
     //make memory to hold signal
@@ -206,10 +201,82 @@ module heartaware(
       .clkb(clk_65mhz),    // input wire clkb
       .enb(enb),      // input wire enb
       .addrb(addrb),  // input wire [9 : 0] addrb
-      .doutb(doutb)  // output wire [7 : 0] doutb
+      .doutb(doutb_lp)  // output wire [7 : 0] doutb
     );
 
+    reg mf_wea;
+    reg [6:0] mf_counter; initial mf_counter <= 0;
+    wire [6:0] mf_counter_reverse;
+    
+    //set up counters to write values to match filter
+    always @(posedge clk_100hz) begin
+        if(SW[13]==1 && mf_counter <= 100) begin
+            mf_counter <= mf_counter+1;
+            mf_wea <= 1;
+        end
+        else begin
+            mf_counter <= 0;
+            mf_wea <= 0;
+        end
+    end
+    assign mf_counter_reverse = 100-mf_counter;
+    
+    
+    //set up counters to read values to use in match filtering  
+    reg [6:0] mf_index;
+    reg [6:0] mf_offset;
+    wire [7:0] mf_coeff;
+    wire [15:0]signal_mf;
 
+    fir128_match mf(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.coeff_mf(mf_coeff),.index(mf_index),.offset(mf_offset),.x(signal_lp),.y(signal_mf));
+
+    always @(posedge clk_65mhz) begin
+        if(sp_ready) begin
+            mf_offset <= mf_offset+1;
+            mf_index <= 0;
+        end
+        else begin
+		  if(mf_index<=126) begin		
+            mf_index <= mf_index+1;
+          end
+       end
+    end
+    
+    wire [6:0] mf_address;
+    assign mf_address = mf_offset-mf_index; 
+    //make memory to hold match filter coefficients
+    match_filter_coeffs mf_coeffs (
+          .clka(clk_100hz),    // input wire clka
+          .wea(mf_wea),      // input wire [0 : 0] wea
+          .addra(mf_counter_reverse),  // input wire [6 : 0] addra
+          .dina(signal_lp),    // input wire [7 : 0] dina
+          .clkb(clk_65mhz),    // input wire clkb
+          .addrb(mf_address),  // input wire [6 : 0] addrb
+          .doutb(mf_coeff)  // output wire [7 : 0] doutb
+        );
+    
+    wire [15:0] doutb_mf_mult;
+    wire [7:0] doutb_mf;
+    //make memory to hold outputs from match filter
+        //make memory to hold signal
+    blk_mem_gen_3 mf_memory(
+      .clka(clk_100hz),    // input wire clka
+      .ena(ena),      // input wire ena
+      .wea(wea),      // input wire [0 : 0] wea
+      .addra(addra),  // input wire [9 : 0] addra
+      .dina(signal_mf),    // input wire [15 : 0] dina
+      .clkb(clk_65mhz),    // input wire clkb
+      .enb(enb),      // input wire enb
+      .addrb(addrb),  // input wire [9 : 0] addrb
+      .doutb(doutb_mf_mult)  // output wire [15 : 0] doutb
+    );
+    always@(posedge clk_100hz) begin
+	   display_data[15:0] <= addrb;
+	   display_data[31:16] <= doutb_mf;
+	end
+    
+    assign doutb_mf = doutb_mf_mult[15:8];
+    assign JA[7:0] = doutb_mf_mult;
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
@@ -227,6 +294,7 @@ module heartaware(
     wire [3:0] b_out;
 
     wire [9:0] v_val;
+    wire [9:0] v_val2;
     wire in_region;
     
     always @ (posedge clk_100hz) begin
@@ -237,13 +305,13 @@ module heartaware(
         hcount_sliding <= hcount+hcount_offset;
         addrb <= hcount_sliding;
     end
-    
-    
-    
+        
     main_display xvga_display(.hcount(hcount),.vcount(vcount),
         .at_display_area(at_display_area),
-        .signal_in(doutb),
+        .signal_in(doutb_lp),
+        .signal_mf(doutb_mf),
         .signal_pix(v_val),
+        .signal_pix2(v_val2),
         .in_region(in_region),
         .r_out(r_out),
         .g_out(g_out),

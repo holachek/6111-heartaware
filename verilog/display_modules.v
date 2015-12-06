@@ -31,6 +31,6 @@ module waveform
       if ((hcount >= x_begin && hcount < (x_begin+WIDTH)) &&
 			(vcount >= signal_pix && vcount < (signal_pix+THICKNESS)))
 	   pixel = COLOR;
-      else pixel = 12'hFFF;
+      else pixel = 12'h000;
    end
 endmodule

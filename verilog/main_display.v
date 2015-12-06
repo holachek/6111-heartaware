@@ -17,7 +17,9 @@ module main_display(
     input [9:0] vcount,
     input at_display_area,
     input [7:0] signal_in,
+    input [15:0] signal_mf,
     output [10:0] signal_pix,
+    output [10:0] signal_pix2,
     output in_region,
     output [3:0] r_out,
     output [3:0] g_out,
@@ -28,10 +30,16 @@ module main_display(
 	wire [11:0] waveform_pixel;
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'hF00)) // red
           waveform1(.signal_in(signal_in),.signal_pix(signal_pix),.hcount(hcount),.vcount(vcount),
-                     .pixel(waveform_pixel));  
+                     .pixel(waveform_pixel));
+    
+    wire [11:0] mf_pixel;                  
+    waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'h00F)) // blue
+                       mf(.signal_in(signal_mf),.signal_pix(signal_pix2),.hcount(hcount),.vcount(vcount),
+                                  .pixel(mf_pixel));  
+                                                                
                                                 
-    assign r_out = at_display_area ? waveform_pixel[11:8] : 0;
-    assign g_out = at_display_area ? waveform_pixel[7:4] : 0;
-    assign b_out = at_display_area ? waveform_pixel[3:0] : 0;
+    assign r_out = at_display_area ? (waveform_pixel[11:8]+mf_pixel[11:8]) : 0;
+    assign g_out = at_display_area ? (waveform_pixel[7:4]+mf_pixel[7:4]) : 0;
+    assign b_out = at_display_area ? (waveform_pixel[3:0]+mf_pixel[3:0]) : 0;
 endmodule
 

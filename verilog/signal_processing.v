@@ -120,7 +120,7 @@ endmodule
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// 128-tap FIR filter, 8-bit signed data, 8-bit coefficients from match filter.
+// 127-tap FIR filter, 8-bit signed data, 8-bit coefficients from match filter.
 // ready is asserted whenever there is a new sample on the X input,
 // the Y output should also be sampled at the same time.  Assumes at
 // least 32 clocks between ready assertions.  Note that since the
@@ -155,12 +155,12 @@ module fir128_match(
 			accumulator <= 0;
 		 end
 		 //incrementally accumulate values for 31 samples
-		 if(index<=30) begin		
+		 if(index<=126) begin		
 			intermediate <= coeff_mf*sample[(offset-index)];
 			accumulator <= accumulator+intermediate;
 		 end
 		 //after 31 samples set output value to accumulator value
-		 else if(index>100) y <= accumulator;
+		 else if(index>126) y <= accumulator;
 	 end
   end
 endmodule
