@@ -21,15 +21,13 @@ module main_display(
     
     // bram
     output [17:0] bram_sprite_adr,
-    input bram_sprite_input_data,
-    output [17:0] bram_sprite_adrb,
-    input bram_sprite_datab,
+    input bram_sprite_data,
     
     input [7:0] number,
     
     output reg [7:0] debug1,
     output reg [7:0] debug2,
-    
+        
     input at_display_area,
     input [7:0] signal_in,
     input [2:0] system_status,
@@ -51,35 +49,41 @@ module main_display(
     reg [7:0] last_number;
     reg bcd_start;
     
-    reg bram_sprite_data;
-
-    // simple_binary_to_BCD BCDmodule(.clock(clk_100mhz), .start(bcd_start), .data(number), .d1(sprite_1s_number), .d10(sprite_10s_number));
-
     reg last_clk_1hz;
+
+    
+    wire [3:0] sprite_10s_number;
+    wire [3:0] sprite_1s_number;
+
+    simple_binary_to_BCD BCDmodule(.clock(clk_100mhz), .start(1), .data(number), .d1(sprite_1s_number), .d10(sprite_10s_number), .d100());
+
 
     always @ (posedge clk_100mhz) begin
     
     last_clk_1hz <= clk_1hz;
     
 
-    if (last_clk_1hz == 0 && clk_1hz == 1) begin
+//   if (last_clk_1hz == 0 && clk_1hz == 1) begin
+   
+//           bcd_start <= 1;
     
-        sprite_1s_number <= sprite_1s_number + 1;
-        sprite_10s_number <= sprite_10s_number + 1;
+////        sprite_1s_number <= sprite_1s_number + 1;
+////        sprite_10s_number <= sprite_10s_number + 1;
         
-        if (sprite_1s_number > 9) sprite_1s_number <= 0;
-        if (sprite_10s_number > 9) sprite_10s_number <= 0;
+////        if (sprite_1s_number > 9) sprite_1s_number <= 0;
+////        if (sprite_10s_number > 9) sprite_10s_number <= 0;
     
-    end
+//    end else begin
     
-        debug1 <= sprite_1s_number;
+//        bcd_start <= 0;
+    
+//    end
+    
+     debug1[3:0] <= sprite_1s_number;
+     debug1[7:4] <= sprite_10s_number;
     debug2[0] <= bcd_start;
     debug2[1] <= sprite_enable3;
     
-        last_number <= number;
-    
-        if (last_number != number) bcd_start <= 1;
-        else bcd_start <= 0;
     
         if (number > 99 && system_status == 1) begin
             sprite_enable3 <= 1;
@@ -219,8 +223,6 @@ module main_display(
     wire [10:0] sprite_10s_x_left, sprite_10s_x_right, sprite_10s_y_top, sprite_10s_y_bottom;
      wire [10:0] sprite_1s_x_left, sprite_1s_x_right, sprite_1s_y_top, sprite_1s_y_bottom;
 
-    reg [3:0] sprite_10s_number;
-    reg [3:0] sprite_1s_number;
 
 display_sprite_map tens(.clk(clk_65mhz), .number(sprite_10s_number), .sprite_x_left(sprite_10s_x_left), .sprite_x_right(sprite_10s_x_right), .sprite_y_top(sprite_10s_y_top), .sprite_y_bottom(sprite_10s_y_bottom), .reset(0));
 display_sprite_map ones(.clk(clk_65mhz), .number(sprite_1s_number), .sprite_x_left(sprite_1s_x_left), .sprite_x_right(sprite_1s_x_right), .sprite_y_top(sprite_1s_y_top), .sprite_y_bottom(sprite_1s_y_bottom), .reset(0));
@@ -334,7 +336,6 @@ display_sprite_map ones(.clk(clk_65mhz), .number(sprite_1s_number), .sprite_x_le
       g_out <= (background_color[7:4] + waveform_pixel[7:4] + pixel_shaded[7:4]);
       b_out <= (background_color[3:0] + waveform_pixel[3:0] + pixel_shaded[3:0]);
       
-      bram_sprite_data <= bram_sprite_input_data;
   
        
         if (combined_sprite_pixels)

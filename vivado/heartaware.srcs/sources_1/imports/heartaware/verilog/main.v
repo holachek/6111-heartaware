@@ -239,7 +239,6 @@ module heartaware(
     
     
     wire [17:0] bram_sprite_adr;
-    wire [17:0] bram_sprite_adrb;
     
     wire [7:0] bpm_number; // pass this into
     assign bpm_number = SW[7:0];
@@ -255,15 +254,14 @@ module heartaware(
     // assign JB[0] = bram_sprite_data;
     // assign JB[2] = clk_100mhz;
     
+    
 
     
-    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data), .clkb(clk_100mhz),
-    .addrb(bram_sprite_adrb), .doutb(bram_sprite_datab), .enb(1));
+    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
 
     
     main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .clk_1hz(clk_1hz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
-        .bram_sprite_adr(bram_sprite_adr), .bram_sprite_input_data(bram_sprite_data),
-        .bram_sprite_adrb(bram_sprite_adrb), .bram_sprite_datab(bram_sprite_datab),
+        .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
         .at_display_area(at_display_area),
         .signal_in(doutb),
         .signal_pix(v_val),
@@ -282,8 +280,7 @@ module heartaware(
     assign VGA_VS = ~vsync;
     
 
- 
-        
+
 //    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
 //        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
                                 
@@ -506,9 +503,9 @@ module heartaware(
                 
                 // play system error
                 if (last_btn_left == 0 && btn_left == 1) begin
-                    sd_start_adr <= 'hbf_a00;
-                    sd_stop_adr <= 'hcc_000;
-                    audio_playing <= 1;
+
+                end else begin
+                
                 end
                 
                 // play number from switch

@@ -1,7 +1,7 @@
 -- Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2015.2.1 (win64) Build 1302555 Wed Aug  5 13:06:02 MDT 2015
--- Date        : Sat Dec 05 02:42:52 2015
+-- Date        : Sun Dec 06 03:02:41 2015
 -- Host        : PolarMarquis-PC running 64-bit Service Pack 1  (build 7601)
 -- Command     : write_vhdl -force -mode synth_stub {C:/Users/Polar
 --               Marquis/Desktop/heartaware/vivado/heartaware.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_stub.vhdl}
@@ -16,11 +16,7 @@ entity blk_mem_gen_0 is
   Port ( 
     clka : in STD_LOGIC;
     addra : in STD_LOGIC_VECTOR ( 17 downto 0 );
-    douta : out STD_LOGIC_VECTOR ( 0 to 0 );
-    clkb : in STD_LOGIC;
-    enb : in STD_LOGIC;
-    addrb : in STD_LOGIC_VECTOR ( 17 downto 0 );
-    doutb : out STD_LOGIC_VECTOR ( 0 to 0 )
+    douta : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
 
 end blk_mem_gen_0;
@@ -29,7 +25,7 @@ architecture stub of blk_mem_gen_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clka,addra[17:0],douta[0:0],clkb,enb,addrb[17:0],doutb[0:0]";
+attribute black_box_pad_pin of stub : architecture is "clka,addra[17:0],douta[0:0]";
 attribute x_core_info : string;
 attribute x_core_info of stub : architecture is "blk_mem_gen_v8_2,Vivado 2015.2.1";
 begin

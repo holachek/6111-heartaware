@@ -19,6 +19,13 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../verilog/binary_to_BCD.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../verilog/display_sprite_map.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -30,15 +37,6 @@
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../verilog/display_modules.v"/>
           <Attr Name="ImportTime" Val="1449294394"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/heartaware/verilog/main_display.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../verilog/main_display.v"/>
-          <Attr Name="ImportTime" Val="1449294637"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -116,18 +114,19 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/heartaware/verilog/main.v">
+      <File Path="$PSRCDIR/sources_1/imports/heartaware/verilog/main_display.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../verilog/main.v"/>
-          <Attr Name="ImportTime" Val="1449294199"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../verilog/main_display.v"/>
+          <Attr Name="ImportTime" Val="1449294637"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../verilog/binary_to_BCD.v">
+      <File Path="$PSRCDIR/sources_1/imports/heartaware/verilog/main.v">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../verilog/main.v"/>
+          <Attr Name="ImportTime" Val="1449294199"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
