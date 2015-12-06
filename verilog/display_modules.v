@@ -8,7 +8,6 @@
 
 // Module: Display_Modules
 // Description: Individual Display Modules
-
 //////////////////////////////////////////////////////////////////////////////////
 module waveform
    #(parameter WIDTH = 1024,            // default: full screen
@@ -22,7 +21,7 @@ module waveform
     output reg [11:0] pixel);
    
    reg [10:0] x_begin;
-   reg signed [10:0] signal_pix; 
+   reg signed [11:0] signal_pix; 
    
    always @ * begin
       x_begin <= 0;

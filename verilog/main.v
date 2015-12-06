@@ -224,7 +224,7 @@ module heartaware(
     reg [6:0] mf_index;
     reg [6:0] mf_offset;
     wire signed [8:0] mf_coeff; 
-    wire [17:0] signal_mf;
+    wire [19:0] signal_mf;
 
     always @(posedge clk_65mhz) begin
         if(sp_ready) begin
