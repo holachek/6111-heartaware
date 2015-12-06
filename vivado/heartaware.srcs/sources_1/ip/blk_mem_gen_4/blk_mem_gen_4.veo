@@ -54,17 +54,19 @@
 // (in parentheses) to your own signal names.
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-blk_mem_gen_1 your_instance_name (
+blk_mem_gen_4 your_instance_name (
   .clka(clka),    // input wire clka
-  .ena(ena),      // input wire ena
   .wea(wea),      // input wire [0 : 0] wea
-  .addra(addra),  // input wire [14 : 0] addra
-  .dina(dina),    // input wire [17 : 0] dina
-  .douta(douta)  // output wire [17 : 0] douta
+  .addra(addra),  // input wire [9 : 0] addra
+  .dina(dina),    // input wire [7 : 0] dina
+  .clkb(clkb),    // input wire clkb
+  .enb(enb),      // input wire enb
+  .addrb(addrb),  // input wire [9 : 0] addrb
+  .doutb(doutb)  // output wire [7 : 0] doutb
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 
-// You must compile the wrapper file blk_mem_gen_1.v when simulating
-// the core, blk_mem_gen_1. When compiling the wrapper file, be sure to
+// You must compile the wrapper file blk_mem_gen_4.v when simulating
+// the core, blk_mem_gen_4. When compiling the wrapper file, be sure to
 // reference the Verilog simulation library.
 

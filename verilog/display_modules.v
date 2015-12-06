@@ -24,7 +24,6 @@ module waveform
     output reg [11:0] pixel);
    
    reg [10:0] x_begin;
-   reg [10:0] signal_pix; 
    
    always @ * begin
       x_begin <= 0;
@@ -34,6 +33,8 @@ module waveform
 			 (vcount >= signal_pix && vcount < (signal_pix+THICKNESS)))
 	           pixel = color;
             else pixel = 0;
+      end else begin
+        pixel = 0;
       end
    end
 endmodule
@@ -89,37 +90,35 @@ endmodule
 
 
 module sprite
+    #(parameter TOTAL_SPRITE_WIDTH = 610) // important to get this right! get this width from COE file
    (input clk,
-    input [10:0] x,width,hcount,
-    input [9:0] y,height,vcount,
-    input [10:0] sprite_x_offset,
-    input [9:0] sprite_y_offset,
+    input [10:0] x,hcount,
+    input [9:0] y,vcount,
+    input [10:0] sprite_x_left,
+    input [10:0] sprite_x_right,
+    input [9:0] sprite_y_top,
+    input [9:0] sprite_y_bottom,
     input pixel_data,
-    input [10:0] sprite_width,
     input [11:0] color,
     input enable,
     output reg [15:0] bram_read_adr,
     output reg [11:0] pixel);
         
-                
    always @ (posedge clk) begin
-   
-    // width = sprite_x_right - sprite_x_left
-    // height = sprite_y_bottom - sprite_y_top
 
     if (enable) begin
 
-        if ((hcount >= x && hcount < (x+width)) &&
-             (vcount >= y && vcount < (y+height))) begin
+        if ((hcount >= x && hcount < (x+(sprite_x_right-sprite_x_left))) &&
+             (vcount >= y && vcount < (y+(sprite_y_bottom-sprite_y_top)))) begin
                 
-                bram_read_adr <= sprite_width*(vcount-y+sprite_y_offset) + (hcount-x+sprite_x_offset);
+                bram_read_adr <= TOTAL_SPRITE_WIDTH*(vcount-y+sprite_y_top) + (hcount-x+sprite_x_left); // go to BRAM address with related sprite image
                 
                 if (pixel_data) pixel = color;
                 else pixel = 0;
      
           end else begin
           
-            bram_read_adr <= 0;
+            bram_read_adr <= 0; // to not interfere with other sprites
              pixel = 0;
            
              end

@@ -70,8 +70,7 @@ module clk_wiz_0_clk_wiz
   // Clock out ports
   output        clk_65mhz,
   // Status and control signals
-  input         reset,
-  output        locked
+  input         reset
  );
 
   // Input buffering
@@ -167,7 +166,6 @@ module clk_wiz_0_clk_wiz
 
   assign reset_high = reset; 
 
-  assign locked = locked_int;
 
   // Output buffering
   //-----------------------------------

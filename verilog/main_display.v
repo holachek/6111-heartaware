@@ -21,8 +21,6 @@ module main_display(
     // bram
     output [15:0] bram_sprite_adr,
     input bram_sprite_data,
-    output [18:0] bram_font_adr,
-    input bram_font_data,
     
     input at_display_area,
     input [7:0] signal_in,
@@ -136,38 +134,60 @@ module main_display(
             .pixel(progress_bar_pixel), .enable(progress_bar_display_enable));
     
 
- 
-    reg [7:0] height_counter;
-    reg [8:0] width_counter;
-    wire [11:0] sprite_pixel;
-    reg pixel_counter;
- 
+
+
+    wire [11:0] combined_sprite_pixels;
+        
+       wire sprite_enable1 =1, sprite_enable2 = 1, sprite_enable3 =1 , sprite_enable4=1, sprite_enable5=1, sprite_enable6=1, sprite_enable7=1, sprite_enable8=1, sprite_enable9=1, sprite_enable10=1;
        
-       wire [11:0] sprite_pixel;
+       wire [15:0] bram_sprite_adr1, bram_sprite_adr2, bram_sprite_adr3, bram_sprite_adr4, bram_sprite_adr5, bram_sprite_adr6, bram_sprite_adr7, bram_sprite_adr8, bram_sprite_adr9, bram_sprite_adr10;
+       wire [11:0] sprite_pixel1, sprite_pixel2, sprite_pixel3, sprite_pixel4, sprite_pixel5, sprite_pixel6, sprite_pixel7, sprite_pixel8, sprite_pixel9, sprite_pixel10;
        
-       wire sprite_enable = 1;
+    assign bram_sprite_adr = (bram_sprite_adr1 + bram_sprite_adr2 + bram_sprite_adr3 + bram_sprite_adr4 + bram_sprite_adr5 + bram_sprite_adr6 + bram_sprite_adr7 + bram_sprite_adr8 + bram_sprite_adr9 + bram_sprite_adr10);
+      assign combined_sprite_pixels = (sprite_pixel1 + sprite_pixel2 + sprite_pixel3 + sprite_pixel4 + sprite_pixel5 + sprite_pixel6 + sprite_pixel7 + sprite_pixel8 + sprite_pixel9 + sprite_pixel10);
        
-       wire [15:0] bram_sprite_adr1, bram_sprite_adr2, bram_sprite_adr3;
-       wire [11:0] sprite_pixel1, sprite_pixel2, sprite_pixel3;
-       
-    assign bram_sprite_adr = (bram_sprite_adr1 + bram_sprite_adr2 + bram_sprite_adr3);
-      assign sprite_pixel = (sprite_pixel1 + sprite_pixel2 + sprite_pixel3);
-       
-       // pixel x,y = width*y + x
-        sprite sprite_test(.width(260), .height(157), .color('hF00), .x(100), .y(100), .hcount(hcount), .vcount(vcount), .sprite_x_offset(0), .sprite_y_offset(0),
-         .pixel(sprite_pixel1), .enable(sprite_enable), .sprite_width(260), .bram_read_adr(bram_sprite_adr1), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
-     
-        // w=98, h=75
-          sprite sprite_test2(.width(98), .height(75), .color('h0F0), .x(100), .y(400), .hcount(hcount), .vcount(vcount), .sprite_x_offset(0), .sprite_y_offset(0),
-           .pixel(sprite_pixel2), .enable(1), .sprite_width(260), .bram_read_adr(bram_sprite_adr2), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
-                           
-         
-                   sprite sprite_test3(.width(87), .height(75), .color('h0F0), .x(100), .y(700), .hcount(hcount), .vcount(vcount), .sprite_x_offset(98), .sprite_y_offset(0),
-            .pixel(sprite_pixel3), .enable(1), .sprite_width(260), .bram_read_adr(bram_sprite_adr3), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+
+            // HeartAware logo icon
+                      sprite sprite1(.color('hF00), .x(20), .y(20), .hcount(hcount), .vcount(vcount), .sprite_x_left(0), .sprite_x_right(143), .sprite_y_top(223), .sprite_y_bottom(355),
+                .pixel(sprite_pixel1), .enable(sprite_enable1), .bram_read_adr(bram_sprite_adr1), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                
+//                // HeartAware text
+                        sprite sprite2(.color('hF00), .x(143+20+30), .y(20), .hcount(hcount), .vcount(vcount), .sprite_x_left(251), .sprite_x_right(610), .sprite_y_top(0), .sprite_y_bottom(61),
+                 .pixel(sprite_pixel2), .enable(sprite_enable2), .bram_read_adr(bram_sprite_adr2), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                 
+//                 // status text  collecting data...
+//                         sprite sprite3(.color('hF00), .x(1024-400), .y(768-70-70), .hcount(hcount), .vcount(vcount), .sprite_x_left(251), .sprite_x_right(610), .sprite_y_top(61), .sprite_y_bottom(134),
+//                  .pixel(sprite_pixel3), .enable(sprite_enable3), .bram_read_adr(bram_sprite_adr3), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                  
+//                  // status text  paused.
+//                          sprite sprite4(.color('hF00), .x(1024-400), .y(768-70-200), .hcount(hcount), .vcount(vcount), .sprite_x_left(251), .sprite_x_right(437), .sprite_y_top(134), .sprite_y_bottom(205),
+//                   .pixel(sprite_pixel4), .enable(sprite_enable4), .bram_read_adr(bram_sprite_adr4), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                   
+//                   // status text  error.
+//                           sprite sprite5(.color('hF00), .x(1024-400), .y(768-70-400), .hcount(hcount), .vcount(vcount), .sprite_x_left(437), .sprite_x_right(576), .sprite_y_top(134), .sprite_y_bottom(205),
+//                    .pixel(sprite_pixel5), .enable(sprite_enable5), .bram_read_adr(bram_sprite_adr5), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                    
+//                    // BPM
+//                            sprite sprite6(.color('hFFF), .x(700+125-50), .y(170+10), .hcount(hcount), .vcount(vcount), .sprite_x_left(178), .sprite_x_right(245), .sprite_y_top(229), .sprite_y_bottom(265),
+//                     .pixel(sprite_pixel6), .enable(sprite_enable6), .bram_read_adr(bram_sprite_adr6), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                     
+//                     // 100s place
+//                             sprite sprite7(.color('hFFF), .x(700+20), .y(170-100), .hcount(hcount), .vcount(vcount), .sprite_x_left(143), .sprite_x_right(172), .sprite_y_top(281), .sprite_y_bottom(355),
+//                      .pixel(sprite_pixel7), .enable(sprite_enable7), .bram_read_adr(bram_sprite_adr7), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                      
+//                      // 10s place
+//                              sprite sprite8(.color('hFFF), .x(700+20+60), .y(170-100), .hcount(hcount), .vcount(vcount), .sprite_x_left(222), .sprite_x_right(269), .sprite_y_top(281), .sprite_y_bottom(355),
+//                       .pixel(sprite_pixel8), .enable(sprite_enable8), .bram_read_adr(bram_sprite_adr8), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+                       
+//                       // 1s place
+//                               sprite sprite9(.color('hFFF), .x(700+20+40+60), .y(170-100), .hcount(hcount), .vcount(vcount), .sprite_x_left(515), .sprite_x_right(567), .sprite_y_top(281), .sprite_y_bottom(355),
+//                        .pixel(sprite_pixel9), .enable(sprite_enable9), .bram_read_adr(bram_sprite_adr9), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
+      
+                       //          sprite sprite1(.color('hF00), .x(500), .y(500), .hcount(hcount), .vcount(vcount), .sprite_x_left(0), .sprite_x_right(610), .sprite_y_top(0), .sprite_y_bottom(355),
+                  //      .pixel(sprite_pixel10), .enable(sprite_enable10), .bram_read_adr(bram_sprite_adr10), .pixel_data(bram_sprite_data), .clk(clk_65mhz));
             
-            
-    assign r_out = at_display_area ? (background_color[11:8] + waveform_pixel[11:8] + top_menubar_pixel[11:8] + bottom_menubar_pixel[11:8] + error_box_pixel[11:8] + progress_bar_pixel[11:8] + sprite_pixel[11:8]) : 0;
-    assign g_out = at_display_area ? (background_color[7:4] + waveform_pixel[7:4] + top_menubar_pixel[7:4] + bottom_menubar_pixel[7:4] + error_box_pixel[7:4] + progress_bar_pixel[7:4] + sprite_pixel[7:4]) : 0;
-    assign b_out = at_display_area ? (background_color[3:0] + waveform_pixel[3:0] + top_menubar_pixel[3:0] + bottom_menubar_pixel[3:0] + error_box_pixel[3:0] + progress_bar_pixel[3:0] + sprite_pixel[3:0]) : 0;
+    assign r_out = at_display_area ? (background_color[11:8] + waveform_pixel[11:8] + top_menubar_pixel[11:8] + bottom_menubar_pixel[11:8] + error_box_pixel[11:8] + progress_bar_pixel[11:8] + combined_sprite_pixels[11:8]) : 0;
+    assign g_out = at_display_area ? (background_color[7:4] + waveform_pixel[7:4] + top_menubar_pixel[7:4] + bottom_menubar_pixel[7:4] + error_box_pixel[7:4] + progress_bar_pixel[7:4] + combined_sprite_pixels[7:4]) : 0;
+    assign b_out = at_display_area ? (background_color[3:0] + waveform_pixel[3:0] + top_menubar_pixel[3:0] + bottom_menubar_pixel[3:0] + error_box_pixel[3:0] + progress_bar_pixel[3:0] + combined_sprite_pixels[3:0]) : 0;
 endmodule
 

@@ -74,6 +74,5 @@
     // Clock out ports
     .clk_65mhz(clk_65mhz),     // output clk_65mhz
     // Status and control signals
-    .reset(reset), // input reset
-    .locked(locked));      // output locked
+    .reset(reset));       // input reset
 // INST_TAG_END ------ End INSTANTIATION Template ---------

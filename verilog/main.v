@@ -237,26 +237,22 @@ module heartaware(
     
     
     
-    wire [15:0] bram_sprite_adr;
-    wire [18:0] bram_font_adr;
+    wire [17:0] bram_sprite_adr;
     
     wire bram_sprite_data;
-    wire bram_font_data;
     
     assign JA[7:0] = bram_sprite_adr[7:0];
+    
     assign JB[0] = bram_sprite_data;
-    assign JB[1] = bram_font_data;
     // assign JB[2] = clk_100mhz;
     
 
     
     blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
-   // blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .addra(bram_font_adr), .douta(bram_font_data));
 
     
     main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
         .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
-        .bram_font_adr(bram_font_adr), .bram_font_data(bram_font_data),
         .at_display_area(at_display_area),
         .signal_in(doutb),
         .signal_pix(v_val),
