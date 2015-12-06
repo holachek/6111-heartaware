@@ -8,22 +8,24 @@
 module simple_binary_to_BCD(
 	input clock,
 	input start,
-	input [9:0] data,
+	input [7:0] data,
 	output reg [3:0] d1,
 	output reg [3:0] d10,
 	output reg [3:0] d100
 	);
 
 	reg started = 0;
-	reg [9:0] binary_number = 0;
+	reg [7:0] last_number;
+	reg [7:0] binary_number = 0;
 
 	always @ (posedge clock) begin
 
-		if (start == 1 && started == 0) begin
+		if (start == 1 && started == 0 && last_number != data) begin
 		    d1 <= 0;
 		    d10 <= 0;
 		    d100 <= 0;
 			started <= 1;
+			last_number <= data;
 			binary_number <= data;
 		end
 
@@ -38,6 +40,8 @@ module simple_binary_to_BCD(
 			end else if (binary_number > 0) begin
 				binary_number <= binary_number - 1;
 				d1 <= d1 + 1;
+			end else if (binary_number == 0) begin
+			     started <= 0;
 			end
 
 		end // end started block
