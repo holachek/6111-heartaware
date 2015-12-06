@@ -14,16 +14,15 @@ module waveform
    #(parameter WIDTH = 1024,            // default: full screen
                THICKNESS = 3,
                TOP = 0,
-               BOTTOM =768,
+               BOTTOM =512,
                COLOR = 12'hF00)       // default color: red
    (input [10:0] hcount,
     input [9:0] vcount,
-    input [7:0] signal_in,
-    output reg [10:0] signal_pix,
+    input signed [8:0] signal_in,
     output reg [11:0] pixel);
    
    reg [10:0] x_begin;
-   reg [10:0] signal_pix; 
+   reg signed [10:0] signal_pix; 
    
    always @ * begin
       x_begin <= 0;

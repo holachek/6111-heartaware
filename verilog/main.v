@@ -86,7 +86,6 @@ module heartaware(
   wire clk_32khz; // audio sample rate clock
   wire clk_1khz;  // pulse ox sample clock
   wire clk_100hz; 
-  wire clk_10hz; // memory write rate clock
   wire clk_1hz;
       
   clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
@@ -94,7 +93,6 @@ module heartaware(
   clock_divider clk_32khz_module(.clk_in(clk_100mhz), .clk_out(clk_32khz), .divider(32'd1563), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_100hz_module(.clk_in(clk_100mhz), .clk_out(clk_100hz), .divider(32'd500_000), .reset(master_clock_reset));
-  clock_divider clk_10hz_inst(.clk_in(clk_100mhz), .clk_out(clk_10hz), .divider(32'd5_000_000), .reset(master_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
 
   wire [15:0] sw_synced;
@@ -153,7 +151,7 @@ module heartaware(
 	reg enb; initial enb = 1;
 	reg [9:0] addra; initial addra = 0;
 	reg [9:0] addrb; initial addrb = 0;
-	wire [7:0] doutb_lp;
+	wire signed [8:0] doutb_lp;
 	
 	//output the input signal
 	assign JA[7:0] = signal_in;
@@ -174,8 +172,8 @@ module heartaware(
 // Signal processing modules
 
     wire sp_ready;
-    wire [17:0] signal_lp_mult;
-    wire [7:0] signal_lp;
+    wire signed [18:0] signal_lp_mult;
+    wire signed [8:0] signal_lp;
     
     reg [2:0] ready_sync;
     always @ (posedge clk_65mhz) begin
@@ -189,7 +187,7 @@ module heartaware(
     
     //instantiate low pass filter
     fir31_lp lowpass_filter(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.x(signal_in),.y(signal_lp_mult));
-    assign signal_lp = signal_lp_mult[17:10];
+    assign signal_lp = signal_lp_mult[18:10];
 	
     
     //make memory to hold signal
@@ -210,7 +208,7 @@ module heartaware(
     
     //set up counters to write values to match filter
     always @(posedge clk_100hz) begin
-        if(SW[13]==1 && mf_counter <= 100) begin
+        if(SW[13]==1 && mf_counter <= 126) begin
             mf_counter <= mf_counter+1;
             mf_wea <= 1;
         end
@@ -219,16 +217,14 @@ module heartaware(
             mf_wea <= 0;
         end
     end
-    assign mf_counter_reverse = 100-mf_counter;
+    assign mf_counter_reverse = 126-mf_counter;
     
     
     //set up counters to read values to use in match filtering  
     reg [6:0] mf_index;
     reg [6:0] mf_offset;
-    wire [7:0] mf_coeff;
-    wire [15:0]signal_mf;
-
-    fir128_match mf(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.coeff_mf(mf_coeff),.index(mf_index),.offset(mf_offset),.x(signal_lp),.y(signal_mf));
+    wire signed [8:0] mf_coeff; 
+    wire [17:0] signal_mf;
 
     always @(posedge clk_65mhz) begin
         if(sp_ready) begin
@@ -251,11 +247,15 @@ module heartaware(
           .addra(mf_counter_reverse),  // input wire [6 : 0] addra
           .dina(signal_lp),    // input wire [7 : 0] dina
           .clkb(clk_65mhz),    // input wire clkb
+          .enb(enb),
           .addrb(mf_address),  // input wire [6 : 0] addrb
           .doutb(mf_coeff)  // output wire [7 : 0] doutb
         );
+    //always @(posedge clk_65mhz) mf_coeff <= signal_lp;
     
-    wire [15:0] doutb_mf_mult;
+    fir128_match mf(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.coeff_mf(mf_coeff),.index(mf_index),.offset(mf_offset),.x(signal_lp),.y(signal_mf));
+    
+    wire [17:0] doutb_mf_mult;
     wire [7:0] doutb_mf;
     //make memory to hold outputs from match filter
         //make memory to hold signal
@@ -271,12 +271,11 @@ module heartaware(
       .doutb(doutb_mf_mult)  // output wire [15 : 0] doutb
     );
     always@(posedge clk_100hz) begin
-	   display_data[15:0] <= addrb;
+	   display_data[15:0] <= doutb_mf_mult;
 	   display_data[31:16] <= doutb_mf;
 	end
     
-    assign doutb_mf = doutb_mf_mult[15:8];
-    assign JA[7:0] = doutb_mf_mult;
+    assign doutb_mf = doutb_mf_mult[17:9];
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
@@ -345,7 +344,7 @@ module heartaware(
 // AUDIO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to PWM audio output
-
+/*
   wire [7:0] pwm_audio_sample_data;
   reg pwm_en;
   assign AUD_SD = pwm_en;
@@ -731,5 +730,5 @@ end // always @
     
 
 
-
+*/
 endmodule

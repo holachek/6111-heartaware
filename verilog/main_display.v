@@ -29,12 +29,12 @@ module main_display(
     
 	wire [11:0] waveform_pixel;
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'hF00)) // red
-          waveform1(.signal_in(signal_in),.signal_pix(signal_pix),.hcount(hcount),.vcount(vcount),
+          waveform1(.signal_in(signal_in),.hcount(hcount),.vcount(vcount),
                      .pixel(waveform_pixel));
     
     wire [11:0] mf_pixel;                  
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576),.COLOR(12'h00F)) // blue
-                       mf(.signal_in(signal_mf),.signal_pix(signal_pix2),.hcount(hcount),.vcount(vcount),
+                       mf(.signal_in(signal_mf),.hcount(hcount),.vcount(vcount),
                                   .pixel(mf_pixel));  
                                                                 
                                                 
