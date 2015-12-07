@@ -7,7 +7,8 @@
 module xvga(input vga_clock,
             output reg [10:0] hcount,    // pixel number on current line
             output reg [9:0] vcount,	 // line number
-            output reg vsync,hsync,at_display_area);
+            output reg vsync,hsync,at_display_area,
+            output reg blank);
 
    // horizontal: 1344 pixels total
    // display 1024 pixels per line
@@ -31,6 +32,9 @@ module xvga(input vga_clock,
    assign next_hblank = hreset ? 0 : hblankon ? 1 : hblank;
    assign next_vblank = vreset ? 0 : vblankon ? 1 : vblank;
    always @(posedge vga_clock) begin
+   
+      blank <= next_hblank | next_vblank;
+   
       hcount <= hreset ? 0 : hcount + 1;
       hblank <= next_hblank;
       hsync <= hsyncon ? 0 : hsyncoff ? 1 : hsync;  // active low

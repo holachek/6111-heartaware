@@ -87,6 +87,7 @@ module heartaware(
   wire clk_1khz;  // pulse ox sample clock
   wire clk_100hz; 
   wire clk_1hz;
+  wire clk_point_2hz;
       
   clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
@@ -94,6 +95,7 @@ module heartaware(
   clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_100hz_module(.clk_in(clk_100mhz), .clk_out(clk_100hz), .divider(32'd500_000), .reset(master_clock_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
+  clock_divider clk_point_2hz_module(.clk_in(clk_100mhz), .clk_out(clk_point_2hz), .divider(32'd1_000_000_000), .reset(master_clock_reset));
 
   wire [15:0] sw_synced;
   genvar i;
@@ -106,6 +108,15 @@ module heartaware(
 
   assign master_reset = sw_synced[15];
   assign master_halt = sw_synced[14];
+
+     
+  reg [2:0] system_status = 3;
+  // 0 = paused
+  // 1 = run
+  // 2 = error
+  // 3 = startup
+
+
 
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
@@ -120,10 +131,6 @@ module heartaware(
   debounce right(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNR), .clean(btn_right));
 
 
-
-// FSM OBJECTS
-//////////////////////////////////////////////////////////////////////////////////
-// main user interface FSM
 
 
 
@@ -161,8 +168,7 @@ module heartaware(
 	
 	//read in pulse oximeter signal values
 	always @(posedge clk_100hz) begin
-	   //signal_in <= {JC[6],JC[4],JC[2],JC[0],JC[1],JC[3],JC[5],JC[7]};
-	   signal_in <= {JC[7],JC[3],JC[6],JC[2],JC[5],JC[1],JC[4],JC[0]};
+	   signal_in <= {JC[7], JC[3], JC[6], JC[2], JC[5], JC[1], JC[4], JC[0]};
 	   addra <= addra+1;
 	end
 
@@ -177,6 +183,8 @@ module heartaware(
     
     reg [2:0] ready_sync;
     always @ (posedge clk_65mhz) begin
+    
+    
         ready_sync <= {ready_sync[1:0], clk_100hz};
     end
     assign sp_ready = ready_sync[1] & ~ready_sync[2];
@@ -292,9 +300,10 @@ module heartaware(
     reg  [9:0] hcount_offset; initial hcount_offset = 0;
     reg  [9:0] hcount_sliding; 
     wire [9:0] vcount;
+    wire blank;
     wire hsync, vsync, at_display_area;
     xvga xvga1(.vga_clock(clk_65mhz),.hcount(hcount),.vcount(vcount),
-          .hsync(hsync),.vsync(vsync),.at_display_area(at_display_area));
+          .hsync(hsync),.vsync(vsync),.blank(blank),.at_display_area(at_display_area));
     
     wire [3:0] r_out;
     wire [3:0] g_out;
@@ -304,16 +313,50 @@ module heartaware(
     wire [9:0] v_val2;
     wire in_region;
     
+   reg [3:0] r_out_reg;
+   reg [3:0] g_out_reg;
+   reg [3:0] b_out_reg;
+   reg hsync_reg, vsync_reg;
+    
     always @ (posedge clk_100hz) begin
-        hcount_offset <= hcount_offset+1;
+        if (system_status == 1) hcount_offset <= hcount_offset+1;
     end
     
     always @ (posedge clk_65mhz) begin
+            if (system_status == 1) begin
+
         hcount_sliding <= hcount+hcount_offset;
         addrb <= hcount_sliding;
-    end
+        end
         
-    main_display xvga_display(.hcount(hcount),.vcount(vcount),
+        r_out_reg <= r_out;
+        g_out_reg <= g_out;
+        b_out_reg <= b_out;
+        hsync_reg <= hsync;
+        vsync_reg <= vsync;
+        
+
+    end
+       
+    wire [17:0] bram_sprite_adr;
+    
+    wire [7:0] bpm_number; // pass this into
+    
+    
+    // BPM NUMBER
+    assign bpm_number = hr; // SW[7:0] for manual testing
+    
+    wire bram_sprite_data;
+ 
+    
+    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
+
+    
+
+
+    main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .clk_1hz(clk_1hz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
+        .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
+        .number(bpm_number),
         .at_display_area(at_display_area),
         .signal_in(doutb_lp),
         .signal_mf(doutb_mf),
@@ -324,35 +367,20 @@ module heartaware(
         .g_out(g_out),
         .b_out(b_out));      
           
-    assign VGA_R = r_out; 
-    assign VGA_G = g_out;
-    assign VGA_B = b_out;
-    assign VGA_HS = ~hsync;
-    assign VGA_VS = ~vsync;
-    
-//    wire bram_sprite_en;
-//    wire [3:0] bram_sprite_we;
-//    wire [31:0] bram_sprite__addr;
-//    wire [31:0] bram_sprite__din;
-//    wire [31:0] bram_sprite_dout;
-    
-//    wire bram_font_en;
-//    wire [3:0] bram_font_we;
-//    wire [31:0] bram_font_addr;
-//    wire [31:0] bram_font_din;
-//    wire [31:0] bram_font_dout;
 
-//    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .ena(bram_sprite_en),
-//        .wea(bram_sprite_we), .addra(bram_sprite_addr), .dina(bram_sprite_din), .douta(bram_sprite_dout));
-        
-//    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
-//        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
-                                
+          
+    assign VGA_R = !blank ? r_out_reg : 3'b0; 
+    assign VGA_G = !blank ? g_out_reg : 3'b0;
+    assign VGA_B = !blank ? b_out_reg : 3'b0;
+    assign VGA_HS = ~hsync_reg;
+    assign VGA_VS = ~vsync_reg;
+    
+
 
 // AUDIO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to PWM audio output
-/*
+
   wire [7:0] pwm_audio_sample_data;
   reg pwm_en;
   assign AUD_SD = pwm_en;
@@ -421,7 +449,7 @@ module heartaware(
 
   fifo_generator_0 audio_sample_buffer(.clk(clk_100mhz), .rst(master_reset), .din(fifo_din), .wr_en(fifo_wr_en),
         .rd_en(fifo_rd_en), .dout(fifo_dout), .full(fifo_full), .empty(fifo_empty),
-        .data_count(fifo_count), .almost_empty(fifo_almost_empty));
+        .data_count(fifo_count));
 
 
 
@@ -468,275 +496,290 @@ module heartaware(
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
   reg [31:0] internal_sd_stop_adr;
+  reg last_system_status;
+  reg last_clk_point_2hz;
   
   reg audio_play_lockout;
   
-  reg [15:0] audio_beep_counter;
-
-
-  always @ (posedge clk_100mhz) begin
+    reg [15:0] audio_beep_counter;
   
-    if (master_reset) begin
-        read_counter <= 0;
-        sd_rd <= 0;
-        fifo_rd_en <= 0;
-        audio_playing <= 0;
-        sd_adr <= 'hcd_000;
-        sd_start_adr <= 'hcd_000;
-        sd_stop_adr <= 'h100_000;
-        LED16_R <= 1;
-        LED16_G <= 0;
-        LED16_B <= 0;
-        LED17_R <= 0;
-        LED17_G <= 0;
-        LED17_B <= 0;
-        //LED[15] <= 1;
-    end else if (master_halt) begin
-        // do nothing! used for capturing address of SD card when writing number map
-    end else begin
-        LED16_R <= 0;
-        //LED[15] <= 0;
-        last_clk_32khz <= clk_32khz;
-        last_clk_1hz <= clk_1hz;
+  
+      reg [15:0] boot_counter;
+    
+    
+      always @ (posedge clk_100mhz) begin
+      
+    
+        if (master_reset) begin
+            read_counter <= 0;
+            sd_rd <= 0;
+            fifo_rd_en <= 0;
+            audio_playing <= 0;
+            sd_adr <= 'hcd_000;
+            sd_start_adr <= 'hcd_000;
+            sd_stop_adr <= 'h100_000;
+            LED16_R <= 1;
+            LED16_G <= 0;
+            LED16_B <= 0;
+            LED17_R <= 0;
+            LED17_G <= 0;
+            LED17_B <= 0;
+            system_status <= 3;
+        end else if (master_halt) begin
+    
+            // do nothing, keep 7 segment displayed for SD read address
         
+        end else begin
+        
+                 
+            
+            // state machine check
+                    if (system_status == 3) begin // boot state
+                        
+                        
+                        if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                            boot_counter <= boot_counter + 1;
+                        end
+                        
+                        if (boot_counter == 0) begin
+                            sd_start_adr <= 'hcd_000;
+                            sd_stop_adr <= 'h100_000;
+                            audio_playing <= 1;
+                        end else if (boot_counter == 2) begin
+                            
+                        end else if (boot_counter >= 3) begin
+                            system_status <= 1;
+                            boot_counter <= 0;
+                        end
+                    end else if (last_btn_down == 0 && btn_down == 1) begin
+    
+                        system_status <= 1;
+                    
+                    end else if (last_btn_left == 0 && btn_left == 1) begin
+                    
+                        system_status <= 0;
+                    
+                    end else if (last_btn_up == 0 && btn_up == 1) begin
+                        system_status <= 2;
+                         sd_start_adr <= 'hbf_a00;
+                         sd_stop_adr <= 'hcc_000;
+                         audio_playing <= 1;
+                        
+                        
+                    end else if (system_status == 2) begin // error
+                       
+                        
+    
+                    end else if (system_status == 0) begin // paused
+      
+                    
+                    end else begin
+                        system_status <= 1;
+                        LED16_R <= 0;
+                
+                
+    
+       
+                          
+                
+                    // play windows startup tone
+                    if (last_btn_right == 0 && btn_right == 1) begin
+                        sd_start_adr <= 'hcd_000;
+                        sd_stop_adr <= 'h100_000;
+                        audio_playing <= 1;
+                    end
+    
+                    // play system error
+                    if (last_btn_left == 0 && btn_left == 1) begin
+    
+                    end else begin
+    
+                    end
+    
+                    // play number from switch
+                    if (last_btn_center == 0 && btn_center == 1) begin
+                        audio_number_loop_playing <= 1;
+                    end
+    
+    
+                    if (last_clk_point_2hz == 0 && clk_point_2hz == 1 && audio_playing == 0) begin
+                        audio_number_loop_playing <= 1;
+                    end else begin
+                    
+                        if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                        
+                            // beeps will not overtake announcement
+                            if (audio_playing == 0) begin
+                                audio_beep_counter <= 1;
+                            end
+                            
+                        //    // flatline
+                        //    sd_start_adr <= 'h114_e00;
+                        //    sd_stop_adr <= 'h150_e00;
+    
+                        end
+                    
+                    end
+                    
+                    
+                    if (audio_beep_counter == 1) begin
+                            //    // beep
+                            sd_start_adr <= 'h111_600;
+                            sd_stop_adr <= 'h114_e00;
+                            audio_playing <= 1;
+                            audio_beep_counter <= 0;
+                    end
+    
+    
+    
+                    end // state machine check
+    
+    
+    
+    
         // mtn press history used for btn edge triggers
          last_btn_up <= btn_up;
          last_btn_down <= btn_down;
          last_btn_center <= btn_center;
          last_btn_left <= btn_left;
          last_btn_right <= btn_right;
-         
+        
         // misc edge triggers
-         last_audio_playing <= audio_playing;
-         last_sd_byte_available <= sd_byte_available;
-         last_audio_number_loop_playing <= audio_number_loop_playing;
-         last_fifo_empty <= fifo_empty;
+        last_audio_playing <= audio_playing;
+        last_sd_byte_available <= sd_byte_available;
+        last_audio_number_loop_playing <= audio_number_loop_playing;
+        last_clk_32khz <= clk_32khz;
+        last_clk_1hz <= clk_1hz;
+        last_clk_point_2hz <= clk_point_2hz;
+        last_system_status <= system_status;
     
-
-    // play windows startup tone
-    if (last_btn_right == 0 && btn_right == 1) begin
-        sd_start_adr <= 'hcd_000;
-        sd_stop_adr <= 'h100_000;
-        audio_playing <= 1;
-    end
-    
-    // play system error
-    if (last_btn_left == 0 && btn_left == 1) begin
-        sd_start_adr <= 'hbf_a00;
-        sd_stop_adr <= 'hcc_000;
-        audio_playing <= 1;
-    end
-    
-    // play number from switch
-    if (last_btn_center == 0 && btn_center == 1) begin
-        audio_number_loop_playing <= 1;
-    end
+        // KNOWN BUG:
+        // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
+        // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
     
     
-    if (clk_1hz == 1 && last_clk_1hz == 0) begin
+        /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
+        // DO NOT MODIFY
     
-        audio_beep_counter <= 1;
-        audio_playing <= 0;
+        if (audio_number_loop_playing == 1) begin
         
-    //    // flatline
-    //    sd_start_adr <= 'h114_e00;
-    //    sd_stop_adr <= 'h150_e00;
+           // check if number is zero after playing, play beats per minute
+           if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
+                 audio_number_loop_playing <= 0;
+                 audio_number_loop_count <= 0;
+           end
     
-    end
+           // init number from switches, load first adrs
+           else if (audio_number_loop_count == 0) begin
+                 number_map_input_number <= bpm_number;
+                 audio_playing <= 1;
+                 sd_start_adr <= number_map_start_adr;
+                 sd_stop_adr <= number_map_stop_adr;
+                audio_number_loop_count <= audio_number_loop_count + 1;
+            end
     
+            // play first number
+            else if (audio_number_loop_count == 1) begin
+                 audio_playing <= 1;
+                 sd_start_adr <= number_map_start_adr;
+                 sd_stop_adr <= number_map_stop_adr;
+                audio_number_loop_count <= audio_number_loop_count + 1;        
+            end
+            
+            // play next numbers
+            else if (audio_number_loop_count > 1 && audio_playing_done == 1) begin
+                number_map_input_number <= number_map_output_number;
+                sd_start_adr <= number_map_start_adr;
+                 sd_stop_adr <= number_map_stop_adr;
+                 audio_playing <= 1;
+                 audio_number_loop_count <= audio_number_loop_count + 1;
+            end
+           
+            // if number is zero before playing, quit
+            else if (number_map_input_number == 0) begin
+                audio_number_loop_playing <= 0;
+                audio_number_loop_count <= 0;
+            end
     
-    if (audio_beep_counter == 1) begin
-            //    // beep
-            sd_start_adr <= 'h111_600;
-            sd_stop_adr <= 'h114_e00;
-            audio_playing <= 1;
-            audio_beep_counter <= 0;
-    end
-    
-    // KNOWN BUG:
-    // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
-    // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
-        
-        
-    /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
-    // DO NOT MODIFY
-    
-    if (audio_number_loop_playing == 1 && audio_play_lockout == 0) begin
-    
-       // check if number is zero after playing, play beats per minute
-       if (number_map_input_number == 0 && audio_number_loop_count > 0) begin
-             audio_number_loop_playing <= 0;
-             audio_number_loop_count <= 0;
-       end
-    
-       // init number from switches, load first adrs
-       else if (audio_number_loop_count == 0) begin
-             number_map_input_number <= SW[7:0];
-             audio_playing <= 1;
-             sd_start_adr <= number_map_start_adr;
-             sd_stop_adr <= number_map_stop_adr;
-            audio_number_loop_count <= audio_number_loop_count + 1;
+                      
         end
         
-        // play first number
-        else if (audio_number_loop_count == 1) begin
-             audio_playing <= 1;
-             sd_start_adr <= number_map_start_adr;
-             sd_stop_adr <= number_map_stop_adr;
-            audio_number_loop_count <= audio_number_loop_count + 1;        
-        end
         
-        // play next numbers
-        else if (audio_number_loop_count > 1 && audio_playing_done == 1) begin
-            number_map_input_number <= number_map_output_number;
-            sd_start_adr <= number_map_start_adr;
-             sd_stop_adr <= number_map_stop_adr;
-             audio_playing <= 1; 
-             audio_number_loop_count <= audio_number_loop_count + 1;
+    
+    
+         // WORKING CODE FOR AUDIO PLAYBACK
+         // provide sd_start_addr, sd_stop_addr, audio_playing_en
+         // DO NOT MODIFY-
+    
+        // sd_byte_available can trigger high multiple cycles for one byte
+        // we use this to ensure a positive clock edge
+        // do not use fifo_wr_en <= sd_byte_available
+        if (last_sd_byte_available == 0 && sd_byte_available == 1) begin
+              fifo_wr_en <= 1;
+        end else begin
+              fifo_wr_en <= 0;
         end
-       
-        // if number is zero before playing, quit
-        else if (number_map_input_number == 0) begin
-            audio_number_loop_playing <= 0;
-            audio_number_loop_count <= 0;
-        end
-
-                  
-    end
     
     
-
-
-     // WORKING CODE FOR AUDIO PLAYBACK
-     // provide sd_start_addr, sd_stop_addr, audio_playing_en
-     // DO NOT MODIFY-
-
-    // sd_byte_available can trigger high multiple cycles for one byte
-    // we use this to ensure a positive clock edge
-    // do not use fifo_wr_en <= sd_byte_available
-    if (last_sd_byte_available == 0 && sd_byte_available == 1) begin
-          fifo_wr_en <= 1;
-    end else begin
-          fifo_wr_en <= 0;
-    end
-    
-
-      if (audio_playing) begin
-      
-         // load correct start address if beginning playback
-         if (last_audio_playing == 0) begin
-            sd_adr <= sd_start_adr;
-            internal_sd_stop_adr <= sd_stop_adr;
-            pwm_en <= 1;
-         end
-         
-         else begin
-                  
-              // load samples from SD
-             if (fifo_count < 'd50 && sd_adr <= internal_sd_stop_adr) begin // fifo_count < 'd50
-                 sd_rd <= 1;
-             end else begin
-                 sd_rd <= 0;
+          if (audio_playing) begin
+          
+             // load correct start address if beginning playback
+             if (last_audio_playing == 0) begin
+                sd_adr <= sd_start_adr;
+                internal_sd_stop_adr <= sd_stop_adr;
+                pwm_en <= 1;
              end
-          
-              // read samples from FIFO
-              if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
-                  fifo_rd_en <= 1; // will output a new sample on fifo_dout
-                  sample_increment <= sample_increment + 1;
-              end else begin
-                  fifo_rd_en <= 0;
-              end
+             
+             else begin
+                      
+                  // load samples from SD
+                 if (fifo_count < 'd50 && sd_adr <= internal_sd_stop_adr) begin // fifo_count < 'd50
+                     sd_rd <= 1;
+                 end else begin
+                     sd_rd <= 0;
+                 end
               
-              // used for continuous playback
-              if (sample_increment >= 511) begin
-                 sd_adr <= sd_adr + 32'h200;
-                 sample_increment <= 0;
-              end
-              
-              if (sd_adr >= internal_sd_stop_adr && last_audio_playing == 1) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
-                pwm_en <= 0;
-                audio_playing <= 0;
-                audio_playing_done <= 1;
-              end
-          
-          end
+                  // read samples from FIFO
+                  if (clk_32khz == 1 && last_clk_32khz == 0 && fifo_empty == 0) begin
+                      fifo_rd_en <= 1; // will output a new sample on fifo_dout
+                      sample_increment <= sample_increment + 1;
+                  end else begin
+                      fifo_rd_en <= 0;
+                  end
                   
-      end else begin
-
-            sd_adr <= 0;
-            pwm_en <= 0;
-            audio_playing_done <= 0;
-
-      end // audio_playing
-      
-      
-
-
-
-  
-  // display_data[7:0] <= audio_data[7:0];  
-  // display_data[15:8] <= counter;
-  // display_data[7:0] <= fifo_dout[7:0];
-  // display_data[23:8] <= sd_adr[23:8];
-  // LED[7:0] <= fifo_count[7:0];
-  // display_data[31:24] <= sd_state;
-  
- // display_data[7:0] <= number_map_input_number;
-  // display_data[15:8] <= number_map_output_number;
-  //display_data[15:8] <= input_number;
-
- // display_data[23:16] <= sd_start_adr[15:8]; 
-
-  LED[3:0] <= audio_number_loop_count;
-  // LED16_R <= fifo_full;
-  // LED16_B <= fifo_empty;
-  // LED17_G <= sd_ready;
-  // LED17_B <= sd_byte_available;
-  
-  
-  end // reset
-end // always @
-
-
-
-
-// TESTING
-//////////////////////////////////////////////////////////////////////////////////
-// for testing purposes
-
-//   always @ (clk_1hz) begin
-   
-//     // toggle red LED
-//     if (clk_1hz == 1) LED16_R <= 0;
-//     else LED16_R <= 1;
-   
-//   end
-
-//  always @ (posedge clk_25mhz) begin
-//    //if (btn_up) begin
-//        LED16_R <= 1;
-//        LED16_G <= 1;
-//        LED16_B <= 1;
-//        LED17_R <= 1;
-//        LED17_G <= 1;
-//        LED17_B <= 1;
-//   // end else if (btn_up == 0) begin
-////        LED16_R <= 0;
-////        LED16_G <= 0;
-////        LED16_B <= 0;
-////        LED17_R <= 0;
-////        LED17_G <= 0;
-////        LED17_B <= 0;
-////        LED[15:0] <= 'h0000;
-////        data <= 'h0000_0000;
-////        master_test_last_state <= 0;
-////    end
-//  end
-
-    // assign LED = SW;     
-    // assign JA[7:0] = 8'b0;
+                  // used for continuous playback
+                  if (sample_increment >= 511) begin
+                     sd_adr <= sd_adr + 32'h200;
+                     sample_increment <= 0;
+                  end
+                  
+                  if (sd_adr >= internal_sd_stop_adr && last_audio_playing == 1) begin // not the best way to do this! but it works. in future use conditional fifo_empty check
+                    pwm_en <= 0;
+                    audio_playing <= 0;
+                    audio_playing_done <= 1;
+                  end
     
+              end
+    
+          end else begin
+    
+                sd_adr <= 0;
+                pwm_en <= 0;
+                audio_playing_done <= 0;
+    
+          end // audio_playing
+    
+    
+    //  display_data[31:0] <= sd_adr[31:0];
+    
+    
+      end // reset check
+    end // always @
+    
+    
+    
+    
+    endmodule
 
 
-*/
-endmodule
+

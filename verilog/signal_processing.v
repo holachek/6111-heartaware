@@ -132,7 +132,7 @@ endmodule
 
 module fir128_match(
   input wire clock,reset,ready,
-  input wire [7:0] coeff_mf,
+  input wire signed [8:0] coeff_mf,
   input wire [6:0] index,
   input wire [6:0] offset,
   input wire signed [8:0] x,
