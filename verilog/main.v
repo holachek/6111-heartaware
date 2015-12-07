@@ -87,6 +87,7 @@ module heartaware(
   wire clk_1khz;  // pulse ox sample clock
   wire clk_100hz; 
   wire clk_1hz;
+  wire clk_point_2hz;
       
   clk_wiz_0 clk_65mhz_module(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .reset(master_clock_reset));
   clock_divider clk_25mhz_module(.clk_in(clk_100mhz), .clk_out(clk_25mhz), .divider(32'd2), .reset(master_clock_reset)); // 100_000_000 / (25_000_000*2) = 2
@@ -94,6 +95,7 @@ module heartaware(
   clock_divider clk_1khz_module(.clk_in(clk_100mhz), .clk_out(clk_1khz), .divider(32'd50_000), .reset(master_clock_reset)); // 100_000_000 / (32_000*2) = 1563
   clock_divider clk_100hz_module(.clk_in(clk_100mhz), .clk_out(clk_100hz), .divider(32'd500_000), .reset(master_clock_reset));
   clock_divider clk_1hz_module(.clk_in(clk_100mhz), .clk_out(clk_1hz), .divider(32'd200_000_000), .reset(master_clock_reset));
+  clock_divider clk_point_2hz_module(.clk_in(clk_100mhz), .clk_out(clk_point_2hz), .divider(32'd1_000_000_000), .reset(master_clock_reset));
 
   wire [15:0] sw_synced;
   genvar i;
@@ -106,6 +108,19 @@ module heartaware(
 
   assign master_reset = sw_synced[15];
   assign master_halt = sw_synced[14];
+
+ 
+  wire [7:0] port_adc_in;
+  
+  assign port_adc_in[7:0] = JC[7:0];
+  
+  reg [2:0] system_status = 3;
+  // 0 = paused
+  // 1 = run
+  // 2 = error
+  // 3 = startup
+
+
 
 // DEBOUNCE OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
@@ -120,10 +135,6 @@ module heartaware(
   debounce right(.reset(master_reset), .clock(clk_25mhz), .noisy(BTNR), .clean(btn_right));
 
 
-
-// FSM OBJECTS
-//////////////////////////////////////////////////////////////////////////////////
-// main user interface FSM
 
 
 
@@ -305,15 +316,37 @@ module heartaware(
     wire in_region;
     
     always @ (posedge clk_100hz) begin
-        hcount_offset <= hcount_offset+1;
+        if (system_status == 1) hcount_offset <= hcount_offset+1;
+        else hcount_offset <= 0;
     end
     
     always @ (posedge clk_65mhz) begin
+            if (system_status == 1) begin
+
         hcount_sliding <= hcount+hcount_offset;
         addrb <= hcount_sliding;
+        end
+
     end
-        
-    main_display xvga_display(.hcount(hcount),.vcount(vcount),
+       
+    wire [17:0] bram_sprite_adr;
+    
+    wire [7:0] bpm_number; // pass this into
+    
+    
+    // BPM NUMBER
+    assign bpm_number = SW[7:0];
+    
+    wire bram_sprite_data;
+ 
+    
+    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
+
+    
+
+
+    main_display xvga_display(clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .clk_1hz(clk_1hz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
+        .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
         .at_display_area(at_display_area),
         .signal_in(doutb_lp),
         .signal_mf(doutb_mf),
@@ -330,29 +363,12 @@ module heartaware(
     assign VGA_HS = ~hsync;
     assign VGA_VS = ~vsync;
     
-//    wire bram_sprite_en;
-//    wire [3:0] bram_sprite_we;
-//    wire [31:0] bram_sprite__addr;
-//    wire [31:0] bram_sprite__din;
-//    wire [31:0] bram_sprite_dout;
-    
-//    wire bram_font_en;
-//    wire [3:0] bram_font_we;
-//    wire [31:0] bram_font_addr;
-//    wire [31:0] bram_font_din;
-//    wire [31:0] bram_font_dout;
 
-//    blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .ena(bram_sprite_en),
-//        .wea(bram_sprite_we), .addra(bram_sprite_addr), .dina(bram_sprite_din), .douta(bram_sprite_dout));
-        
-//    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
-//        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
-                                
 
 // AUDIO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to PWM audio output
-/*
+
   wire [7:0] pwm_audio_sample_data;
   reg pwm_en;
   assign AUD_SD = pwm_en;
@@ -687,7 +703,7 @@ module heartaware(
 
  // display_data[23:16] <= sd_start_adr[15:8]; 
 
-  LED[3:0] <= audio_number_loop_count;
+  // LED[3:0] <= audio_number_loop_count;
   // LED16_R <= fifo_full;
   // LED16_B <= fifo_empty;
   // LED17_G <= sd_ready;
@@ -699,44 +715,4 @@ end // always @
 
 
 
-
-// TESTING
-//////////////////////////////////////////////////////////////////////////////////
-// for testing purposes
-
-//   always @ (clk_1hz) begin
-   
-//     // toggle red LED
-//     if (clk_1hz == 1) LED16_R <= 0;
-//     else LED16_R <= 1;
-   
-//   end
-
-//  always @ (posedge clk_25mhz) begin
-//    //if (btn_up) begin
-//        LED16_R <= 1;
-//        LED16_G <= 1;
-//        LED16_B <= 1;
-//        LED17_R <= 1;
-//        LED17_G <= 1;
-//        LED17_B <= 1;
-//   // end else if (btn_up == 0) begin
-////        LED16_R <= 0;
-////        LED16_G <= 0;
-////        LED16_B <= 0;
-////        LED17_R <= 0;
-////        LED17_G <= 0;
-////        LED17_B <= 0;
-////        LED[15:0] <= 'h0000;
-////        data <= 'h0000_0000;
-////        master_test_last_state <= 0;
-////    end
-//  end
-
-    // assign LED = SW;     
-    // assign JA[7:0] = 8'b0;
-    
-
-
-*/
 endmodule
