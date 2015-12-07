@@ -176,7 +176,7 @@ module hr_calculator(
     output reg [10:0] current_count,
     output reg [10:0] num_elapsed,
     output reg peak,
-    output wire [7:0] hr
+    output reg [7:0] hr
 );
 reg signed [8:0] sample [31:0];
 reg [4:0] offset; initial offset = 0;
@@ -184,17 +184,7 @@ reg [4:0] index; initial index = 0;
 reg [10:0] current_count; initial current_count = 0;
 reg [10:0] num_elapsed; initial num_elapsed = 0;
 wire comp_result;
-
-    div_gen_0 divider(
-      .aclk(clock),                                      // input wire aclk
-      .s_axis_divisor_tvalid(1),    // input wire s_axis_divisor_tvalid
-      .s_axis_divisor_tdata(6000),      // input wire [15 : 0] s_axis_divisor_tdata
-      .s_axis_dividend_tvalid(1),  // input wire s_axis_dividend_tvalid
-      .s_axis_dividend_tdata(num_elapsed),    // input wire [15 : 0] s_axis_dividend_tdata
-      .m_axis_dout_tvalid(dout_valid),          // output wire m_axis_dout_tvalid
-      .m_axis_dout_tdata(hr)            // output wire [31 : 0] m_axis_dout_tdata
-    );
-            
+        
 always @(posedge clock) begin
     if (reset) peak <= 0;
     if(sample[16]>sample[0] &&
@@ -229,21 +219,23 @@ always @(posedge clock) begin
         sample[16]>sample[31]) 
         peak <= 1;
       else peak <= 0;
+      
        sample[31] <= sample[30];
-         sample[30] <= sample[29];
-         sample[29] <= sample[28];
-         sample[28] <= sample[27];
-         sample[27] <= sample[26];
-         sample[26] <= sample[25];
-         sample[25] <= sample[24];
-         sample[24] <= sample[23];
-         sample[22] <= sample[21];
-         sample[21] <= sample[20];
-         sample[20] <= sample[19];
-         sample[19] <= sample[18];
-         sample[18] <= sample[17];
-         sample[17] <= sample[16];
-         sample[16] <= sample[15];
+       sample[30] <= sample[29];
+       sample[29] <= sample[28];
+       sample[28] <= sample[27];
+       sample[27] <= sample[26];
+       sample[26] <= sample[25];
+       sample[25] <= sample[24];
+       sample[24] <= sample[23];
+       sample[23] <= sample[22];
+       sample[22] <= sample[21];
+       sample[21] <= sample[20];
+       sample[20] <= sample[19];
+       sample[19] <= sample[18];
+       sample[18] <= sample[17];
+       sample[17] <= sample[16];
+       sample[16] <= sample[15];
        sample[15] <= sample[14];
        sample[14] <= sample[13];
        sample[13] <= sample[12];
@@ -266,13 +258,13 @@ always @(posedge clock) begin
     //incrementally accumulate values for 31 samples                
    if(peak == 1) begin
         num_elapsed <= current_count;
+        hr <= 6000/num_elapsed;
         current_count <= 0;
         peak <= 0;
    end
    else begin
         current_count <= current_count+1;
    end     
-   index <= index+1;
 end
   
 endmodule

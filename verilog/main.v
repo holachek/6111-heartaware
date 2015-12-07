@@ -278,11 +278,11 @@ module heartaware(
     wire [7:0] hr;
     
     hr_calculator hr_calc(.clock(clk_100hz),.reset(master_reset),.signal(doutb_mf),
-        .current_count(current_count),.peak(peak),.hr(hr));
+        .num_elapsed(current_count),.peak(peak),.hr(hr));
 
     always@(posedge clk_100hz) begin
-	   display_data[22:0] <= current_count;
-	   display_data[31:24] <= hr;
+	   display_data[15:0] <= current_count;
+	   display_data[31:16] <= hr;
 	end    
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
