@@ -24,9 +24,6 @@ module main_display(
     input bram_sprite_data,
     
     input [7:0] number,
-    
-    output reg [7:0] debug1,
-    output reg [7:0] debug2,
         
     input at_display_area,
     input [7:0] signal_in,
@@ -79,11 +76,6 @@ module main_display(
     
 //    end
     
-     debug1[3:0] <= sprite_1s_number;
-     debug1[7:4] <= sprite_10s_number;
-    debug2[0] <= bcd_start;
-    debug2[1] <= sprite_enable3;
-    
     
         if (number > 99 && system_status == 1) begin
             sprite_enable3 <= 1;
@@ -134,7 +126,7 @@ module main_display(
                     top_menubar_display_enable <= 1;
                     bottom_menubar_display_enable <= 1;
                     error_box_display_enable <= 0;
-            waveform_color <= 'h000;
+            waveform_color <= 'hFFF;
             top_menubar_color <= 'hF22;
             bottom_menubar_color <= 'h17A;
             error_box_color <= 'hFFF;
@@ -155,7 +147,6 @@ module main_display(
                     top_menubar_display_enable <= 1;
                     bottom_menubar_display_enable <= 1;
                     error_box_display_enable <= 1;
-            waveform_color <= 'hFFF;
             top_menubar_color <= 'h666;
             bottom_menubar_color <= 'h666;
             error_box_color <= 'hF22;
