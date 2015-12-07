@@ -270,12 +270,20 @@ module heartaware(
       .addrb(addrb),  // input wire [9 : 0] addrb
       .doutb(doutb_mf_mult)  // output wire [15 : 0] doutb
     );
-    always@(posedge clk_100hz) begin
-	   display_data[15:0] <= doutb_mf_mult;
-	   display_data[31:16] <= doutb_mf;
-	end
     
     assign doutb_mf = doutb_mf_mult[17:9];
+    
+    wire [10:0] current_count;
+    wire peak;
+    wire [7:0] hr;
+    
+    hr_calculator hr_calc(.clock(clk_100hz),.reset(master_reset),.signal(doutb_mf),
+        .current_count(current_count),.peak(peak),.hr(hr));
+
+    always@(posedge clk_100hz) begin
+	   display_data[22:0] <= current_count;
+	   display_data[31:23] <= hr;
+	end    
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
