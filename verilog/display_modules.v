@@ -101,7 +101,7 @@ module sprite
     input pixel_data,
     input [11:0] color,
     input enable,
-    output reg [15:0] bram_read_adr,
+    output reg [17:0] bram_read_adr,
     output reg [11:0] pixel);
         
    always @ (posedge clk) begin

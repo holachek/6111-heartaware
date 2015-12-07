@@ -79,6 +79,7 @@ module heartaware(
 
   wire master_reset;
   wire master_halt;
+  wire master_clock_reset = 0;
 
   wire clk_100mhz = CLK100MHZ; // master clock, connected to hardware crystal oscillator
   wire clk_65mhz; // VGA clock
@@ -224,7 +225,6 @@ module heartaware(
         
         if (system_status == 1) hcount_offset <= hcount_offset+1;
         else hcount_offset <= 0;
-    
     end
 
     
@@ -239,24 +239,25 @@ module heartaware(
     
     wire [17:0] bram_sprite_adr;
     
+    wire [7:0] bpm_number; // pass this into
+    
+    
+    // BPM NUMBER
+    assign bpm_number = SW[7:0];
+    
     wire bram_sprite_data;
-    
-    assign JA[7:0] = bram_sprite_adr[7:0];
-    
-    assign JB[0] = bram_sprite_data;
-    // assign JB[2] = clk_100mhz;
-    
-
+ 
     
     blk_mem_gen_0 sprite_memory_module(.clka(clk_100mhz), .addra(bram_sprite_adr), .douta(bram_sprite_data));
 
     
-    main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
+    main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .clk_1hz(clk_1hz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
         .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
         .at_display_area(at_display_area),
         .signal_in(doutb),
         .signal_pix(v_val),
         .in_region(in_region),
+        .number(bpm_number),
         .r_out(r_out),
         .g_out(g_out),
         .b_out(b_out));      
@@ -268,11 +269,7 @@ module heartaware(
     assign VGA_VS = ~vsync;
     
 
- 
-        
-//    blk_mem_gen_1 font_memory_module(.clka(clk_100mhz), .ena(bram_font_en),
-//        .wea(bram_font_we), .addra(bram_font_addr), .dina(bram_font_din), .douta(bram_font_dout));
-                                
+                         
 
 // AUDIO
 //////////////////////////////////////////////////////////////////////////////////
@@ -365,7 +362,6 @@ module heartaware(
   reg [14:0] sd_rd_counter;
   reg [31:0] sample_increment;
   reg last_audio_playing;
-  reg last_fifo_empty;
   
   reg last_clk_point_2hz;
   
@@ -405,9 +401,6 @@ module heartaware(
   reg [15:0] audio_beep_counter;
 
 
-
-
-
   always @ (posedge clk_100mhz) begin
   
   
@@ -429,7 +422,7 @@ module heartaware(
         system_status <= 3;
     end else if (master_halt) begin
     
-        // do nothing, keep 7 segment displayed
+        // do nothing, keep 7 segment displayed for SD read address
     
     end else begin
     
@@ -492,9 +485,9 @@ module heartaware(
                 
                 // play system error
                 if (last_btn_left == 0 && btn_left == 1) begin
-                    sd_start_adr <= 'hbf_a00;
-                    sd_stop_adr <= 'hcc_000;
-                    audio_playing <= 1;
+
+                end else begin
+                
                 end
                 
                 // play number from switch
@@ -549,7 +542,6 @@ module heartaware(
     last_audio_playing <= audio_playing;
     last_sd_byte_available <= sd_byte_available;
     last_audio_number_loop_playing <= audio_number_loop_playing;
-    last_fifo_empty <= fifo_empty;
     last_clk_32khz <= clk_32khz;
     last_clk_1hz <= clk_1hz;
     last_clk_point_2hz <= clk_point_2hz;
@@ -573,7 +565,7 @@ module heartaware(
     
        // init number from switches, load first adrs
        else if (audio_number_loop_count == 0) begin
-             number_map_input_number <= SW[7:0];
+             number_map_input_number <= bpm_number;
              audio_playing <= 1;
              sd_start_adr <= number_map_start_adr;
              sd_stop_adr <= number_map_stop_adr;
@@ -672,72 +664,12 @@ module heartaware(
       end // audio_playing
       
       
-
-
-
-  
-  // display_data[7:0] <= audio_data[7:0];  
-  // display_data[15:8] <= counter;
-  // display_data[7:0] <= fifo_dout[7:0];
-  // display_data[23:8] <= sd_adr[23:8];
-  // LED[7:0] <= fifo_count[7:0];
-  // display_data[31:24] <= sd_state;
-  
- // display_data[7:0] <= number_map_input_number;
-  // display_data[15:8] <= number_map_output_number;
-  //display_data[15:8] <= input_number;
-
- // display_data[23:16] <= sd_start_adr[15:8]; 
   display_data[31:0] <= sd_adr[31:0];
 
-  // LED[3:0] <= audio_number_loop_count;
-  // LED16_R <= fifo_full;
-  // LED16_B <= fifo_empty;
-  // LED17_G <= sd_ready;
-  // LED17_B <= sd_byte_available;
-  
+
   end // reset check
 end // always @
 
-
-
-
-// TESTING
-//////////////////////////////////////////////////////////////////////////////////
-// for testing purposes
-
-//   always @ (clk_1hz) begin
-   
-//     // toggle red LED
-//     if (clk_1hz == 1) LED16_R <= 0;
-//     else LED16_R <= 1;
-   
-//   end
-
-//  always @ (posedge clk_25mhz) begin
-//    //if (btn_up) begin
-//        LED16_R <= 1;
-//        LED16_G <= 1;
-//        LED16_B <= 1;
-//        LED17_R <= 1;
-//        LED17_G <= 1;
-//        LED17_B <= 1;
-//   // end else if (btn_up == 0) begin
-////        LED16_R <= 0;
-////        LED16_G <= 0;
-////        LED16_B <= 0;
-////        LED17_R <= 0;
-////        LED17_G <= 0;
-////        LED17_B <= 0;
-////        LED[15:0] <= 'h0000;
-////        data <= 'h0000_0000;
-////        master_test_last_state <= 0;
-////    end
-//  end
-
-    // assign LED = SW;     
-    // assign JA[7:0] = 8'b0;
-    
 
 
 
