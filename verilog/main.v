@@ -282,7 +282,7 @@ module heartaware(
 
     always@(posedge clk_100hz) begin
 	   display_data[22:0] <= current_count;
-	   display_data[31:23] <= hr;
+	   display_data[31:24] <= hr;
 	end    
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
