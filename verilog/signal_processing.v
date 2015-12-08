@@ -120,10 +120,10 @@ endmodule
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// 128-tap FIR filter, 8-bit signed data, 8-bit coefficients from match filter.
+// 128-tap FIR filter, 9-bit signed data, 9-bit signed coefficients from match filter.
 // ready is asserted whenever there is a new sample on the X input,
 // the Y output should also be sampled at the same time.  Assumes at
-// least 32 clocks between ready assertions.  Note that since the
+// least 128 clocks between ready assertions.  Note that since the
 // coefficients have been scaled by 2**10, so has the output (it's
 // expanded from 8 bits to 18 bits).  To get an 8-bit result from the
 // filter just divide by 2**10, ie, use Y[17:10].
@@ -136,12 +136,12 @@ module fir128_match(
   input wire [6:0] index,
   input wire [6:0] offset,
   input wire signed [8:0] x,
-  output reg signed [17:0] y
+  output reg signed [18:0] y
 );
 
   //declare and initialize regs
-  reg signed [17:0] accumulator; initial accumulator = 0;
-  reg signed [17:0] intermediate;
+  reg signed [18:0] accumulator; initial accumulator = 0;
+  reg signed [18:0] intermediate;
   reg signed [8:0] sample [127:0];
   initial y = 0;
   
@@ -178,7 +178,7 @@ module hr_calculator(
     output reg peak,
     output reg [7:0] hr
 );
-reg signed [8:0] sample [31:0];
+reg signed [8:0] sample [49:0];
 reg [4:0] offset; initial offset = 0;
 reg [4:0] index; initial index = 0;
 reg [10:0] current_count; initial current_count = 0;
@@ -187,39 +187,75 @@ wire comp_result;
         
 always @(posedge clock) begin
     if (reset) peak <= 0;
-    if(sample[16]>sample[0] &&
-        sample[16]>sample[1] &&
-        sample[16]>sample[2] &&
-        sample[16]>sample[3] &&
-        sample[16]>sample[4] &&
-        sample[16]>sample[5] &&
-        sample[16]>sample[6] &&
-        sample[16]>sample[7] &&
-        sample[16]>sample[9] &&
-        sample[16]>sample[10] &&
-        sample[16]>sample[11] &&
-        sample[16]>sample[12] &&
-        sample[16]>sample[13] &&
-        sample[16]>sample[14] &&
-        sample[16]>sample[15] &&
-        sample[16]>sample[17] &&
-        sample[16]>sample[18] &&
-        sample[16]>sample[19] &&
-        sample[16]>sample[20] &&
-        sample[16]>sample[21] &&
-        sample[16]>sample[22] &&
-        sample[16]>sample[23] &&
-        sample[16]>sample[24] &&
-        sample[16]>sample[25] &&
-        sample[16]>sample[26] &&
-        sample[16]>sample[27] &&
-        sample[16]>sample[28] &&
-        sample[16]>sample[29] &&
-        sample[16]>sample[30] &&
-        sample[16]>sample[31]) 
+    if(sample[25]>sample[0] &&
+    sample[25]>sample[1] &&
+    sample[25]>sample[2] &&
+    sample[25]>sample[3] &&
+    sample[25]>sample[4] &&
+    sample[25]>sample[5] &&
+    sample[25]>sample[6] &&
+    sample[25]>sample[7] &&
+    sample[25]>sample[9] &&
+    sample[25]>sample[10] &&
+    sample[25]>sample[11] &&
+    sample[25]>sample[12] &&
+    sample[25]>sample[13] &&
+    sample[25]>sample[14] &&
+    sample[25]>sample[15] &&
+    sample[25]>sample[17] &&
+    sample[25]>sample[18] &&
+    sample[25]>sample[19] &&
+    sample[25]>sample[20] &&
+    ((sample[25]>sample[21]) || ((sample[25]==sample[24]) && (sample[25]==sample[23]) && (sample[25]==sample[22]) && (sample[25]==sample[21]))) &&
+    ((sample[25]>sample[22]) || ((sample[25]==sample[24]) && (sample[25]==sample[23]) && (sample[25]==sample[22]))) &&
+    ((sample[25]>sample[24]) || ((sample[25]==sample[24]) && (sample[25]==sample[23]))) &&
+    ((sample[25]>sample[24]) || ((sample[25]==sample[24]) && (sample[25]==sample[23])) || ((sample[25]==sample[24]) && (sample[25]==sample[23]) && (sample[25]==sample[22])) || ((sample[25]==sample[24]) && (sample[25]==sample[23]) && (sample[25]==sample[22]) && (sample[25]==sample[21]))) &&
+    //---------------------
+    sample[25]>sample[26] &&
+    sample[25]>sample[27] &&
+    sample[25]>sample[28] &&
+    sample[25]>sample[29] &&
+    sample[25]>sample[30] && 
+    sample[25]>sample[31] &&
+    sample[25]>sample[32] &&
+    sample[25]>sample[33] &&
+    sample[25]>sample[34] &&
+    sample[25]>sample[35] &&
+    sample[25]>sample[36] &&
+    sample[25]>sample[37] &&
+    sample[25]>sample[38] &&
+    sample[25]>sample[39] &&
+    sample[25]>sample[40] &&
+    sample[25]>sample[41] &&
+    sample[25]>sample[42] &&
+    sample[25]>sample[43] &&
+    sample[25]>sample[44] &&
+    sample[25]>sample[45] &&
+    sample[25]>sample[46] &&
+    sample[25]>sample[47] &&
+    sample[25]>sample[48] &&
+    sample[25]>sample[49])
         peak <= 1;
       else peak <= 0;
-      
+
+      sample[49] <= sample[48];
+      sample[48] <= sample[47];
+      sample[47] <= sample[46];
+      sample[46] <= sample[45];
+      sample[45] <= sample[44];
+      sample[44] <= sample[43];
+      sample[43] <= sample[42];
+      sample[42] <= sample[41];
+      sample[41] <= sample[40];
+      sample[40] <= sample[39];
+      sample[39] <= sample[38];
+      sample[38] <= sample[37];
+      sample[37] <= sample[36];
+      sample[36] <= sample[35];
+      sample[35] <= sample[34];
+      sample[34] <= sample[33];
+      sample[33] <= sample[32];
+      sample[32] <= sample[31];      
        sample[31] <= sample[30];
        sample[30] <= sample[29];
        sample[29] <= sample[28];
@@ -239,9 +275,6 @@ always @(posedge clock) begin
        sample[15] <= sample[14];
        sample[14] <= sample[13];
        sample[13] <= sample[12];
-       sample[12] <= sample[11];
-       sample[15] <= sample[14];
-       sample[14] <= sample[13];
        sample[12] <= sample[11];
        sample[11] <= sample[10];
        sample[10] <= sample[9];

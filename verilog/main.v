@@ -160,11 +160,13 @@ module heartaware(
 	reg [9:0] addrb; initial addrb = 0;
 	wire signed [8:0] doutb_lp;
 	
-	//output the input signal
-	assign JA[7:0] = signal_in;
+	//outputs for debugging
+	assign JA[7:0] = signal_lp[7:0];
+	
 	
 	//provide clock to pulse oximeter
 	assign JD[7] = clk_1khz;
+	assign JD[6] = peak;
 	
 	//read in pulse oximeter signal values
 	always @(posedge clk_100hz) begin
@@ -182,9 +184,7 @@ module heartaware(
     wire signed [8:0] signal_lp;
     
     reg [2:0] ready_sync;
-    always @ (posedge clk_65mhz) begin
-    
-    
+    always @ (posedge clk_65mhz) begin    
         ready_sync <= {ready_sync[1:0], clk_100hz};
     end
     assign sp_ready = ready_sync[1] & ~ready_sync[2];
@@ -198,7 +198,7 @@ module heartaware(
     assign signal_lp = signal_lp_mult[18:10];
 	
     
-    //make memory to hold signal
+    //make memory to hold lp signal
     blk_mem_gen_4 signal_memory (
       .clka(clk_100hz),    // input wire clka
       .wea(wea),      // input wire [0 : 0] wea
@@ -226,13 +226,12 @@ module heartaware(
         end
     end
     assign mf_counter_reverse = 126-mf_counter;
-    
-    
+   
     //set up counters to read values to use in match filtering  
     reg [6:0] mf_index;
     reg [6:0] mf_offset;
     wire signed [8:0] mf_coeff; 
-    wire [19:0] signal_mf;
+    wire signed [18:0] signal_mf;
 
     always @(posedge clk_65mhz) begin
         if(sp_ready) begin
@@ -292,7 +291,7 @@ module heartaware(
     reg [7:0] hr_average; 
     reg [7:0] hr_final;
     
-    always @ (posedge clk_100hz) begin
+    always @ (posedge peak) begin
     hr_history[15] <= hr_history[14];
     hr_history[14] <= hr_history[13];
     hr_history[13] <= hr_history[12];
@@ -311,18 +310,14 @@ module heartaware(
     hr_history[0] <= hr;
     hr_average <= (hr_history[0]+hr_history[1]+hr_history[2]
                     +hr_history[3]+hr_history[4]+hr_history[5]
-                    +hr_history[6]+hr_history[7]+hr_history[8]
-                    +hr_history[9]+hr_history[10]+hr_history[11]
-                    +hr_history[12]+hr_history[13]+hr_history[14]
-                    +hr_history[15])<<4;
-    if((hr-hr_average) < 10 || (hr-hr_average) > -10) begin
-        hr_final <= hr;
-    end
+                    +hr_history[6]+hr_history[7]+hr_history[8]+hr_history[9]+hr_history[10]
+                                        +hr_history[11]+hr_history[12]+hr_history[13]
+                                        +hr_history[14]+hr_history[15])>>4;
     end
 
     always@(posedge clk_100hz) begin
 	   display_data[15:0] <= current_count;
-	   display_data[31:16] <= hr_final;
+	   display_data[31:16] <= hr;
 	end    
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
@@ -376,7 +371,7 @@ module heartaware(
     
     
     // BPM NUMBER
-    assign bpm_number = hr_final; // SW[7:0] for manual testing
+    assign bpm_number = hr_average; // SW[7:0] for manual testing
     
     wire bram_sprite_data;
  
@@ -385,12 +380,14 @@ module heartaware(
 
     
 
-
+    wire display_mf;
+    assign display_mf = SW[14];
     main_display xvga_display(.clk_100mhz(clk_100mhz), .clk_65mhz(clk_65mhz), .clk_1hz(clk_1hz), .system_status(system_status), .hcount(hcount),.vcount(vcount),
         .bram_sprite_adr(bram_sprite_adr), .bram_sprite_data(bram_sprite_data),
         .number(bpm_number),
         .at_display_area(at_display_area),
         .signal_in(doutb_lp),
+        .display_mf(display_mf),
         .signal_mf(doutb_mf),
         .signal_pix(v_val),
         .signal_pix2(v_val2),

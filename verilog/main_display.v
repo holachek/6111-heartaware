@@ -24,8 +24,9 @@ module main_display(
     input bram_sprite_data,
     input [7:0] number,
     input [2:0] system_status,
-    input [7:0] signal_in,
-    input [15:0] signal_mf,
+    input signed [8:0] signal_in,
+    input display_mf,
+    input signed [8:0] signal_mf,
     output [10:0] signal_pix,
     output [10:0] signal_pix2,
     output in_region,
@@ -318,12 +319,16 @@ display_sprite_map ones(.clk(clk_65mhz), .number(sprite_1s_number), .sprite_x_le
        parameter SPRITE_Y_BOTTOM10 = 281;
        
        always @ (posedge clk_65mhz) begin
-       
-       r_out <= (background_color[11:8] + waveform_pixel[11:8] + mf_pixel[11:8] + pixel_shaded[11:8]);
-      g_out <= (background_color[7:4] + waveform_pixel[7:4] + mf_pixel[7:4] + pixel_shaded[7:4]);
-      b_out <= (background_color[3:0] + waveform_pixel[3:0] + mf_pixel[3:0] + pixel_shaded[3:0]);
-      
-  
+           if(display_mf) begin
+               r_out <= (background_color[11:8] + waveform_pixel[11:8] + mf_pixel[11:8] + pixel_shaded[11:8]);
+               g_out <= (background_color[7:4] + waveform_pixel[7:4] + mf_pixel[7:4] + pixel_shaded[7:4]);
+               b_out <= (background_color[3:0] + waveform_pixel[3:0] + mf_pixel[3:0] + pixel_shaded[3:0]);
+           end
+           else begin
+               r_out <= (background_color[11:8] + waveform_pixel[11:8] + pixel_shaded[11:8]);
+               g_out <= (background_color[7:4] + waveform_pixel[7:4] + pixel_shaded[7:4]);
+               b_out <= (background_color[3:0] + waveform_pixel[3:0] + pixel_shaded[3:0]);
+           end  
        
         if (combined_sprite_pixels)
             pixel_shaded <= combined_sprite_pixels;
@@ -423,12 +428,11 @@ display_sprite_map ones(.clk(clk_65mhz), .number(sprite_1s_number), .sprite_x_le
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576)) // red
           waveform1(.signal_in(signal_in),.hcount(hcount),.vcount(vcount),.color('hF00),.enable(waveform_display_enable),
                      .pixel(waveform_pixel));
-    
-    wire [11:0] mf_pixel;                  
+       
+    wire [11:0] mf_pixel; 
+          
     waveform #(.THICKNESS(WAVEFORM_WIDTH),.TOP(192),.BOTTOM(576)) // blue
-                       mf(.signal_in(signal_mf),.hcount(hcount),.vcount(vcount),.color('h00F),.enable(waveform_display_enable),
-                                  .pixel(mf_pixel));  
-                                                                
-
+               mf(.signal_in(signal_mf),.hcount(hcount),.vcount(vcount),.color('h17F),.enable(waveform_display_enable),
+                  .pixel(mf_pixel));  
 endmodule
 
