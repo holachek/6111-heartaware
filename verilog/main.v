@@ -209,7 +209,7 @@ module heartaware(
       .addrb(addrb),  // input wire [9 : 0] addrb
       .doutb(doutb_lp)  // output wire [7 : 0] doutb
     );
-
+    
     reg mf_wea;
     reg [6:0] mf_counter; initial mf_counter <= 0;
     wire [6:0] mf_counter_reverse;
@@ -263,8 +263,8 @@ module heartaware(
     
     fir128_match mf(.clock(clk_65mhz),.reset(master_reset),.ready(sp_ready),.coeff_mf(mf_coeff),.index(mf_index),.offset(mf_offset),.x(signal_lp),.y(signal_mf));
     
-    wire [17:0] doutb_mf_mult;
-    wire [7:0] doutb_mf;
+    wire signed [18:0] doutb_mf_mult;
+    wire signed [8:0] doutb_mf;
     //make memory to hold outputs from match filter
         //make memory to hold signal
     blk_mem_gen_3 mf_memory(
@@ -279,18 +279,50 @@ module heartaware(
       .doutb(doutb_mf_mult)  // output wire [15 : 0] doutb
     );
     
-    assign doutb_mf = doutb_mf_mult[17:9];
+    assign doutb_mf = doutb_mf_mult[18:10];
     
     wire [10:0] current_count;
     wire peak;
     wire [7:0] hr;
     
-    hr_calculator hr_calc(.clock(clk_100hz),.reset(master_reset),.signal(doutb_mf),
+    hr_calculator hr_calc(.clock(clk_100hz),.reset(master_reset),.signal(signal_lp),
         .num_elapsed(current_count),.peak(peak),.hr(hr));
+
+    reg [7:0] hr_history [15:0];
+    reg [7:0] hr_average; 
+    reg [7:0] hr_final;
+    
+    always @ (posedge clk_100hz) begin
+    hr_history[15] <= hr_history[14];
+    hr_history[14] <= hr_history[13];
+    hr_history[13] <= hr_history[12];
+    hr_history[12] <= hr_history[11];
+    hr_history[11] <= hr_history[10];
+    hr_history[10] <= hr_history[9];
+    hr_history[9] <= hr_history[8];
+    hr_history[8] <= hr_history[7];
+    hr_history[7] <= hr_history[6];
+    hr_history[6] <= hr_history[5];
+    hr_history[5] <= hr_history[4];
+    hr_history[4] <= hr_history[3];
+    hr_history[3] <= hr_history[2];
+    hr_history[2] <= hr_history[1];
+    hr_history[1] <= hr_history[0];
+    hr_history[0] <= hr;
+    hr_average <= (hr_history[0]+hr_history[1]+hr_history[2]
+                    +hr_history[3]+hr_history[4]+hr_history[5]
+                    +hr_history[6]+hr_history[7]+hr_history[8]
+                    +hr_history[9]+hr_history[10]+hr_history[11]
+                    +hr_history[12]+hr_history[13]+hr_history[14]
+                    +hr_history[15])<<4;
+    if((hr-hr_average) < 10 || (hr-hr_average) > -10) begin
+        hr_final <= hr;
+    end
+    end
 
     always@(posedge clk_100hz) begin
 	   display_data[15:0] <= current_count;
-	   display_data[31:16] <= hr;
+	   display_data[31:16] <= hr_final;
 	end    
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
@@ -344,7 +376,7 @@ module heartaware(
     
     
     // BPM NUMBER
-    assign bpm_number = hr; // SW[7:0] for manual testing
+    assign bpm_number = hr_final; // SW[7:0] for manual testing
     
     wire bram_sprite_data;
  
@@ -606,7 +638,7 @@ module heartaware(
                         audio_number_loop_playing <= 1;
                     end else begin
                     
-                        if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                        if (peak == 1) begin
                         
                             // beeps will not overtake announcement
                             if (audio_playing == 0) begin

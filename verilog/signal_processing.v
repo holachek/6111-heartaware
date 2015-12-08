@@ -30,8 +30,8 @@ module fir31_lp(
 );
 
   //declare and initialize regs
-  reg signed [17:0] accumulator; initial accumulator = 0;
-  reg signed [17:0] intermediate;
+  reg signed [18:0] accumulator; initial accumulator = 0;
+  reg signed [18:0] intermediate;
   reg [4:0] index; initial index = 0;
   wire signed [9:0] coeff_lp_x;
   reg signed [8:0] sample [31:0];

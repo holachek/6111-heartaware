@@ -26,11 +26,11 @@ module waveform
    
    always @ * begin
       x_begin <= 0;
-      signal_pix <= BOTTOM-(((BOTTOM-TOP)*signal_in)>>8);
+      signal_pix <= ((BOTTOM+TOP)>>1)-(((BOTTOM-TOP)*(signal_in))>>9);
       if (enable) begin
       if ((hcount >= x_begin && hcount < (x_begin+WIDTH)) && hcount > 0 &&
 			(vcount >= signal_pix && vcount < (signal_pix+THICKNESS)))
-	   pixel = color;  // Nalini was here
+	   pixel = color;
       else pixel = 12'h000;
       end else begin
       	pixel = 0;
