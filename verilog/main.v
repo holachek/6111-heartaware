@@ -107,7 +107,7 @@ module heartaware(
   endgenerate
 
   assign master_reset = sw_synced[15];
-  assign master_halt = sw_synced[14];
+ // assign master_halt = sw_synced[14];
 
      
   reg [2:0] system_status = 3;
@@ -147,6 +147,8 @@ module heartaware(
   assign SEG[7] = 1'b1;   // decimal point off
 
 
+
+
 // SIGNAL RECORDING
 //////////////////////////////////////////////////////////////////////////////////
 // Signal recording
@@ -173,6 +175,8 @@ module heartaware(
 	   signal_in <= {JC[7], JC[3], JC[6], JC[2], JC[5], JC[1], JC[4], JC[0]};
 	   addra <= addra+1;
 	end
+
+
 
 
 // SIGNAL PROCESSING
@@ -289,9 +293,27 @@ module heartaware(
 
     reg [7:0] hr_history [15:0];
     reg [7:0] hr_average; 
+    reg [7:0] hr_scaled;
     reg [7:0] hr_final;
+    reg [11:0] hr_sum;
+    
     
     always @ (posedge peak) begin
+    
+        // Limit range of values displayed, in case filter has a hard time picking up signal
+        if (SW[10] && system_status != 0) begin
+        
+            if (hr_average > 110) begin
+                hr_scaled <= 8'd110;
+            end else if (hr_average < 50) begin
+                hr_scaled <= 8'd50;
+            end else begin
+                hr_scaled <= hr_average;
+            end
+            
+        
+        end
+    
     hr_history[15] <= hr_history[14];
     hr_history[14] <= hr_history[13];
     hr_history[13] <= hr_history[12];
@@ -308,17 +330,24 @@ module heartaware(
     hr_history[2] <= hr_history[1];
     hr_history[1] <= hr_history[0];
     hr_history[0] <= hr;
-    hr_average <= (hr_history[0]+hr_history[1]+hr_history[2]
+    hr_sum <= (hr_history[0]+hr_history[1]+hr_history[2]
                     +hr_history[3]+hr_history[4]+hr_history[5]
                     +hr_history[6]+hr_history[7]+hr_history[8]+hr_history[9]+hr_history[10]
                                         +hr_history[11]+hr_history[12]+hr_history[13]
-                                        +hr_history[14]+hr_history[15])>>4;
+                                        +hr_history[14]+hr_history[15]);
+                                        
+    hr_average <= hr_sum[11:4];
+    
     end
 
     always@(posedge clk_100hz) begin
-	   display_data[15:0] <= current_count;
-	   display_data[31:16] <= hr;
+	   display_data[23:0] <= hr_sum;
+	   display_data[31:24] <= hr_average;
 	end    
+
+
+
+
 // VIDEO
 //////////////////////////////////////////////////////////////////////////////////
 // create all objects related to VGA video display
@@ -371,7 +400,7 @@ module heartaware(
     
     
     // BPM NUMBER
-    assign bpm_number = hr_average; // SW[7:0] for manual testing
+    assign bpm_number = hr_scaled; // SW[7:0] for manual testing
     
     wire bram_sprite_data;
  
@@ -428,6 +457,9 @@ module heartaware(
         .number(number_map_input_number), .out_number(number_map_output_number),
         .start_adr(number_map_start_adr), .stop_adr(number_map_stop_adr));
 
+
+
+
 // SD CARD
 //////////////////////////////////////////////////////////////////////////////////
 // SD card objects
@@ -482,135 +514,120 @@ module heartaware(
 
 
 
+
+
+// UI FSM + AUDIO PLAYBACK LOGIC
+//////////////////////////////////////////////////////////////////////////////////
+
+
+  // Reg definitions
   reg last_clk_32khz;
+  reg last_clk_1hz;
+  reg last_clk_point_2hz;
+  reg last_system_status;
+
   reg last_btn_up;
   reg last_btn_down;
   reg last_btn_center;
   reg last_btn_left;
   reg last_btn_right;
-  reg last_last_btn_left;
+
   reg last_sd_byte_available;
   reg [5:0] read_counter;
-  reg read_new_sample;
-  reg sd_state_changed;
-  reg [4:0] last_sd_state;
-  reg [14:0] sd_rd_counter;
   reg [31:0] sample_increment;
+
   reg last_audio_playing;
-  reg last_fifo_empty;
-  
   reg [3:0] audio_number_loop_count;
-  
-  reg last_audio_announcer;
-  reg begin_audio_announcer = 0;
-  
-  reg audio_announcer_state;
-  
-  reg last_clk_1hz;
-  
   reg audio_number_loop_playing;
-  reg last_audio_number_loop_playing;
-  
   reg audio_playing_done;
-  
-  reg end_of_number_sample = 0;
-  
-  
   reg audio_playing;
-  
   reg [15:0] exit_count;
+  reg [15:0] audio_beep_counter;
   
-  
-  // must end in 00
+  // SD module playback parameters
+  // Addresses must be multiple of 512 (i.e., end in hex 200,400,600,800,a00,c00,e00)
   reg [31:0] sd_start_adr = 'hcd_000;
   reg [31:0] sd_stop_adr = 'h100_000;
   reg [31:0] internal_sd_stop_adr;
-  reg last_system_status;
-  reg last_clk_point_2hz;
-  
-  reg audio_play_lockout;
-  
-    reg [15:0] audio_beep_counter;
-  
-  
-      reg [15:0] boot_counter;
-    
-    
-      always @ (posedge clk_100mhz) begin
+
+  reg [15:0] boot_counter;
+
+ 
+  always @ (posedge clk_100mhz) begin
       
     
-        if (master_reset) begin
-            read_counter <= 0;
-            sd_rd <= 0;
-            fifo_rd_en <= 0;
-            audio_playing <= 0;
-            sd_adr <= 'hcd_000;
-            sd_start_adr <= 'hcd_000;
-            sd_stop_adr <= 'h100_000;
-            LED16_R <= 1;
-            LED16_G <= 0;
-            LED16_B <= 0;
-            LED17_R <= 0;
-            LED17_G <= 0;
-            LED17_B <= 0;
-            system_status <= 3;
-        end else if (master_halt) begin
-    
-            // do nothing, keep 7 segment displayed for SD read address
-        
-        end else begin
+      if (master_reset) begin
+          read_counter <= 0;
+          sd_rd <= 0;
+          fifo_rd_en <= 0;
+          audio_playing <= 0;
+          sd_adr <= 'hcd_000;
+          sd_start_adr <= 'hcd_000;
+          sd_stop_adr <= 'h100_000;
+          LED16_R <= 1;
+          LED16_G <= 0;
+          LED16_B <= 0;
+          LED17_R <= 0;
+          LED17_G <= 0;
+          LED17_B <= 0;
+          system_status <= 3;
+      end else if (master_halt) begin
+  
+          // do nothing, keep 7 segment displayed for SD read address
+      
+      end else begin
         
                  
             
             // state machine check
-                    if (system_status == 3) begin // boot state
-                        
-                        
-                        if (clk_1hz == 1 && last_clk_1hz == 0) begin
-                            boot_counter <= boot_counter + 1;
-                        end
-                        
-                        if (boot_counter == 0) begin
-                            sd_start_adr <= 'hcd_000;
-                            sd_stop_adr <= 'h100_000;
-                            audio_playing <= 1;
-                        end else if (boot_counter == 2) begin
-                            
-                        end else if (boot_counter >= 3) begin
-                            system_status <= 1;
-                            boot_counter <= 0;
-                        end
-                    end else if (last_btn_down == 0 && btn_down == 1) begin
-    
-                        system_status <= 1;
-                    
-                    end else if (last_btn_left == 0 && btn_left == 1) begin
-                    
-                        system_status <= 0;
-                    
-                    end else if (last_btn_up == 0 && btn_up == 1) begin
-                        system_status <= 2;
-                         sd_start_adr <= 'hbf_a00;
-                         sd_stop_adr <= 'hcc_000;
-                         audio_playing <= 1;
-                        
-                        
-                    end else if (system_status == 2) begin // error
-                       
-                        
-    
-                    end else if (system_status == 0) begin // paused
-      
-                    
-                    end else begin
-                        system_status <= 1;
-                        LED16_R <= 0;
+              if (system_status == 3) begin // boot state
+                  
+                  
+                  // wait for SD card to initialize, then play tone when ready
+                  if (clk_1hz == 1 && last_clk_1hz == 0) begin
+                      boot_counter <= boot_counter + 1;
+                  end
+                  
+                  if (boot_counter == 0) begin
+                      sd_start_adr <= 'hcd_000;
+                      sd_stop_adr <= 'h100_000;
+                      audio_playing <= 1;
+                  end else if (boot_counter == 2) begin
+                      
+                  end else if (boot_counter >= 3) begin
+                      system_status <= 1;
+                      boot_counter <= 0;
+                  end
+
+              end else if (last_btn_down == 0 && btn_down == 1) begin // btn down => run mode
+
+                  system_status <= 1;
+              
+              end else if (last_btn_left == 0 && btn_left == 1) begin // btn left <= pause mode
+              
+                  system_status <= 0;
+              
+              end else if (last_btn_up == 0 && btn_up == 1) begin // btn up <= error mode
+                  
+                  system_status <= 2;
+                  sd_start_adr <= 'hbf_a00;
+                  sd_stop_adr <= 'hcc_000;
+                  audio_playing <= 1;
+                  
+                  
+              end else if (system_status == 2) begin // error
+
+                  // handled in display module
+
+              end else if (system_status == 0) begin // paused
+
+                  // handled in display module
+              
+              end else begin
+                  system_status <= 1;
+                  LED16_R <= 0;
                 
-                
-    
-       
-                          
-                
+
                     // play windows startup tone
                     if (last_btn_right == 0 && btn_right == 1) begin
                         sd_start_adr <= 'hcd_000;
@@ -618,31 +635,26 @@ module heartaware(
                         audio_playing <= 1;
                     end
     
-                    // play system error
-                    if (last_btn_left == 0 && btn_left == 1) begin
-    
-                    end else begin
-    
-                    end
-    
                     // play number from switch
                     if (last_btn_center == 0 && btn_center == 1) begin
                         audio_number_loop_playing <= 1;
                     end
     
-    
+
+                    // automatic audio announcer feature
                     if (last_clk_point_2hz == 0 && clk_point_2hz == 1 && audio_playing == 0) begin
                         audio_number_loop_playing <= 1;
                     end else begin
                     
-                        if (peak == 1) begin
+                        // play peak beep noise if user setting configured and it won't interrupt the announcer
+                        if (peak == 1 && SW[9]) begin
                         
                             // beeps will not overtake announcement
                             if (audio_playing == 0) begin
                                 audio_beep_counter <= 1;
                             end
                             
-                        //    // flatline
+                        //    flatline sound
                         //    sd_start_adr <= 'h114_e00;
                         //    sd_stop_adr <= 'h150_e00;
     
@@ -660,13 +672,11 @@ module heartaware(
                     end
     
     
-    
                     end // state machine check
     
     
     
-    
-        // mtn press history used for btn edge triggers
+        // btn press history used for btn edge triggers
          last_btn_up <= btn_up;
          last_btn_down <= btn_down;
          last_btn_center <= btn_center;
@@ -676,19 +686,21 @@ module heartaware(
         // misc edge triggers
         last_audio_playing <= audio_playing;
         last_sd_byte_available <= sd_byte_available;
-        last_audio_number_loop_playing <= audio_number_loop_playing;
         last_clk_32khz <= clk_32khz;
         last_clk_1hz <= clk_1hz;
         last_clk_point_2hz <= clk_point_2hz;
         last_system_status <= system_status;
     
+
+
+
+
         // KNOWN BUG:
         // FIRST SAMPLE PLAYED MIGHT BUZZ AT START
         // Possible fix is to check sample fifo buffer and make sure it contains real audio data, not just buzz
     
     
-        /// WORKING CODE TO PLAY NUMBER FROM SWITCH INPUT
-        // DO NOT MODIFY
+        /// WORKING CODE TO PLAY NUMBER LOOP
     
         if (audio_number_loop_playing == 1) begin
         
@@ -737,8 +749,7 @@ module heartaware(
     
     
          // WORKING CODE FOR AUDIO PLAYBACK
-         // provide sd_start_addr, sd_stop_addr, audio_playing_en
-         // DO NOT MODIFY-
+         // provide sd_start_addr, sd_stop_addr, audio_playing
     
         // sd_byte_available can trigger high multiple cycles for one byte
         // we use this to ensure a positive clock edge
@@ -799,7 +810,6 @@ module heartaware(
           end // audio_playing
     
     
-    //  display_data[31:0] <= sd_adr[31:0];
     
     
       end // reset check
