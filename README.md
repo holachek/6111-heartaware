@@ -27,13 +27,16 @@ Then you'll be ready to start the Nexys 4:
 	
 1. Plug in the microSD card to the Nexys 4
 
-2. Open the project file under `vivado/` and program the device with the generated bitstream. Ensure you have Vivado 2015.2.1 or newer installed.
+2. Open the project file under `vivado/` and program the device with the generated bitstream. Ensure you have [Vivado 2015.2.1](http://www.xilinx.com/products/design-tools/vivado.html) or newer installed.
 
 3. It works! Ensure you have switch 15 and 14 set to zero to boot into run mode.
 
 ## User Interface
 
 In run mode:
+
+SW[9] will turn on/off the heart rate beeping sound. 
+SW[10] will turn on/off the match filter display.
 
 Press the center button to play the current user heart rate.
 
@@ -47,7 +50,7 @@ Press the down button to clear these modes and resume run mode.
 ## Resources
 
 #### Xilinx IP Modules
-Our project uses a few Xilinx IP core modules.
+Our project uses a few Xilinx IP core modules: Block Memory Generator, FIFO Generator, and Clocking Wizard.
 
 #### Font
 We used the excellent [Dosis](http://www.impallari.com/dosis) font by Impallari, released under the Open Font License.
@@ -56,10 +59,16 @@ We used the excellent [Dosis](http://www.impallari.com/dosis) font by Impallari,
 Thanks to Codehead for [Bitmap Font Generator](http://www.codehead.co.uk/cbfg/), a way to generate bitmap font files from any fonts.
 
 #### COE Conversion
-Thanks to Javier Merino for [coetool](http://jqm.io/files/coetool/), a simple Python-based conversion utility to generate COE files from JPG/PNG/BMP images.
+Thanks to Javier Merino for [coetool](http://jqm.io/files/coetool/), a simple Python-based conversion utility to generate COE files from JPG/PNG/BMP images. We also used the 6.111 MATLAB COE generator script.
 
 ### SD Card Module
 Thanks to Jonathan Matthews for the [sd_controller.v](https://github.com/jono-m/mariokart/blob/master/v1/v1.srcs/sources_1/new/sd_controller.v) module.
+
+### Icons
+Thanks to Google for their [Material Icons](https://www.google.com/design/icons/) used in our sprite map.
+
+### Windows Sound
+Thanks to Microsoft for their [Windows 95 start up](https://www.youtube.com/watch?v=miZHa7ZC6Z0) tone we used for extra retro effect in our project!
 
 ## Acknowledgements
 
