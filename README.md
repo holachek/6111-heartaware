@@ -2,6 +2,8 @@
 
 by Michael Holachek and Nalini Singh
 
+__Note: HeartAware is not being actively maintained. Feel free to open issues with general questions, but we are no longer updating the code to support external projects.__
+
 ## Introduction
 
 HeartAware is a pulse oximetry system with a user-friendly interface for the Nexys 4 DDR FPGA board. The system will process the input pulse oximeter signal to identify peaks in the signal and calculate the patient’s heart rate using this data. Then, the processed oxygen saturation waveform and calculated heart rate will be displayed on a monitor. Additionally, the user’s calculated heart rate will be periodically announced through a recorded voice played through the audio output. __Disclaimer: this device is not intended for medical use.__
